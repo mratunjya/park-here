@@ -143,3 +143,22 @@ export const H6 = styled.h6`
       letter-spacing: ${props.spacing || "unset"};
     `}
 `;
+
+export const P = styled.p`
+  ${(props) =>
+    css`
+      font-size: ${props.fontSize || "1rem"};
+      line-height: ${props.lineHeight || "24px"};
+      opacity: ${props.opacity || 1};
+      font-weight: ${props.bold ? 700 : 500};
+      color: ${props.color || ACCENT_800};
+      text-align: ${props.textAlign || "left"};
+      margin: ${props.margin || 0};
+      padding: ${props.padding || 0};
+
+      @media only screen and (max-width: 768px) {
+        font-size: 0.8rem;
+        line-height: 20px;
+      }
+    `}
+`;

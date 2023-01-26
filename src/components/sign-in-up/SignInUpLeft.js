@@ -4,8 +4,8 @@ import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
 import { PRIMARY_100 } from "@constants/colors";
 
-const SignUpLeftWrapper = styled(FlexBox)`
-  width: 50%;
+const SignInUpWrapper = styled(FlexBox)`
+  width: 40%;
   height: 100%;
 
   & > ${FlexBox} {
@@ -13,11 +13,11 @@ const SignUpLeftWrapper = styled(FlexBox)`
   }
 `;
 
-const SignUpLeft = () => {
+const SignInUp = () => {
   return (
-    <SignUpLeftWrapper direction="column" justify="flex-end" align="center">
-      <FlexBox width="100%" height="40%" borderadius="0 0 40px 0"></FlexBox>
-      <FlexBox width="100%" height="60%" justify="flex-end">
+    <SignInUpWrapper direction="column" justify="flex-end" align="center">
+      <FlexBox width="100%" height="100%" borderadius="0 0 40px 0"></FlexBox>
+      <FlexBox width="100%" height="fit-content" justify="flex-end">
         <CommonImage
           src={CarParking}
           alt="College"
@@ -25,7 +25,7 @@ const SignUpLeft = () => {
           objectfit="scale-down"
           objectposition="right bottom"
           backgroundcolor="#ffffff"
-          height="100%"
+          height="fit-content"
           width="95%"
           borderadius="40px 0 0"
           alignself="flex-end"
@@ -33,8 +33,8 @@ const SignUpLeft = () => {
           padding="10% 0 0"
         />
       </FlexBox>
-    </SignUpLeftWrapper>
+    </SignInUpWrapper>
   );
 };
 
-export default SignUpLeft;
+export default SignInUp;

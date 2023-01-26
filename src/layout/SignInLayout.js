@@ -2,7 +2,7 @@ import FlexBox from "@components/common/FlexBox";
 import CommonHead from "@common/CommonHead";
 import styled from "styled-components";
 import SignInUpLeft from "@components/sign-in-up/SignInUpLeft";
-import SignUpForm from "@components/sign-in-up/sign-up/SignUpForm";
+import SignInForm from "@components/sign-in-up/sign-in/SignInForm";
 
 const SignUpWrapper = styled(FlexBox)`
   width: 100%;
@@ -12,10 +12,10 @@ const SignUpWrapper = styled(FlexBox)`
 const SignUpLayout = () => {
   return (
     <>
-      <CommonHead title="Car Parking: Sign Up" />
+      <CommonHead title="Car Parking: Sign In" />
       <SignUpWrapper>
         <SignInUpLeft />
-        <SignUpForm />
+        <SignInForm />
       </SignUpWrapper>
     </>
   );

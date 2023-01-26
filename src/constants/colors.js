@@ -26,6 +26,16 @@ export const SECONDARY_300 = "#e8eaf6";
 export const SECONDARY_200 = "#f3f5f9";
 export const SECONDARY_100 = "#ebedf7";
 
+export const TERTIARY_900 = "#DC143C";
+export const TERTIARY_800 = "#df2b4f";
+export const TERTIARY_700 = "#e34363";
+export const TERTIARY_600 = "#e75b76";
+export const TERTIARY_500 = "#eb738a";
+export const TERTIARY_400 = "#ef8a9d";
+export const TERTIARY_300 = "#f2a2b1";
+export const TERTIARY_200 = "#f6b9c4";
+export const TERTIARY_100 = "#fbe7eb";
+
 export const ACCENT_900 = "#353535";
 export const ACCENT_800 = "#4C4C4C";
 export const ACCENT_700 = "#797979";
