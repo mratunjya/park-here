@@ -1,7 +1,7 @@
 import Logo from "@common/Logo";
 import { H1, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
@@ -56,6 +56,12 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const firstNameRef = useRef(null);
+
+  useEffect(() => {
+    firstNameRef.current.focus();
+  }, []);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -121,6 +127,7 @@ const SignUpForm = () => {
                 id="first-name"
                 onChange={handleFirstName}
                 autoComplete="true"
+                ref={firstNameRef}
               />
             </FlexBox>
             <FlexBox direction="column" gap="8px">

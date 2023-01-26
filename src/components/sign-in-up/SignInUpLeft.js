@@ -1,4 +1,4 @@
-import CarParking from "@assets/sign-up/car-parking.png";
+import CarParking from "@assets/sign-in-up/car-parking.png";
 import CommonImage from "@common/CommonImage";
 import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
@@ -21,7 +21,6 @@ const SignInUp = () => {
         <CommonImage
           src={CarParking}
           alt="College"
-          draggable={false}
           objectfit="scale-down"
           objectposition="right bottom"
           backgroundcolor="#ffffff"
@@ -30,7 +29,8 @@ const SignInUp = () => {
           borderadius="40px 0 0"
           alignself="flex-end"
           priority={false}
-          padding="10% 0 0"
+          padding="5% 0 0 5%"
+          quality={40}
         />
       </FlexBox>
     </SignInUpWrapper>

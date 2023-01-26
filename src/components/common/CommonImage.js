@@ -45,6 +45,7 @@ const CommonImage = ({
       quality={quality || 60}
       priority={priority || true}
       padding={padding || "0"}
+      draggable={false}
     />
   );
 };
