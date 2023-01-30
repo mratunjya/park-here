@@ -12,7 +12,7 @@ const SignUpWrapper = styled(FlexBox)`
 const SignUpLayout = () => {
   return (
     <>
-      <CommonHead title="Car Parking: Sign Up" />
+      <CommonHead title="Park Here: Sign Up" />
       <SignUpWrapper>
         <SignInUpLeft />
         <SignUpForm />
