@@ -12,6 +12,7 @@ import "swiper/css/autoplay";
 import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
+import { CarouselData } from "@meta/sign-in-up";
 
 const SwiperFlex = styled(Swiper)`
   /* width: 90%; */
@@ -104,27 +105,12 @@ const SignInUp = () => {
           modules={[Pagination, Autoplay]}
           className="mySwiper"
         >
-          <SwiperSlideFlex>
-            <H3 bold>Easy and Convenient Sign-Up</H3>
-            <P>
-              Sign up in just a few clicks and start using the parking system
-              right away.
-            </P>
-          </SwiperSlideFlex>
-          <SwiperSlideFlex>
-            <H3 bold>Secure Payment Options</H3>
-            <P>
-              Enjoy peace of mind knowing your payment information is protected
-              with state-of-the-art security measures.
-            </P>
-          </SwiperSlideFlex>
-          <SwiperSlideFlex>
-            <H3 bold>Real-time Parking Availability</H3>
-            <P>
-              Never waste time searching for a parking spot again. Check
-              real-time availability and reserve your spot before you arrive.
-            </P>
-          </SwiperSlideFlex>
+          {CarouselData.map((data, index) => (
+            <SwiperSlideFlex key={index}>
+              <H3 bold>{data.heading}</H3>
+              <P>{data.subheading}</P>
+            </SwiperSlideFlex>
+          ))}
         </SwiperFlex>
       </FlexBox>
       <FlexBox width="100%" height="fit-content" justify="flex-end">
