@@ -18,6 +18,7 @@ const FlexBox = styled.div`
     height: ${props => props.height || 'inherit'};
     border-radius: ${props => props.borderadius || '0'};
     gap: ${props => props.gap || '0'};
+    max-width: ${props => props.maxwidth || 'none'};
 `;
 
 export default FlexBox;
