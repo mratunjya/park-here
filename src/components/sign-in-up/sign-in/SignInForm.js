@@ -94,7 +94,7 @@ const SignInForm = () => {
     <SignInFormWrapper direction="column" gap="32px" margin="4% auto 0">
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="24px">
-        <H1>Sign In</H1>
+        <H1 bold>Sign In</H1>
         <FlexForm onSubmit={handleSignUp}>
           <FlexBox direction="column" gap="8px">
             <label htmlFor="email">Email</label>

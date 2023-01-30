@@ -54,8 +54,11 @@ const SignUpForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(true);
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
   const firstNameRef = useRef(null);
 
@@ -100,23 +103,67 @@ const SignUpForm = () => {
     setLastName(e.target.value);
   };
 
+  const verifyEmail = (email) => {
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailRegex.test(String(email).toLowerCase());
+  };
+
+  const verifyPassword = (password) => {
+    // Verify Password for at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character and no spaces allowed in password and return a appropriate message
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (password.length < 8) {
+      return "Password must be at least 8 characters";
+    } else if (password.length > 50) {
+      return "Password must be less than 50 characters";
+    } else if (password.search(/\s/) !== -1) {
+      return "Password must not contain spaces";
+    } else if (password.search(/[a-z]/) === -1) {
+      return "Password must contain at least one lowercase letter";
+    } else if (password.search(/[A-Z]/) === -1) {
+      return "Password must contain at least one uppercase letter";
+    } else if (password.search(/[0-9]/) === -1) {
+      return "Password must contain at least one number";
+    } else if (password.search(/[!@#$%^&*]/) === -1) {
+      return "Password must contain at least one special character";
+    } else {
+      return passwordRegex.test(String(password));
+    }
+  };
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
+    setEmailError(verifyEmail(e.target.value));
   };
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+    setPasswordError(verifyPassword(e.target.value));
+    setConfirmPasswordError(
+      verifyConfirmPassword(e.target.value, confirmPassword)
+    );
+  };
+
+  const verifyConfirmPassword = (password, confirmPassword) => {
+    if (password === confirmPassword) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const handleConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
+    setConfirmPasswordError(verifyConfirmPassword(password, e.target.value));
   };
 
   return (
     <SignUpFormWrapper direction="column" gap="32px" margin="4% auto 0">
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="24px">
-        <H1>Sign Up</H1>
+        <H1 bold>Sign Up</H1>
         <FlexForm onSubmit={handleSignUp}>
           <FlexBox gap="8px">
             <FlexBox direction="column" gap="8px">
@@ -150,6 +197,11 @@ const SignUpForm = () => {
               onChange={handleEmail}
               autoComplete="true"
             />
+            {emailError || (
+              <P style={{ color: TERTIARY_800 }}>
+                Please enter a valid email address
+              </P>
+            )}
           </FlexBox>
           <FlexBox direction="column" gap="8px">
             <label htmlFor="password">Password</label>
@@ -160,6 +212,9 @@ const SignUpForm = () => {
               onChange={handlePassword}
               autoComplete="true"
             />
+            {(passwordError !== true || passwordError !== false) && (
+              <P style={{ color: TERTIARY_800 }}>{passwordError}</P>
+            )}
           </FlexBox>
           <FlexBox direction="column" gap="8px">
             <label htmlFor="confirm-password">Confirm Password</label>
@@ -170,6 +225,11 @@ const SignUpForm = () => {
               onChange={handleConfirmPassword}
               autoComplete="true"
             />
+            {confirmPasswordError && (
+              <P style={{ color: TERTIARY_800 }}>
+                Passwords do not match. Please try again.
+              </P>
+            )}
           </FlexBox>
           <FlexBox justify="space-between" gap="8px" margin="10px 0 0">
             <SmallButtom type="submit" disabled={false}>
