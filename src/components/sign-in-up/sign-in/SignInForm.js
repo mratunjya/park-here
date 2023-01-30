@@ -93,7 +93,12 @@ const SignInForm = () => {
   };
 
   return (
-    <SignInFormWrapper direction="column" gap="32px" margin="0 auto" padding="4% 0">
+    <SignInFormWrapper
+      direction="column"
+      gap="32px"
+      margin="0 auto"
+      padding="3% 0 2%"
+    >
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="24px">
         <H1 bold>Sign In</H1>

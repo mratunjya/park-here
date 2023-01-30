@@ -111,6 +111,11 @@ const SignUpForm = () => {
     return emailRegex.test(String(email).toLowerCase());
   };
 
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    setEmailError(e.target.value === "" ? true : verifyEmail(e.target.value));
+  };
+
   const verifyPassword = (password) => {
     // Verify Password for at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character and no spaces allowed in password and return a appropriate message
     const passwordRegex =
@@ -135,16 +140,15 @@ const SignUpForm = () => {
     }
   };
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-    setEmailError(verifyEmail(e.target.value));
-  };
-
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordError(verifyPassword(e.target.value));
+    setPasswordError(
+      e.target.value === "" ? false : verifyPassword(e.target.value)
+    );
     setConfirmPasswordError(
-      verifyConfirmPassword(e.target.value, confirmPassword)
+      confirmPassword === ""
+        ? false
+        : verifyConfirmPassword(e.target.value, confirmPassword)
     );
   };
 
@@ -162,7 +166,12 @@ const SignUpForm = () => {
   };
 
   return (
-    <SignUpFormWrapper direction="column" gap="32px" margin="0 auto" padding="4% 0">
+    <SignUpFormWrapper
+      direction="column"
+      gap="32px"
+      margin="0 auto"
+      padding="3% 0 2%"
+    >
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="24px">
         <H1 bold>Sign Up</H1>
@@ -199,7 +208,7 @@ const SignUpForm = () => {
               onChange={handleEmail}
               autoComplete="true"
             />
-            {emailError || (
+            {emailError !== true && (
               <P style={{ color: TERTIARY_800 }}>
                 Please enter a valid email address
               </P>
