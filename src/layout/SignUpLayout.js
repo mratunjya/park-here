@@ -7,6 +7,7 @@ import SignUpForm from "@components/sign-in-up/sign-up/SignUpForm";
 const SignUpWrapper = styled(FlexBox)`
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 `;
 
 const SignUpLayout = () => {

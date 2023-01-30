@@ -12,6 +12,8 @@ const SignInFormWrapper = styled(FlexBox)`
   width: 100%;
   height: fit-content;
   max-width: 420px;
+  overflow: auto;
+  max-height: 100vh;
 `;
 
 const FlexForm = styled.form`
@@ -91,7 +93,7 @@ const SignInForm = () => {
   };
 
   return (
-    <SignInFormWrapper direction="column" gap="32px" margin="4% auto 0">
+    <SignInFormWrapper direction="column" gap="32px" margin="0 auto" padding="4% 0">
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="24px">
         <H1 bold>Sign In</H1>
