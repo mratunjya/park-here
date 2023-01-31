@@ -2,7 +2,8 @@ import FlexBox from "@components/common/FlexBox";
 import CommonHead from "@common/CommonHead";
 import styled from "styled-components";
 import SignInUpLeft from "@components/sign-in-up/SignInUpLeft";
-import SignInForm from "@components/sign-in-up/sign-in/SignInForm";
+import SignInForm from "@components/sign-in-up/SignInForm";
+import SignUpForm from "@components/sign-in-up/SignUpForm";
 
 const SignUpWrapper = styled(FlexBox)`
   width: 100%;
@@ -10,13 +11,13 @@ const SignUpWrapper = styled(FlexBox)`
   overflow: hidden;
 `;
 
-const SignUpLayout = () => {
+const SignUpLayout = ({ path, pageTitle }) => {
   return (
     <>
-      <CommonHead title="Park Here: Sign In" />
+      <CommonHead title={pageTitle} />
       <SignUpWrapper>
         <SignInUpLeft />
-        <SignInForm />
+        {path == "/sign-in" ? <SignInForm /> : <SignUpForm />}
       </SignUpWrapper>
     </>
   );
