@@ -6,12 +6,12 @@ import axios from "axios";
 import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
 import { ACCENT_900, TERTIARY_800 } from "@constants/colors";
-import Link from "next/link";
+import CommonLink from "@common/CommonLink";
 
 const SignInFormWrapper = styled(FlexBox)`
   width: 100%;
   height: fit-content;
-  max-width: 420px;
+  max-width: 26.25rem;
   overflow: auto;
   max-height: 100vh;
 `;
@@ -20,8 +20,8 @@ const FlexForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 420px;
-  gap: 24px;
+  max-width: 26.25rem;
+  gap: 1.5rem;
 
   & label {
     font-size: 1rem;
@@ -35,16 +35,16 @@ const FlexForm = styled.form`
   }
 
   & input {
-    padding: 8px 16px;
-    border: 1px solid #d2d2d2;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border: 0.0625rem solid #d2d2d2;
+    border-radius: 0.5rem;
     outline: none;
     font-size: 1.2rem;
     font-weight: 600;
   }
 
   & input:focus {
-    border: 1px solid #000000;
+    border: 0.0625rem solid #000000;
   }
 
   & input::placeholder {
@@ -95,15 +95,16 @@ const SignInForm = () => {
   return (
     <SignInFormWrapper
       direction="column"
-      gap="32px"
+      gap="2rem"
       margin="0 auto"
       padding="3% 0 2%"
+      paddingmobile="2.5rem 5% 4rem"
     >
       <Logo alignself="flex-start" />
-      <FlexBox direction="column" width="100%" gap="24px">
+      <FlexBox direction="column" width="100%" gap="1.5rem">
         <H1 bold>Sign In</H1>
         <FlexForm onSubmit={handleSignUp}>
-          <FlexBox direction="column" gap="8px">
+          <FlexBox direction="column" gap="0.5rem">
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -114,7 +115,7 @@ const SignInForm = () => {
               ref={emailRef}
             />
           </FlexBox>
-          <FlexBox direction="column" gap="8px">
+          <FlexBox direction="column" gap="0.5rem">
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -124,20 +125,28 @@ const SignInForm = () => {
               autoComplete="true"
             />
           </FlexBox>
-          <FlexBox justify="space-between" gap="8px" margin="10px 0 0">
+          <FlexBox
+            justify="space-between"
+            gap="0.5rem"
+            gapmobile="2rem"
+            margin="0.625rem 0 0"
+            direction="column-reverse"
+            marginmobile="0"
+          >
             <SmallButtom type="submit" disabled={false}>
               Sign In
             </SmallButtom>
-            <Link href="/sign-up">
+            <CommonLink href="/sign-up" alignself="flex-end">
               <P
                 fontSize="0.75rem"
                 bold
                 color={TERTIARY_800}
-                margin="-28px 0 0"
+                margin="-1.75rem 0 0"
+                marginmobile="-0.75rem 0 0"
               >
                 Don&apos;t have an account? <u>Sign Up</u>
               </P>
-            </Link>
+            </CommonLink>
           </FlexBox>
         </FlexForm>
       </FlexBox>

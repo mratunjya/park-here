@@ -155,10 +155,15 @@ export const P = styled.p`
       text-align: ${props.textAlign || "left"};
       margin: ${props.margin || 0};
       padding: ${props.padding || 0};
+      align-self: ${props.alignself || "unset"};
 
       @media only screen and (max-width: 768px) {
         font-size: 0.8rem;
         line-height: 1.25rem;
+        margin: ${props.marginmobile || props.margin || 0};
+        padding: ${props.paddingmobile || props.padding || 0};
+        text-align: ${props.textalignmobile || props.textAlign || "left"};
+        align-self: ${props.alignselfmobile || props.alignself || "unset"};
       }
     `}
 `;

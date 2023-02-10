@@ -15,7 +15,7 @@ import {
   LOGO_DARK_GREEN_900,
   WHITE,
   BLACK,
-} from "@/constants/colors";
+} from "@constants/colors";
 
 const LogoWrapper = styled(FlexBox)`
   display: block;

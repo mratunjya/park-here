@@ -20,6 +20,33 @@ const FlexBox = styled.div`
   gap: ${(props) => props.gap || "0"};
   max-width: ${(props) => props.maxwidth || "none"};
   background-color: ${(props) => props.backgroundcolor || "transparent"};
+
+  @media (max-width: 768px) {
+    flex-direction: ${(props) =>
+      props.directionmobile || props.direction || "row"};
+    justify-content: ${(props) =>
+      props.justifymobile || props.justify || "flex-start"};
+    align-items: ${(props) => props.alignmobile || props.align || "flex-start"};
+    flex-wrap: ${(props) => props.wrapmobile || props.wrap || "nowrap"};
+    flex-grow: ${(props) => props.growmobile || props.grow || "0"};
+    flex-shrink: ${(props) => props.shrinkmobile || props.shrink || "1"};
+    flex-basis: ${(props) => props.basismobile || props.basis || "auto"};
+    order: ${(props) => props.ordermobile || props.order || "0"};
+    align-self: ${(props) =>
+      props.alignselfmobile || props.alignself || "auto"};
+    justify-self: ${(props) =>
+      props.justifyselfmobile || props.justifyself || "auto"};
+    padding: ${(props) => props.paddingmobile || props.padding || "0"};
+    margin: ${(props) => props.marginmobile || props.margin || "0"};
+    width: ${(props) => props.widthmobile || props.width || "inherit"};
+    height: ${(props) => props.heightmobile || props.height || "inherit"};
+    border-radius: ${(props) =>
+      props.borderadiusmobile || props.borderadius || "0"};
+    gap: ${(props) => props.gapmobile || props.gap || "0"};
+    max-width: ${(props) => props.maxwidthmobile || props.maxwidth || "none"};
+    background-color: ${(props) =>
+      props.backgroundcolormobile || props.backgroundcolor || "transparent"};
+  }
 `;
 
 export default FlexBox;

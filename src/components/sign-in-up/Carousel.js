@@ -1,6 +1,6 @@
 import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
-import { PRIMARY_100, PRIMARY_900 } from "@constants/colors";
+import { PRIMARY_900, PRIMARY_700, PRIMARY_100 } from "@constants/colors";
 import { H3, P } from "@components/common/Headings";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,6 +11,8 @@ import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
 import { CarouselData } from "@meta/sign-in-up";
+import { useMobile } from "@hooks/useMobile";
+import { useEffect } from "react";
 
 const SwiperFlex = styled(Swiper)`
   /* width: 90%; */
@@ -27,11 +29,29 @@ const SwiperFlex = styled(Swiper)`
     & > .swiper-pagination-bullet {
       background-color: ${PRIMARY_900};
       margin: 0;
+
+      &:hover {
+        background-color: ${PRIMARY_700};
+      }
+
+      @media (max-width: 768px) {
+        width: 0.35rem;
+        height: 0.35rem;
+      }
     }
 
     & > .swiper-pagination-bullet-active {
       width: 0.75rem;
       border-radius: 0.3125rem;
+
+      @media (max-width: 768px) {
+        width: 0.4375rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      gap: 0.3125rem;
+      padding: 0 0.75rem;
     }
   }
 
@@ -44,6 +64,11 @@ const SwiperFlex = styled(Swiper)`
     width: 1.25rem;
     top: 0;
     z-index: 2;
+
+    @media (max-width: 768px) {
+      height: calc(100% - 2rem);
+      width: 0.75rem;
+    }
   }
 
   &:before {
@@ -54,6 +79,10 @@ const SwiperFlex = styled(Swiper)`
   &:after {
     right: 0;
     background: linear-gradient(to right, transparent, ${PRIMARY_100} 100%);
+  }
+
+  @media (max-width: 768px) {
+    padding-bottom: 2rem;
   }
 `;
 
@@ -67,19 +96,38 @@ const SwiperSlideFlex = styled(SwiperSlide)`
   &:active {
     cursor: grabbing;
   }
+
+  @media (max-width: 768px) {
+    padding: 0 0.75rem;
+  }
 `;
 
 const Carousel = () => {
+  const isMobile = useMobile();
+
+  useEffect(() => {
+    const swiper = document.querySelector(".mySwiper");
+
+    if (swiper) {
+      // Add swiper autoHeight
+      isMobile && swiper.classList.add("swiper-autoheight");
+    }
+  }, [isMobile]);
+
   return (
     <FlexBox
       width="100%"
+      widthmobile="70%"
       height="100%"
+      heightmobile="fit-content"
       borderadius="0 0 2.5rem 0"
       padding="8% 0 8% 5%"
-      align="center"
+      paddingmobile="5% 2% 2%"
+      align="flex-start"
       backgroundcolor={PRIMARY_100}
     >
       <SwiperFlex
+        autoHeight={isMobile ? true : false}
         pagination={{
           clickable: true,
         }}
