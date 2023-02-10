@@ -1,5 +1,7 @@
-// WHITE
+// WHITE Shades
 export const WHITE = "#FFFFFF";
+
+export const WHITE_200 = "#D2D2D2";
 
 // BLACK
 export const BLACK = "#000000";

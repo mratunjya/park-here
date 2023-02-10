@@ -28,12 +28,25 @@ const LogoWrapper = styled(FlexBox)`
         height: ${props.size}px;
         min-height: ${props.size}px;
         max-height: ${props.size}px;
+
+        @media (max-width: 768px) {
+            width: ${props.sizemobile || props.size}px;
+            min-width: ${props.sizemobile || props.size}px;
+            max-width: ${props.sizemobile || props.size}px;
+            height: ${props.sizemobile || props.size}px;
+            min-height: ${props.sizemobile || props.size}px;
+            max-height: ${props.sizemobile || props.size}px;
+        }
     `}
 `;
 
-const Logo = ({ size, alignself }) => {
+const Logo = ({ size, alignself, sizemobile }) => {
   return (
-    <LogoWrapper size={size || 70} alignself={alignself}>
+    <LogoWrapper
+      size={size || 70}
+      sizemobile={sizemobile || 50}
+      alignself={alignself}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="100%"

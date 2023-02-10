@@ -11,11 +11,10 @@ import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
 import { CarouselData } from "@meta/sign-in-up";
-import { useMobile } from "@hooks/useMobile";
+import { useMobile } from "@hooks/CustomHook";
 import { useEffect } from "react";
 
 const SwiperFlex = styled(Swiper)`
-  /* width: 90%; */
   padding-bottom: 2.5rem;
   max-width: 26.25rem;
   margin: 0;
@@ -25,6 +24,7 @@ const SwiperFlex = styled(Swiper)`
     padding: 0 1.25rem;
     display: flex;
     gap: 0.625rem;
+    width: fit-content;
 
     & > .swiper-pagination-bullet {
       background-color: ${PRIMARY_900};
@@ -107,11 +107,7 @@ const Carousel = () => {
 
   useEffect(() => {
     const swiper = document.querySelector(".mySwiper");
-
-    if (swiper) {
-      // Add swiper autoHeight
-      isMobile && swiper.classList.add("swiper-autoheight");
-    }
+    swiper && isMobile && swiper.classList.add("swiper-autoheight");
   }, [isMobile]);
 
   return (
@@ -121,7 +117,7 @@ const Carousel = () => {
       height="100%"
       heightmobile="fit-content"
       borderadius="0 0 2.5rem 0"
-      padding="8% 0 8% 5%"
+      padding="8% 5%"
       paddingmobile="5% 2% 2%"
       align="flex-start"
       backgroundcolor={PRIMARY_100}

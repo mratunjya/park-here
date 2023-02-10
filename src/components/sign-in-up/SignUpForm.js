@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
-import { ACCENT_900, TERTIARY_800 } from "@constants/colors";
+import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
 
@@ -37,19 +37,28 @@ const FlexForm = styled.form`
 
   & input {
     padding: 0.5rem 1rem;
-    border: 0.0625rem solid #d2d2d2;
+    border: 0.0625rem solid ${WHITE_200};
     border-radius: 0.5rem;
     outline: none;
     font-size: 1.125rem;
     font-weight: 600;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      padding: 0.3rem 0.5rem;
+    }
   }
 
   & input:focus {
-    border: 0.0625rem solid #000000;
+    border: 0.0625rem solid ${BLACK};
   }
 
   & input::placeholder {
-    color: #d2d2d2;
+    color: ${WHITE_200};
+  }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
   }
 `;
 
@@ -172,16 +181,17 @@ const SignUpForm = () => {
     <SignUpFormWrapper
       direction="column"
       gap="2rem"
+      gapmobile="1.2rem"
       margin="0 auto"
       padding="3% 0 2%"
       paddingmobile="2.5rem 5% 4rem"
     >
       <Logo alignself="flex-start" />
-      <FlexBox direction="column" width="100%" gap="1.5rem">
+      <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
         <H1 bold>Sign Up</H1>
         <FlexForm onSubmit={handleSignUp}>
           <FlexBox gap="0.5rem">
-            <FlexBox direction="column" gap="0.5rem">
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
               <label htmlFor="first-name">First Name</label>
               <input
                 type="text"
@@ -192,7 +202,7 @@ const SignUpForm = () => {
                 ref={firstNameRef}
               />
             </FlexBox>
-            <FlexBox direction="column" gap="0.5rem">
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
               <label htmlFor="last-name">Last Name</label>
               <input
                 type="text"
@@ -203,7 +213,7 @@ const SignUpForm = () => {
               />
             </FlexBox>
           </FlexBox>
-          <FlexBox direction="column" gap="0.5rem">
+          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -218,7 +228,7 @@ const SignUpForm = () => {
               </P>
             )}
           </FlexBox>
-          <FlexBox direction="column" gap="0.5rem">
+          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -231,7 +241,7 @@ const SignUpForm = () => {
               <P style={{ color: TERTIARY_800 }}>{passwordError}</P>
             )}
           </FlexBox>
-          <FlexBox direction="column" gap="0.5rem">
+          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
             <label htmlFor="confirm-password">Confirm Password</label>
             <input
               type="password"

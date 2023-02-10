@@ -27,7 +27,7 @@ const LandingVisual = () => {
         priority={false}
         padding="5% 0 0 5%"
         paddingmobile="5%"
-        quality={40}
+        quality={7}
       />
     </FlexBox>
   );
