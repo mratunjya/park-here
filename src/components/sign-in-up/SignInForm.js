@@ -7,6 +7,7 @@ import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
 import { ACCENT_900, TERTIARY_800 } from "@constants/colors";
 import CommonLink from "@common/CommonLink";
+import { useDesktop } from "@hooks/CustomHook";
 
 const SignInFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -58,9 +59,11 @@ const SignInForm = () => {
 
   const emailRef = useRef(null);
 
+  const isDesktop = useDesktop();
+
   useEffect(() => {
-    emailRef.current.focus();
-  }, []);
+    isDesktop ? emailRef.current.focus() : emailRef.current.blur();
+  }, [isDesktop]);
 
   const handleSignUp = (e) => {
     e.preventDefault();

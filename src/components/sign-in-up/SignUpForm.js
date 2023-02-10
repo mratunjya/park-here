@@ -7,6 +7,7 @@ import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
 import { ACCENT_900, TERTIARY_800 } from "@constants/colors";
 import CommonLink from "../common/CommonLink";
+import { useDesktop } from "@hooks/CustomHook";
 
 const SignUpFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -64,9 +65,11 @@ const SignUpForm = () => {
 
   const firstNameRef = useRef(null);
 
+  const isDesktop = useDesktop();
+
   useEffect(() => {
-    firstNameRef.current.focus();
-  }, []);
+    isDesktop ? firstNameRef.current.focus() : firstNameRef.current.blur();
+  }, [isDesktop]);
 
   const handleSignUp = (e) => {
     e.preventDefault();
