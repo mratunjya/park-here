@@ -45,3 +45,17 @@ export const ACCENT_400 = "#EFEFEF";
 export const ACCENT_300 = "#F7F7F7";
 export const ACCENT_200 = "#FAFAFA";
 export const ACCENT_100 = "#FFFFFF";
+
+// Extra Logo colors
+export const LOGO_YELLOW_900 = "#fed110";
+export const LOGO_YELLOW_800 = "#ffe955";
+
+export const LOGO_RED_900 = "#ef223b";
+export const LOGO_RED_800 = "#ff3445";
+
+export const LOGO_BLUE_900 = "#0f9be8";
+
+export const LOGO_DARK_BLUE_900 = "#20273a";
+export const LOGO_DARK_BLUE_800 = "#313b5a";
+
+export const LOGO_DARK_GREEN_900 = "#163418";
