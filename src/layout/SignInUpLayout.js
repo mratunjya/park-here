@@ -5,6 +5,7 @@ import SignInUpLeft from "@components/sign-in-up/SignInUpLeft";
 import SignInForm from "@components/sign-in-up/SignInForm";
 import SignUpForm from "@components/sign-in-up/SignUpForm";
 import { WHITE } from "@constants/colors";
+import { useEffect, useState } from "react";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 100%;
@@ -27,12 +28,30 @@ const SignInUpWrapper = styled(FlexBox)`
 `;
 
 const SignUpLayout = ({ path, pageTitle }) => {
+  const [moduleName, setModuleName] = useState(null);
+
+  useEffect(() => {
+    if (path == "/sign-in/admin") {
+      setModuleName("admin");
+    } else if (path == "/sign-in/user") {
+      setModuleName("user");
+    } else if (path == "/sign-up/admin") {
+      setModuleName("admin");
+    } else if (path == "/sign-up/user") {
+      setModuleName("user");
+    }
+  }, [path]);
+
   return (
     <>
       <CommonHead title={pageTitle} />
       <SignInUpWrapper directionmobile="column">
-        <SignInUpLeft />
-        {path == "/sign-in" ? <SignInForm /> : <SignUpForm />}
+        <SignInUpLeft moduleName={moduleName} />
+        {path == "/sign-in/admin" ? (
+          <SignInForm moduleName={moduleName} />
+        ) : (
+          <SignUpForm moduleName={moduleName} />
+        )}
       </SignInUpWrapper>
     </>
   );

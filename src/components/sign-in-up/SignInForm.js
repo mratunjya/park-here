@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import CommonLink from "@common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
+import { copy } from "@meta/sign-in-up/copy";
 
 const SignInFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -62,7 +63,7 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = () => {
+const SignInForm = ({ moduleName }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -115,7 +116,7 @@ const SignInForm = () => {
     >
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
-        <H1 bold>Sign In</H1>
+        <H1 bold>{copy[`${moduleName}`]?.signIn.title}</H1>
         <FlexForm onSubmit={handleSignUp}>
           <FlexBox direction="column" gap="0.5rem">
             <label htmlFor="email">Email</label>
@@ -149,17 +150,22 @@ const SignInForm = () => {
             <SmallButtom type="submit" disabled={false}>
               Sign In
             </SmallButtom>
-            <CommonLink href="/sign-up" alignself="flex-end">
-              <P
-                fontSize="0.75rem"
-                bold
-                color={TERTIARY_800}
-                margin="-1.75rem 0 0"
-                marginmobile="-0.75rem 0 0"
+            {copy[`${moduleName}`]?.signIn.signUpRoute && (
+              <CommonLink
+                href={copy[`${moduleName}`]?.signIn.signUpRoute}
+                alignself="flex-end"
               >
-                Don&apos;t have an account? <u>Sign Up</u>
-              </P>
-            </CommonLink>
+                <P
+                  fontSize="0.75rem"
+                  bold
+                  color={TERTIARY_800}
+                  margin="-1.75rem 0 0"
+                  marginmobile="-0.75rem 0 0"
+                >
+                  Don&apos;t have an account? <u>Sign Up</u>
+                </P>
+              </CommonLink>
+            )}
           </FlexBox>
         </FlexForm>
       </FlexBox>

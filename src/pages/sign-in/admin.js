@@ -2,7 +2,7 @@ import SignInUpLayout from "@layout/SignInUpLayout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const SignUp = () => {
+const SignIn = () => {
   const [path, setPath] = useState(null);
   const router = useRouter();
 
@@ -10,7 +10,7 @@ const SignUp = () => {
     setPath(router.pathname);
   }, [router.pathname]);
 
-  return <SignInUpLayout path={path} pageTitle="Park Here: Sign Up" />;
+  return <SignInUpLayout path={path} pageTitle="Park Here: Admin Sign In" />;
 };
 
-export default SignUp;
+export default SignIn;
