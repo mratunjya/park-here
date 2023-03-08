@@ -37,6 +37,8 @@ const SignUpLayout = ({ path, pageTitle }) => {
       setModuleName("user");
     } else if (path == "/sign-in/attendant" || path == "/sign-up/attendant") {
       setModuleName("attendant");
+    } else if (path == "/sign-in/organisation" || path == "/sign-up/organisation") {
+      setModuleName("organisation");
     }
   }, [path]);
 

@@ -29,4 +29,14 @@ export const copy = {
             signInRoute: "/sign-in/attendant",
         },
     },
+    organisation: {
+        signIn: {
+            title: "Organisation Sign In",
+            signUpRoute: "/sign-up/organisation",
+        },
+        signUp: {
+            title: "Organisation Sign Up",
+            signInRoute: "/sign-in/organisation",
+        },
+    },
 }
