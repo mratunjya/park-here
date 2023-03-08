@@ -6,7 +6,7 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/sign-up");
+    router.push("/sign-up/user");
   }, [router]);
 
   return <CommonHead />;

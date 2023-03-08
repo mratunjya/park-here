@@ -7,10 +7,10 @@ const SignIn = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setPath(router.pathname);
-  }, [router.pathname]);
+    router.isReady && setPath(router.pathname);
+  }, [router.isReady, router.pathname]);
 
-  return <SignInUpLayout path={path} pageTitle="Park Here: Sign In" />;
+  return <SignInUpLayout path={path} pageTitle="Park Here: Attendant Sign In" />;
 };
 
 export default SignIn;

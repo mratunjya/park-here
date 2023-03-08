@@ -10,9 +10,7 @@ import "swiper/css/autoplay";
 import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
-import { CarouselData } from "@meta/sign-in-up";
-import { useMobile } from "@hooks/CustomHook";
-import { useEffect } from "react";
+import { CarouselData } from "@meta/sign-in-up/sign-in-up-carousel";
 
 const SwiperFlex = styled(Swiper)`
   padding-bottom: 2.5rem;
@@ -102,14 +100,7 @@ const SwiperSlideFlex = styled(SwiperSlide)`
   }
 `;
 
-const Carousel = () => {
-  const isMobile = useMobile();
-
-  useEffect(() => {
-    const swiper = document.querySelector(".mySwiper");
-    swiper && isMobile && swiper.classList.add("swiper-autoheight");
-  }, [isMobile]);
-
+const Carousel = ({ moduleName }) => {
   return (
     <>
       <FlexBox
@@ -139,7 +130,7 @@ const Carousel = () => {
           modules={[Pagination, Autoplay]}
           className="mySwiper"
         >
-          {CarouselData.desktop.map((data, index) => (
+          {CarouselData[`${moduleName}`]?.desktop.map((data, index) => (
             <SwiperSlideFlex key={index}>
               <H3 bold>{data.heading}</H3>
               <P>{data.subheading}</P>
@@ -175,7 +166,7 @@ const Carousel = () => {
           modules={[Pagination, Autoplay]}
           className="mySwiper"
         >
-          {CarouselData.mobile.map((data, index) => (
+          {CarouselData[`${moduleName}`]?.mobile.map((data, index) => (
             <SwiperSlideFlex key={index}>
               <H3 bold>{data.heading}</H3>
               <P>{data.subheading}</P>

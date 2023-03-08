@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
+import { copy } from "@meta/sign-in-up/copy";
 
 const SignUpFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -62,7 +63,7 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignUpForm = () => {
+const SignUpForm = ({ moduleName }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -188,7 +189,7 @@ const SignUpForm = () => {
     >
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
-        <H1 bold>Sign Up</H1>
+        <H1 bold>{copy[`${moduleName}`]?.signUp.title}</H1>
         <FlexForm onSubmit={handleSignUp}>
           <FlexBox gap="0.5rem">
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
@@ -267,17 +268,22 @@ const SignUpForm = () => {
             <SmallButtom type="submit" disabled={false}>
               Sign Up
             </SmallButtom>
-            <CommonLink href="/sign-in" alignself="flex-end">
-              <P
-                fontSize="0.75rem"
-                bold
-                color={TERTIARY_800}
-                margin="-1.75rem 0 0"
-                marginmobile="-0.75rem 0 0"
+            {copy[`${moduleName}`]?.signUp.signInRoute && (
+              <CommonLink
+                href={copy[`${moduleName}`]?.signUp.signInRoute}
+                alignself="flex-end"
               >
-                Don&apos;t have an account? <u>Sign In</u>
-              </P>
-            </CommonLink>
+                <P
+                  fontSize="0.75rem"
+                  bold
+                  color={TERTIARY_800}
+                  margin="-1.75rem 0 0"
+                  marginmobile="-0.75rem 0 0"
+                >
+                  Don&apos;t have an account? <u>Sign In</u>
+                </P>
+              </CommonLink>
+            )}
           </FlexBox>
         </FlexForm>
       </FlexBox>
