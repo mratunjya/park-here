@@ -111,41 +111,79 @@ const Carousel = () => {
   }, [isMobile]);
 
   return (
-    <FlexBox
-      width="100%"
-      widthmobile="70%"
-      height="100%"
-      heightmobile="fit-content"
-      borderadius="0 0 2.5rem 0"
-      padding="8% 5%"
-      paddingmobile="5% 2% 2%"
-      align="flex-start"
-      backgroundcolor={PRIMARY_100}
-    >
-      <SwiperFlex
-        autoHeight={isMobile ? true : false}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        speed={500}
-        slidesPerView={1}
-        spaceBetween={30}
-        loop={true}
-        modules={[Pagination, Autoplay]}
-        className="mySwiper"
+    <>
+      <FlexBox
+        width="100%"
+        widthmobile="70%"
+        height="100%"
+        heightmobile="fit-content"
+        borderadius="0 0 2.5rem 0"
+        padding="8% 5%"
+        paddingmobile="5% 2% 2%"
+        align="flex-start"
+        backgroundcolor={PRIMARY_100}
+        desktoponly
       >
-        {CarouselData.map((data, index) => (
-          <SwiperSlideFlex key={index}>
-            <H3 bold>{data.heading}</H3>
-            <P>{data.subheading}</P>
-          </SwiperSlideFlex>
-        ))}
-      </SwiperFlex>
-    </FlexBox>
+        <SwiperFlex
+          pagination={{
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          speed={500}
+          slidesPerView={1}
+          spaceBetween={30}
+          loop={true}
+          modules={[Pagination, Autoplay]}
+          className="mySwiper"
+        >
+          {CarouselData.desktop.map((data, index) => (
+            <SwiperSlideFlex key={index}>
+              <H3 bold>{data.heading}</H3>
+              <P>{data.subheading}</P>
+            </SwiperSlideFlex>
+          ))}
+        </SwiperFlex>
+      </FlexBox>
+      <FlexBox
+        width="100%"
+        widthmobile="70%"
+        height="100%"
+        heightmobile="fit-content"
+        borderadius="0 0 2.5rem 0"
+        padding="8% 5%"
+        paddingmobile="5% 2% 2%"
+        align="flex-start"
+        backgroundcolor={PRIMARY_100}
+        mobileonly
+      >
+        <SwiperFlex
+          autoHeight
+          pagination={{
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          speed={500}
+          slidesPerView={1}
+          spaceBetween={30}
+          loop={true}
+          modules={[Pagination, Autoplay]}
+          className="mySwiper"
+        >
+          {CarouselData.mobile.map((data, index) => (
+            <SwiperSlideFlex key={index}>
+              <H3 bold>{data.heading}</H3>
+              <P>{data.subheading}</P>
+            </SwiperSlideFlex>
+          ))}
+        </SwiperFlex>
+      </FlexBox>
+    </>
   );
 };
 

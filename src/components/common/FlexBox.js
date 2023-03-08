@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const FlexBox = styled.div`
   display: flex;
@@ -46,6 +46,20 @@ const FlexBox = styled.div`
     max-width: ${(props) => props.maxwidthmobile || props.maxwidth || "none"};
     background-color: ${(props) =>
       props.backgroundcolormobile || props.backgroundcolor || "transparent"};
+
+    ${(props) =>
+      props.desktoponly &&
+      css`
+        display: none;
+      `}
+  }
+
+  @media (min-width: 768px) {
+    ${(props) =>
+      props.mobileonly &&
+      css`
+        display: none;
+      `}
   }
 `;
 
