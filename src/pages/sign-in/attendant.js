@@ -10,7 +10,7 @@ const SignIn = () => {
     router.isReady && setPath(router.pathname);
   }, [router.isReady, router.pathname]);
 
-  return <SignInUpLayout path={path} pageTitle="Park Here: Sign In" />;
+  return <SignInUpLayout path={path} pageTitle="Park Here: Attendant Sign In" />;
 };
 
 export default SignIn;

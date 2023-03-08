@@ -31,14 +31,12 @@ const SignUpLayout = ({ path, pageTitle }) => {
   const [moduleName, setModuleName] = useState(null);
 
   useEffect(() => {
-    if (path == "/sign-in/admin") {
+    if (path == "/sign-in/admin" || path == "/sign-up/admin") {
       setModuleName("admin");
-    } else if (path == "/sign-in/user") {
+    } else if (path == "/sign-in/user" || path == "/sign-up/user") {
       setModuleName("user");
-    } else if (path == "/sign-up/admin") {
-      setModuleName("admin");
-    } else if (path == "/sign-up/user") {
-      setModuleName("user");
+    } else if (path == "/sign-in/attendant" || path == "/sign-up/attendant") {
+      setModuleName("attendant");
     }
   }, [path]);
 
@@ -47,7 +45,7 @@ const SignUpLayout = ({ path, pageTitle }) => {
       <CommonHead title={pageTitle} />
       <SignInUpWrapper directionmobile="column">
         <SignInUpLeft moduleName={moduleName} />
-        {path == "/sign-in/admin" ? (
+        {path?.indexOf("sign-in") != -1 ? (
           <SignInForm moduleName={moduleName} />
         ) : (
           <SignUpForm moduleName={moduleName} />

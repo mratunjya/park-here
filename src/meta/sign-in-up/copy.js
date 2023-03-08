@@ -19,4 +19,14 @@ export const copy = {
             signInRoute: "/sign-in/admin",
         },
     },
+    attendant: {
+        signIn: {
+            title: "Attendant Sign In",
+            signUpRoute: "/sign-up/attendant",
+        },
+        signUp: {
+            title: "Attendant Sign Up",
+            signInRoute: "/sign-in/attendant",
+        },
+    },
 }
