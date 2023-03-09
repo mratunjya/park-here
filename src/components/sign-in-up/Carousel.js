@@ -14,7 +14,7 @@ import { CarouselData } from "@meta/sign-in-up/sign-in-up-carousel";
 
 const SwiperFlex = styled(Swiper)`
   padding-bottom: 2.5rem;
-  max-width: 26.25rem;
+  max-width: 32.8125rem;
   margin: 0;
   position: relative;
 
@@ -89,7 +89,7 @@ const SwiperSlideFlex = styled(SwiperSlide)`
   flex-direction: column;
   cursor: grab;
   gap: 0.875rem;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
 
   &:active {
     cursor: grabbing;
@@ -101,79 +101,54 @@ const SwiperSlideFlex = styled(SwiperSlide)`
 `;
 
 const Carousel = ({ moduleName }) => {
+  const renderCarousel = ({ mobileonly, desktoponly }) => {
+    return (
+      CarouselData[moduleName] && (
+        <FlexBox
+          width="100%"
+          widthmobile="70%"
+          height="100%"
+          heightmobile="fit-content"
+          borderadius="0 0 2.5rem 0"
+          padding="8% 5%"
+          paddingmobile="5% 2% 2%"
+          align="flex-start"
+          backgroundcolor={PRIMARY_100}
+          mobileonly={mobileonly}
+          desktoponly={desktoponly}
+        >
+          <SwiperFlex
+            autoHeight={mobileonly ? true : false}
+            pagination={{
+              clickable: true,
+            }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            speed={500}
+            slidesPerView={1.25}
+            spaceBetween={15}
+            loop={true}
+            modules={[Pagination, Autoplay]}
+            className="mySwiper"
+          >
+            {CarouselData[moduleName]?.desktop.map((data, index) => (
+              <SwiperSlideFlex key={index}>
+                <H3 bold>{data.heading}</H3>
+                <P>{data.subheading}</P>
+              </SwiperSlideFlex>
+            ))}
+          </SwiperFlex>
+        </FlexBox>
+      )
+    );
+  };
+
   return (
     <>
-      <FlexBox
-        width="100%"
-        widthmobile="70%"
-        height="100%"
-        heightmobile="fit-content"
-        borderadius="0 0 2.5rem 0"
-        padding="8% 5%"
-        paddingmobile="5% 2% 2%"
-        align="flex-start"
-        backgroundcolor={PRIMARY_100}
-        desktoponly
-      >
-        <SwiperFlex
-          pagination={{
-            clickable: true,
-          }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          speed={500}
-          slidesPerView={1}
-          spaceBetween={30}
-          loop={true}
-          modules={[Pagination, Autoplay]}
-          className="mySwiper"
-        >
-          {CarouselData[`${moduleName}`]?.desktop.map((data, index) => (
-            <SwiperSlideFlex key={index}>
-              <H3 bold>{data.heading}</H3>
-              <P>{data.subheading}</P>
-            </SwiperSlideFlex>
-          ))}
-        </SwiperFlex>
-      </FlexBox>
-      <FlexBox
-        width="100%"
-        widthmobile="70%"
-        height="100%"
-        heightmobile="fit-content"
-        borderadius="0 0 2.5rem 0"
-        padding="8% 5%"
-        paddingmobile="5% 2% 2%"
-        align="flex-start"
-        backgroundcolor={PRIMARY_100}
-        mobileonly
-      >
-        <SwiperFlex
-          autoHeight
-          pagination={{
-            clickable: true,
-          }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          speed={500}
-          slidesPerView={1}
-          spaceBetween={30}
-          loop={true}
-          modules={[Pagination, Autoplay]}
-          className="mySwiper"
-        >
-          {CarouselData[`${moduleName}`]?.mobile.map((data, index) => (
-            <SwiperSlideFlex key={index}>
-              <H3 bold>{data.heading}</H3>
-              <P>{data.subheading}</P>
-            </SwiperSlideFlex>
-          ))}
-        </SwiperFlex>
-      </FlexBox>
+      {renderCarousel({ mobileonly: true, desktoponly: false })}
+      {renderCarousel({ mobileonly: false, desktoponly: true })}
     </>
   );
 };
