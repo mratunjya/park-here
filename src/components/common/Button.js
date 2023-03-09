@@ -35,4 +35,8 @@ export const SmallButtom = styled.button`
     cursor: ${(props) => props.hovercursor || props.cursor || "pointer"};
     outline: none;
   }
+
+  &:disabled {
+    filter: grayscale(1);
+  }
 `;
