@@ -67,11 +67,12 @@ const SignUpForm = ({ moduleName }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(true);
+  const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
   const firstNameRef = useRef(null);
 
@@ -81,13 +82,29 @@ const SignUpForm = ({ moduleName }) => {
     isDesktop ? firstNameRef.current.focus() : firstNameRef.current.blur();
   }, [isDesktop]);
 
+  useEffect(() => {
+    if (emailError || passwordError || confirmPasswordError) {
+      setSubmitButtonDisabled(true);
+    } else if (firstName && lastName && email && password && confirmPassword) {
+      setSubmitButtonDisabled(false);
+    } else {
+      setSubmitButtonDisabled(true);
+    }
+  }, [
+    emailError,
+    passwordError,
+    confirmPasswordError,
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+  ]);
+
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
+    if (submitButtonDisabled) return;
 
     const date = new Date();
     const timestamp = date.getTime();
@@ -121,12 +138,14 @@ const SignUpForm = ({ moduleName }) => {
   const verifyEmail = (email) => {
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return emailRegex.test(String(email).toLowerCase());
+    return emailRegex.test(String(email));
   };
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
-    setEmailError(e.target.value === "" ? true : verifyEmail(e.target.value));
+    setEmail(e.target.value.toLowerCase());
+    setEmailError(
+      e.target.value === "" ? false : !verifyEmail(e.target.value.toLowerCase())
+    );
   };
 
   const verifyPassword = (password) => {
@@ -149,7 +168,7 @@ const SignUpForm = ({ moduleName }) => {
     } else if (password.search(/[!@#$%^&*]/) === -1) {
       return "Password must contain at least one special character";
     } else {
-      return passwordRegex.test(String(password));
+      return !passwordRegex.test(String(password));
     }
   };
 
@@ -165,13 +184,8 @@ const SignUpForm = ({ moduleName }) => {
     );
   };
 
-  const verifyConfirmPassword = (password, confirmPassword) => {
-    if (password === confirmPassword) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  const verifyConfirmPassword = (password, confirmPassword) =>
+    password === confirmPassword ? false : true;
 
   const handleConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
@@ -223,7 +237,7 @@ const SignUpForm = ({ moduleName }) => {
               onChange={handleEmail}
               autoComplete="true"
             />
-            {emailError !== true && (
+            {emailError && (
               <P style={{ color: TERTIARY_800 }}>
                 Please enter a valid email address
               </P>
@@ -238,7 +252,7 @@ const SignUpForm = ({ moduleName }) => {
               onChange={handlePassword}
               autoComplete="true"
             />
-            {(passwordError !== true || passwordError !== false) && (
+            {passwordError && (
               <P style={{ color: TERTIARY_800 }}>{passwordError}</P>
             )}
           </FlexBox>
@@ -265,7 +279,7 @@ const SignUpForm = ({ moduleName }) => {
             direction="column-reverse"
             marginmobile="0"
           >
-            <SmallButtom type="submit" disabled={false}>
+            <SmallButtom type="submit" disabled={submitButtonDisabled}>
               Sign Up
             </SmallButtom>
             {copy[`${moduleName}`]?.signUp.signInRoute && (
