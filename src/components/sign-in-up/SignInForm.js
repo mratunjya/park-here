@@ -66,6 +66,7 @@ const FlexForm = styled.form`
 const SignInForm = ({ moduleName }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
   const emailRef = useRef(null);
 
@@ -75,27 +76,11 @@ const SignInForm = ({ moduleName }) => {
     isDesktop ? emailRef.current.focus() : emailRef.current.blur();
   }, [isDesktop]);
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
-
-    const date = new Date();
-    const timestamp = date.getTime();
-
-    const dataPayload = {
-      email: email,
-      password: password,
-      timestamp: timestamp,
-    };
-
-    axios
-      .post("http://localhost:4000/api/sign-up", dataPayload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    email && password
+      ? setSubmitButtonDisabled(false)
+      : setSubmitButtonDisabled(true);
+  }, [email, password]);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -103,6 +88,26 @@ const SignInForm = ({ moduleName }) => {
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+
+    if (submitButtonDisabled) return;
+
+    const dataPayload = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post("http://localhost:4000/", dataPayload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -117,7 +122,7 @@ const SignInForm = ({ moduleName }) => {
       <Logo alignself="flex-start" />
       <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
         <H1 bold>{copy[`${moduleName}`]?.signIn.title}</H1>
-        <FlexForm onSubmit={handleSignUp}>
+        <FlexForm onSubmit={handleSignIn}>
           <FlexBox direction="column" gap="0.5rem">
             <label htmlFor="email">Email</label>
             <input
@@ -127,6 +132,7 @@ const SignInForm = ({ moduleName }) => {
               onChange={handleEmail}
               autoComplete="true"
               ref={emailRef}
+              value={email || ""}
             />
           </FlexBox>
           <FlexBox direction="column" gap="0.5rem">
@@ -137,6 +143,7 @@ const SignInForm = ({ moduleName }) => {
               id="password"
               onChange={handlePassword}
               autoComplete="true"
+              value={password || ""}
             />
           </FlexBox>
           <FlexBox
@@ -147,7 +154,7 @@ const SignInForm = ({ moduleName }) => {
             direction="column-reverse"
             marginmobile="0"
           >
-            <SmallButtom type="submit" disabled={false}>
+            <SmallButtom type="submit" disabled={submitButtonDisabled}>
               Sign In
             </SmallButtom>
             {copy[`${moduleName}`]?.signIn.signUpRoute && (

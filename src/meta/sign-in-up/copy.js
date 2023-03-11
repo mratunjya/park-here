@@ -1,42 +1,44 @@
+import { USER, ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
+
 export const copy = {
-    user: {
-        signIn: {
-            title: "Sign In",
-            signUpRoute: "/sign-up/user",
-        },
-        signUp: {
-            title: "Sign Up",
-            signInRoute: "/sign-in/user",
-        },
+  [USER]: {
+    signIn: {
+      title: "Sign In",
+      signUpRoute: `/sign-up/${USER}`,
     },
-    admin: {
-        signIn: {
-            title: "Admin Sign In",
-            signUpRoute: "/sign-up/admin",
-        },
-        signUp: {
-            title: "Admin Sign Up",
-            signInRoute: "/sign-in/admin",
-        },
+    signUp: {
+      title: "Sign Up",
+      signInRoute: `/sign-in/${USER}`,
     },
-    attendant: {
-        signIn: {
-            title: "Attendant Sign In",
-            signUpRoute: "/sign-up/attendant",
-        },
-        signUp: {
-            title: "Attendant Sign Up",
-            signInRoute: "/sign-in/attendant",
-        },
+  },
+  [ADMIN]: {
+    signIn: {
+      title: "Admin Sign In",
+      signUpRoute: `/sign-up/${ADMIN}`,
     },
-    organisation: {
-        signIn: {
-            title: "Organisation Sign In",
-            signUpRoute: "/sign-up/organisation",
-        },
-        signUp: {
-            title: "Organisation Sign Up",
-            signInRoute: "/sign-in/organisation",
-        },
+    signUp: {
+      title: "Admin Sign Up",
+      signInRoute: `/sign-in/${ADMIN}`,
     },
-}
+  },
+  [ATTENDANT]: {
+    signIn: {
+      title: "Attendant Sign In",
+      signUpRoute: `/sign-up/${ATTENDANT}`,
+    },
+    signUp: {
+      title: "Attendant Sign Up",
+      signInRoute: `/sign-in/${ATTENDANT}`,
+    },
+  },
+  [ORGANIZATION]: {
+    signIn: {
+      title: " Sign In",
+      signUpRoute: `/sign-up/${ORGANIZATION}`,
+    },
+    signUp: {
+      title: "Organization Sign Up",
+      signInRoute: `/sign-in/${ORGANIZATION}`,
+    },
+  },
+};

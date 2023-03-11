@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
 // import required modules
-import { Autoplay, Pagination } from "swiper";
+import { Autoplay, Pagination, Mousewheel, Keyboard } from "swiper";
 import { CarouselData } from "@meta/sign-in-up/sign-in-up-carousel";
 
 const SwiperFlex = styled(Swiper)`
@@ -122,15 +122,20 @@ const Carousel = ({ moduleName }) => {
             pagination={{
               clickable: true,
             }}
+            keyboard={{
+              enabled: true,
+            }}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
-            speed={500}
-            slidesPerView={1.25}
-            spaceBetween={15}
+            speed={700}
+            slidesPerView={1.5}
+            spaceBetween={0}
             loop={true}
-            modules={[Pagination, Autoplay]}
+            grabCursor={true}
+            mousewheel={true}
+            modules={[Pagination, Autoplay, Mousewheel, Keyboard]}
             className="mySwiper"
           >
             {CarouselData[moduleName]?.desktop.map((data, index) => (
