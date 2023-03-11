@@ -3,9 +3,17 @@ import { H1, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
-import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
+import {
+  ACCENT_900,
+  BLACK,
+  PRIMARY_900,
+  TERTIARY_800,
+  WHITE_200,
+} from "@constants/colors";
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
 import { copy } from "@meta/sign-in-up/copy";
@@ -31,12 +39,12 @@ const FlexForm = styled.form`
   }
 
   & label,
-  & input {
+  input {
     width: 100%;
     color: ${ACCENT_900};
   }
 
-  & input {
+  input {
     padding: 0.5rem 1rem;
     border: 0.0625rem solid ${WHITE_200};
     border-radius: 0.5rem;
@@ -50,12 +58,87 @@ const FlexForm = styled.form`
     }
   }
 
-  & input:focus {
+  // Remove arrow from number input
+  /* Chrome, Safari, Edge, Opera */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input:focus,
+  input:active,
+  input:hover {
     border: 0.0625rem solid ${BLACK};
   }
 
-  & input::placeholder {
+  input::placeholder {
     color: ${WHITE_200};
+  }
+
+  .PhoneInput {
+    width: 100%;
+    gap: 0.5rem;
+
+    .PhoneInputCountry {
+      border: 0.0625rem solid ${WHITE_200};
+      border-radius: 0.5rem;
+      outline: none;
+      font-size: 1.125rem;
+      font-weight: 600;
+      padding: 0.5rem;
+      cursor: pointer;
+
+      .PhoneInputCountrySelect {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .PhoneInputCountrySelect
+        + .PhoneInputCountryIcon
+        > .PhoneInputCountryIconImg {
+        opacity: 1;
+      }
+
+      .PhoneInputCountrySelect:focus
+        + .PhoneInputCountryIcon
+        > .PhoneInputCountryIconImg
+        > .PhoneInputInternationalIconGlobe {
+        color: ${PRIMARY_900};
+        stroke-width: 2.5;
+      }
+
+      .PhoneInputCountrySelect:focus
+        + .PhoneInputCountryIcon
+        + .PhoneInputCountrySelectArrow {
+        color: ${PRIMARY_900};
+        border-width: 0.125rem 0 0 0.125rem;
+      }
+
+      .PhoneInputCountryIcon--border {
+        box-shadow: none;
+        border: none;
+        background: none;
+      }
+    }
+
+    * {
+      transition: none !important;
+    }
+  }
+
+  .PhoneInput:focus,
+  .PhoneInput:active,
+  .PhoneInput:hover {
+    .PhoneInputCountry {
+      border: 0.0625rem solid ${BLACK};
+    }
   }
 
   @media (max-width: 768px) {
@@ -68,6 +151,8 @@ const SignUpForm = ({ moduleName }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -101,32 +186,6 @@ const SignUpForm = ({ moduleName }) => {
     confirmPassword,
   ]);
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
-
-    if (submitButtonDisabled) return;
-
-    const date = new Date();
-    const timestamp = date.getTime();
-
-    const dataPayload = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      timestamp: timestamp,
-    };
-
-    axios
-      .post("http://localhost:4000/api/sign-up", dataPayload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
   };
@@ -147,6 +206,21 @@ const SignUpForm = ({ moduleName }) => {
       e.target.value === "" ? false : !verifyEmail(e.target.value.toLowerCase())
     );
   };
+
+  const VerifyPhone = (phone) => {
+    // Verify Phone for country code and 10 digits
+    const phoneRegex = /^\+[1-9]{1}[0-9]{3,14}$/;
+    return phoneRegex.test(String(phone));
+  };
+
+  useEffect(() => {
+    const handlePhone = () => {
+      setPhoneError(
+        phone === "" || phone === undefined ? false : !VerifyPhone(phone)
+      );
+    };
+    handlePhone();
+  }, [phone]);
 
   const verifyPassword = (password) => {
     // Verify Password for at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character and no spaces allowed in password and return a appropriate message
@@ -192,6 +266,33 @@ const SignUpForm = ({ moduleName }) => {
     setConfirmPasswordError(verifyConfirmPassword(password, e.target.value));
   };
 
+  const handleSignUp = (e) => {
+    e.preventDefault();
+
+    if (submitButtonDisabled) return;
+
+    const date = new Date();
+    const timestamp = date.getTime();
+
+    const dataPayload = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      password: password,
+      timestamp: timestamp,
+    };
+
+    axios
+      .post("http://localhost:4000/api/sign-up", dataPayload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <SignUpFormWrapper
       direction="column"
@@ -215,6 +316,7 @@ const SignUpForm = ({ moduleName }) => {
                 onChange={handleFirstName}
                 autoComplete="true"
                 ref={firstNameRef}
+                value={firstName}
               />
             </FlexBox>
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
@@ -225,6 +327,7 @@ const SignUpForm = ({ moduleName }) => {
                 id="last-name"
                 onChange={handleLastName}
                 autoComplete="true"
+                value={lastName}
               />
             </FlexBox>
           </FlexBox>
@@ -236,10 +339,24 @@ const SignUpForm = ({ moduleName }) => {
               id="email"
               onChange={handleEmail}
               autoComplete="true"
+              value={email}
             />
             {emailError && (
               <P style={{ color: TERTIARY_800 }}>
                 Please enter a valid email address
+              </P>
+            )}
+          </FlexBox>
+          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+            <label htmlFor="phone">Phone</label>
+            <PhoneInput
+              placeholder="Enter phone number"
+              value={phone}
+              onChange={setPhone}
+            />
+            {phoneError && (
+              <P style={{ color: TERTIARY_800 }}>
+                Please enter a valid phone number
               </P>
             )}
           </FlexBox>
@@ -251,6 +368,7 @@ const SignUpForm = ({ moduleName }) => {
               id="password"
               onChange={handlePassword}
               autoComplete="true"
+              value={password}
             />
             {passwordError && (
               <P style={{ color: TERTIARY_800 }}>{passwordError}</P>
@@ -264,6 +382,7 @@ const SignUpForm = ({ moduleName }) => {
               id="confirm-password"
               onChange={handleConfirmPassword}
               autoComplete="true"
+              value={confirmPassword}
             />
             {confirmPasswordError && (
               <P style={{ color: TERTIARY_800 }}>
