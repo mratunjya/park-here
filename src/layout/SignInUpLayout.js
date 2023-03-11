@@ -6,6 +6,7 @@ import SignInForm from "@components/sign-in-up/SignInForm";
 import SignUpForm from "@components/sign-in-up/SignUpForm";
 import { WHITE } from "@constants/colors";
 import { useEffect, useState } from "react";
+import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 100%;
@@ -31,14 +32,20 @@ const SignUpLayout = ({ path, pageTitle }) => {
   const [moduleName, setModuleName] = useState(null);
 
   useEffect(() => {
-    if (path == "/sign-in/admin" || path == "/sign-up/admin") {
-      setModuleName("admin");
-    } else if (path == "/sign-in/user" || path == "/sign-up/user") {
-      setModuleName("user");
-    } else if (path == "/sign-in/attendant" || path == "/sign-up/attendant") {
-      setModuleName("attendant");
-    } else if (path == "/sign-in/organisation" || path == "/sign-up/organisation") {
-      setModuleName("organisation");
+    if (path == `/sign-in/${ADMIN}` || path == `/sign-up/${ADMIN}`) {
+      setModuleName(ADMIN);
+    } else if (path == `/sign-in/${USER}` || path == `/sign-up/${USER}`) {
+      setModuleName(USER);
+    } else if (
+      path == `/sign-in/${ATTENDANT}` ||
+      path == `/sign-up/${ATTENDANT}`
+    ) {
+      setModuleName(ATTENDANT);
+    } else if (
+      path == `/sign-in/${ORGANIZATION}` ||
+      path == `/sign-up/${ORGANIZATION}`
+    ) {
+      setModuleName(ORGANIZATION);
     }
   }, [path]);
 

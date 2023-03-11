@@ -17,6 +17,7 @@ import {
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
 import { copy } from "@meta/sign-in-up/copy";
+import { ATTENDANT } from "@constants/moduleNames";
 
 const SignUpFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -153,6 +154,7 @@ const SignUpForm = ({ moduleName }) => {
   const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
+  const [parkingLotID, setParkingLotID] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -266,6 +268,10 @@ const SignUpForm = ({ moduleName }) => {
     setConfirmPasswordError(verifyConfirmPassword(password, e.target.value));
   };
 
+  const handleParkingLotID = (e) => {
+    setParkingLotID(e.target.value);
+  };
+
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -279,6 +285,7 @@ const SignUpForm = ({ moduleName }) => {
       lastName: lastName,
       email: email,
       phone: phone,
+      parkingLotID: parkingLotID,
       password: password,
       timestamp: timestamp,
     };
@@ -360,6 +367,19 @@ const SignUpForm = ({ moduleName }) => {
               </P>
             )}
           </FlexBox>
+          {moduleName === ATTENDANT && (
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="ParkingLotID">Parking Lot ID</label>
+              <input
+                type="text"
+                placeholder="Parking Lot ID"
+                id="ParkingLotID"
+                onChange={handleParkingLotID}
+                autoComplete="true"
+                value={parkingLotID}
+              />
+            </FlexBox>
+          )}
           <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
             <label htmlFor="password">Password</label>
             <input

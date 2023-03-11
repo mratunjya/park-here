@@ -1,5 +1,7 @@
+import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
+
 export const CarouselData = {
-  user: {
+  [USER]: {
     desktop: [
       {
         heading: "Easy and Convenient Sign-Up",
@@ -35,7 +37,7 @@ export const CarouselData = {
       },
     ],
   },
-  admin: {
+  [ADMIN]: {
     desktop: [
       {
         heading: "Efficient Parking Management",
@@ -71,7 +73,7 @@ export const CarouselData = {
       },
     ],
   },
-  attendant: {
+  [ATTENDANT]: {
     desktop: [
       {
         heading: "Efficient Parking Spot Management",
@@ -107,7 +109,7 @@ export const CarouselData = {
       },
     ],
   },
-  organisation: {
+  [ORGANIZATION]: {
     desktop: [
       {
         heading: "Centralized Management",
