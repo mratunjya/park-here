@@ -9,13 +9,60 @@ const CustomSelect = styled(Select)`
     border-color: ${WHITE_200};
     box-shadow: none;
     border-radius: 0.5rem;
+    min-height: unset;
+    height: auto;
+    padding: 0.5rem 1rem;
     &:hover {
       border-color: ${WHITE_200};
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.3rem 0.5rem;
     }
   }
 
   .select__single-value {
     font-weight: bold;
+  }
+
+  .select__value-container {
+    padding: 0;
+    margin: 0;
+
+    font-size: 1.125rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  .select__value-container * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .select__indicator-separator {
+    padding: 0;
+    margin: 0;
+  }
+
+  .select__indicator {
+    padding: 0;
+    margin: 0;
+    width: 2.25rem;
+    align-items: center;
+
+    :first-of-type {
+      justify-content: flex-start;
+    }
+
+    :last-of-type {
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 768px) {
+      width: 1.5rem;
+    }
   }
 
   .select__control--is-focused,

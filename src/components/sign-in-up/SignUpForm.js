@@ -112,14 +112,14 @@ const FlexForm = styled.form`
         + .PhoneInputCountryIcon
         > .PhoneInputCountryIconImg
         > .PhoneInputInternationalIconGlobe {
-        color: ${PRIMARY_900};
+        color: ${BLACK};
         stroke-width: 2.5;
       }
 
       .PhoneInputCountrySelect:focus
         + .PhoneInputCountryIcon
         + .PhoneInputCountrySelectArrow {
-        color: ${PRIMARY_900};
+        color: ${BLACK};
         border-width: 0.125rem 0 0 0.125rem;
       }
 
@@ -127,6 +127,11 @@ const FlexForm = styled.form`
         box-shadow: none;
         border: none;
         background: none;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        padding: 0.3rem;
       }
     }
 
