@@ -10,7 +10,9 @@ const SignUp = () => {
     router.isReady && setPath(router.pathname);
   }, [router.isReady, router.pathname]);
 
-  return <SignInUpLayout path={path} pageTitle="Park Here: Organization Sign Up" />;
+  return (
+    <SignInUpLayout path={path} pageTitle="Park Here: Organization Sign Up" />
+  );
 };
 
 export default SignUp;
