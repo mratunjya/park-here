@@ -1,4 +1,4 @@
-import { PRIMARY_400, PRIMARY_900, WHITE_200 } from "@constants/colors";
+import { PRIMARY_400, PRIMARY_800, WHITE_200 } from "@constants/colors";
 import Select from "react-select";
 import styled from "styled-components";
 
@@ -87,7 +87,7 @@ const CustomSelect = styled(Select)`
   }
 
   .select__option--is-selected {
-    background-color: ${PRIMARY_900};
+    background-color: ${PRIMARY_800};
   }
 `;
 
