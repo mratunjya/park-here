@@ -1,18 +1,23 @@
 import Logo from "@common/Logo";
-import { H1, H3, P } from "@common/Headings";
+import { H1, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import FlexBox from "@components/common/FlexBox";
-import CustomSelectBox from "./CustomSelectBox";
 import styled from "styled-components";
-import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
+import {
+  ACCENT_900,
+  BLACK,
+  PRIMARY_900,
+  TERTIARY_800,
+  WHITE_200,
+} from "@constants/colors";
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
 import { copy } from "@meta/sign-in-up/copy";
-import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
+import { ATTENDANT } from "@constants/moduleNames";
 
 const SignUpFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -34,19 +39,13 @@ const FlexForm = styled.form`
     cursor: pointer;
   }
 
-  textarea {
-    resize: none;
-  }
-
   & label,
-  input,
-  textarea {
+  input {
     width: 100%;
     color: ${ACCENT_900};
   }
 
-  input,
-  textarea {
+  input {
     padding: 0.5rem 1rem;
     border: 0.0625rem solid ${WHITE_200};
     border-radius: 0.5rem;
@@ -75,15 +74,11 @@ const FlexForm = styled.form`
 
   input:focus,
   input:active,
-  input:hover,
-  textarea:focus,
-  textarea:active,
-  textarea:hover {
+  input:hover {
     border: 0.0625rem solid ${BLACK};
   }
 
-  input::placeholder,
-  textarea::placeholder {
+  input::placeholder {
     color: ${WHITE_200};
   }
 
@@ -116,14 +111,14 @@ const FlexForm = styled.form`
         + .PhoneInputCountryIcon
         > .PhoneInputCountryIconImg
         > .PhoneInputInternationalIconGlobe {
-        color: ${BLACK};
+        color: ${PRIMARY_900};
         stroke-width: 2.5;
       }
 
       .PhoneInputCountrySelect:focus
         + .PhoneInputCountryIcon
         + .PhoneInputCountrySelectArrow {
-        color: ${BLACK};
+        color: ${PRIMARY_900};
         border-width: 0.125rem 0 0 0.125rem;
       }
 
@@ -131,11 +126,6 @@ const FlexForm = styled.form`
         box-shadow: none;
         border: none;
         background: none;
-      }
-
-      @media (max-width: 768px) {
-        font-size: 1rem;
-        padding: 0.3rem;
       }
     }
 
@@ -158,7 +148,6 @@ const FlexForm = styled.form`
 `;
 
 const SignUpForm = ({ moduleName }) => {
-  const [organizationAddress, setOrganizationAddress] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -166,7 +155,6 @@ const SignUpForm = ({ moduleName }) => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [parkingLotID, setParkingLotID] = useState("");
-  const [organizationName, setOrganizationName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -199,33 +187,6 @@ const SignUpForm = ({ moduleName }) => {
     password,
     confirmPassword,
   ]);
-
-  const organizationOptions = [
-    {
-      value: "Organization 1",
-      label: "Organization 1",
-    },
-    {
-      value: "Organization 2",
-      label: "Organization 2",
-    },
-    {
-      value: "Organization 3",
-      label: "Organization 3",
-    },
-    {
-      value: "Organization 4",
-      label: "Organization 4",
-    },
-    {
-      value: "Organization 5",
-      label: "Organization 5",
-    },
-  ];
-
-  const handleOrganizationAddress = (e) => {
-    setOrganizationAddress(e.target.value);
-  };
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -311,10 +272,6 @@ const SignUpForm = ({ moduleName }) => {
     setParkingLotID(e.target.value);
   };
 
-  const handleOrganizationName = (e) => {
-    setOrganizationName(e.target.value);
-  };
-
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -356,62 +313,29 @@ const SignUpForm = ({ moduleName }) => {
       <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
         <H1 bold>{copy[`${moduleName}`]?.signUp.title}</H1>
         <FlexForm onSubmit={handleSignUp}>
-          {moduleName === ORGANIZATION && (
-            <>
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="organization-name">Organization Name</label>
-                <input
-                  type="text"
-                  placeholder="Organization Name"
-                  id="organization-name"
-                  onChange={handleOrganizationName}
-                  autoComplete="true"
-                  value={organizationName}
-                />
-              </FlexBox>
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="organization-address">
-                  Organization Address
-                </label>
-                <textarea
-                  placeholder="Organization Address"
-                  id="organization-address"
-                  onChange={handleOrganizationAddress}
-                  autoComplete="true"
-                  value={organizationAddress}
-                  rows={4}
-                />
-              </FlexBox>
-            </>
-          )}
-          <FlexBox direction="column" gap="0.5rem">
-            {moduleName === ORGANIZATION && (
-              <H3 bold>Contact Person Details</H3>
-            )}
-            <FlexBox gap="0.5rem">
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="first-name">First Name</label>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  id="first-name"
-                  onChange={handleFirstName}
-                  autoComplete="true"
-                  ref={firstNameRef}
-                  value={firstName}
-                />
-              </FlexBox>
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="last-name">Last Name</label>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  id="last-name"
-                  onChange={handleLastName}
-                  autoComplete="true"
-                  value={lastName}
-                />
-              </FlexBox>
+          <FlexBox gap="0.5rem">
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="first-name">First Name</label>
+              <input
+                type="text"
+                placeholder="First Name"
+                id="first-name"
+                onChange={handleFirstName}
+                autoComplete="true"
+                ref={firstNameRef}
+                value={firstName}
+              />
+            </FlexBox>
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="last-name">Last Name</label>
+              <input
+                type="text"
+                placeholder="Last Name"
+                id="last-name"
+                onChange={handleLastName}
+                autoComplete="true"
+                value={lastName}
+              />
             </FlexBox>
           </FlexBox>
           <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
@@ -445,21 +369,15 @@ const SignUpForm = ({ moduleName }) => {
           </FlexBox>
           {moduleName === ATTENDANT && (
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="parkingLotID">Parking Lot ID</label>
+              <label htmlFor="ParkingLotID">Parking Lot ID</label>
               <input
                 type="text"
                 placeholder="Parking Lot ID"
-                id="parkingLotID"
+                id="ParkingLotID"
                 onChange={handleParkingLotID}
                 autoComplete="true"
                 value={parkingLotID}
               />
-            </FlexBox>
-          )}
-          {moduleName === ADMIN && (
-            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="organizationName">Organization Name</label>
-              <CustomSelectBox options={organizationOptions} />
             </FlexBox>
           )}
           <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
