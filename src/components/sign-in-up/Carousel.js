@@ -130,7 +130,7 @@ const Carousel = ({ moduleName }) => {
               disableOnInteraction: false,
             }}
             speed={700}
-            slidesPerView={1.5}
+            slidesPerView={mobileonly ? 1 : 1.5}
             spaceBetween={0}
             loop={true}
             grabCursor={true}
@@ -138,12 +138,14 @@ const Carousel = ({ moduleName }) => {
             modules={[Pagination, Autoplay, Mousewheel, Keyboard]}
             className="mySwiper"
           >
-            {CarouselData[moduleName]?.desktop.map((data, index) => (
-              <SwiperSlideFlex key={index}>
-                <H3 bold>{data.heading}</H3>
-                <P>{data.subheading}</P>
-              </SwiperSlideFlex>
-            ))}
+            {CarouselData[moduleName]?.[mobileonly ? "mobile" : "desktop"].map(
+              (data, index) => (
+                <SwiperSlideFlex key={index}>
+                  <H3 bold>{data.heading}</H3>
+                  <P>{data.subheading}</P>
+                </SwiperSlideFlex>
+              )
+            )}
           </SwiperFlex>
         </FlexBox>
       )
