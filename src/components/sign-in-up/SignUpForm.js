@@ -6,6 +6,7 @@ import axios from "axios";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import FlexBox from "@components/common/FlexBox";
+import CustomSelectBox from "./CustomSelectBox";
 import styled from "styled-components";
 import {
   ACCENT_900,
@@ -17,7 +18,7 @@ import {
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
 import { copy } from "@meta/sign-in-up/copy";
-import { ATTENDANT } from "@constants/moduleNames";
+import { ADMIN, ATTENDANT } from "@constants/moduleNames";
 
 const SignUpFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -155,6 +156,7 @@ const SignUpForm = ({ moduleName }) => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [parkingLotID, setParkingLotID] = useState("");
+  const [organizationName, setOrganizationName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -187,6 +189,29 @@ const SignUpForm = ({ moduleName }) => {
     password,
     confirmPassword,
   ]);
+
+  const organizationOptions = [
+    {
+      value: "Organization 1",
+      label: "Organization 1",
+    },
+    {
+      value: "Organization 2",
+      label: "Organization 2",
+    },
+    {
+      value: "Organization 3",
+      label: "Organization 3",
+    },
+    {
+      value: "Organization 4",
+      label: "Organization 4",
+    },
+    {
+      value: "Organization 5",
+      label: "Organization 5",
+    },
+  ];
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -270,6 +295,10 @@ const SignUpForm = ({ moduleName }) => {
 
   const handleParkingLotID = (e) => {
     setParkingLotID(e.target.value);
+  };
+
+  const handleOrganizationName = (e) => {
+    setOrganizationName(e.target.value);
   };
 
   const handleSignUp = (e) => {
@@ -369,14 +398,22 @@ const SignUpForm = ({ moduleName }) => {
           </FlexBox>
           {moduleName === ATTENDANT && (
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="ParkingLotID">Parking Lot ID</label>
+              <label htmlFor="parkingLotID">Parking Lot ID</label>
               <input
                 type="text"
                 placeholder="Parking Lot ID"
-                id="ParkingLotID"
+                id="parkingLotID"
                 onChange={handleParkingLotID}
                 autoComplete="true"
                 value={parkingLotID}
+              />
+            </FlexBox>
+          )}
+          {moduleName === ADMIN && (
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="organizationName">Organization Name</label>
+              <CustomSelectBox
+                options={organizationOptions}
               />
             </FlexBox>
           )}
