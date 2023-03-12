@@ -130,7 +130,7 @@ const Carousel = ({ moduleName }) => {
               disableOnInteraction: false,
             }}
             speed={700}
-            slidesPerView={1.5}
+            slidesPerView={mobileonly ? 1 : 1.5}
             spaceBetween={0}
             loop={true}
             grabCursor={true}
