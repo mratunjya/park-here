@@ -15,18 +15,13 @@ import { copy } from "@meta/sign-in-up/copy";
 import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
 
 const SignUpFormWrapper = styled(FlexBox)`
-  width: 100%;
-  height: fit-content;
-  max-width: 26.25rem;
   overflow: auto;
-  max-height: 100vh;
 `;
 
 const FlexForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 26.25rem;
   gap: 1.5rem;
 
   & label {
@@ -349,11 +344,22 @@ const SignUpForm = ({ moduleName }) => {
       gap="2rem"
       gapmobile="1.2rem"
       margin="0 auto"
-      padding="3% 0 2%"
-      paddingmobile="2.5rem 5% 4rem"
+      paddingmobile="0 5%"
+      width="100%"
+      height="100%"
+      maxheight="inherit"
+      minheight="fit-content"
     >
-      <Logo alignself="flex-start" />
-      <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
+      <FlexBox
+        direction="column"
+        width="100%"
+        gap="1.5rem"
+        gapmobile="1rem"
+        maxwidth="26.25rem"
+        margin="2% auto"
+        marginmobile="calc(2% + 1.5rem) auto"
+        height="auto"
+      >
         <H1 bold>{copy[`${moduleName}`]?.signUp.title}</H1>
         <FlexForm onSubmit={handleSignUp}>
           {moduleName === ORGANIZATION && (

@@ -14,9 +14,9 @@ const SignInUpWrapper = styled(FlexBox)`
     position: relative;
 
     &:after {
-      height: 2.5rem;
+      height: 1.5rem;
       width: 100%;
-      bottom: -2.5rem;
+      bottom: -1.5rem;
       left: 0;
       content: "";
       display: block;

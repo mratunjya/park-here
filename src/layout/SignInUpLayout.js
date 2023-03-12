@@ -7,10 +7,11 @@ import SignUpForm from "@components/sign-in-up/SignUpForm";
 import { WHITE } from "@constants/colors";
 import { useEffect, useState } from "react";
 import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
+import CommonNavBar from "@components/common/NavBar";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - ${(props) => props.navbarheight}px);
   overflow: hidden;
 
   @media (max-width: 768px) {
@@ -29,7 +30,12 @@ const SignInUpWrapper = styled(FlexBox)`
 `;
 
 const SignUpLayout = ({ path, pageTitle }) => {
+  const [navBarHeight, setNavBarHeight] = useState(0);
   const [moduleName, setModuleName] = useState(null);
+
+  useEffect(() => {
+    setNavBarHeight(localStorage.getItem("navBarHeight"));
+  });
 
   useEffect(() => {
     if (path == `/sign-in/${ADMIN}` || path == `/sign-up/${ADMIN}`) {
@@ -52,7 +58,8 @@ const SignUpLayout = ({ path, pageTitle }) => {
   return (
     <>
       <CommonHead title={pageTitle} />
-      <SignInUpWrapper directionmobile="column">
+      <CommonNavBar />
+      <SignInUpWrapper directionmobile="column" navbarheight={navBarHeight}>
         <SignInUpLeft moduleName={moduleName} />
         {path?.indexOf("sign-in") != -1 ? (
           <SignInForm moduleName={moduleName} />
