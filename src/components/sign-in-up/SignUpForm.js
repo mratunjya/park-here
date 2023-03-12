@@ -1,5 +1,5 @@
 import Logo from "@common/Logo";
-import { H1, P } from "@common/Headings";
+import { H1, H3, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -8,17 +8,11 @@ import PhoneInput from "react-phone-number-input";
 import FlexBox from "@components/common/FlexBox";
 import CustomSelectBox from "./CustomSelectBox";
 import styled from "styled-components";
-import {
-  ACCENT_900,
-  BLACK,
-  PRIMARY_900,
-  TERTIARY_800,
-  WHITE_200,
-} from "@constants/colors";
+import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import CommonLink from "../common/CommonLink";
 import { useDesktop } from "@hooks/CustomHook";
 import { copy } from "@meta/sign-in-up/copy";
-import { ADMIN, ATTENDANT } from "@constants/moduleNames";
+import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
 
 const SignUpFormWrapper = styled(FlexBox)`
   width: 100%;
@@ -40,13 +34,19 @@ const FlexForm = styled.form`
     cursor: pointer;
   }
 
+  textarea {
+    resize: none;
+  }
+
   & label,
-  input {
+  input,
+  textarea {
     width: 100%;
     color: ${ACCENT_900};
   }
 
-  input {
+  input,
+  textarea {
     padding: 0.5rem 1rem;
     border: 0.0625rem solid ${WHITE_200};
     border-radius: 0.5rem;
@@ -75,11 +75,15 @@ const FlexForm = styled.form`
 
   input:focus,
   input:active,
-  input:hover {
+  input:hover,
+  textarea:focus,
+  textarea:active,
+  textarea:hover {
     border: 0.0625rem solid ${BLACK};
   }
 
-  input::placeholder {
+  input::placeholder,
+  textarea::placeholder {
     color: ${WHITE_200};
   }
 
@@ -154,6 +158,7 @@ const FlexForm = styled.form`
 `;
 
 const SignUpForm = ({ moduleName }) => {
+  const [organizationAddress, setOrganizationAddress] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -217,6 +222,10 @@ const SignUpForm = ({ moduleName }) => {
       label: "Organization 5",
     },
   ];
+
+  const handleOrganizationAddress = (e) => {
+    setOrganizationAddress(e.target.value);
+  };
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -347,29 +356,62 @@ const SignUpForm = ({ moduleName }) => {
       <FlexBox direction="column" width="100%" gap="1.5rem" gapmobile="1rem">
         <H1 bold>{copy[`${moduleName}`]?.signUp.title}</H1>
         <FlexForm onSubmit={handleSignUp}>
-          <FlexBox gap="0.5rem">
-            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="first-name">First Name</label>
-              <input
-                type="text"
-                placeholder="First Name"
-                id="first-name"
-                onChange={handleFirstName}
-                autoComplete="true"
-                ref={firstNameRef}
-                value={firstName}
-              />
-            </FlexBox>
-            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="last-name">Last Name</label>
-              <input
-                type="text"
-                placeholder="Last Name"
-                id="last-name"
-                onChange={handleLastName}
-                autoComplete="true"
-                value={lastName}
-              />
+          {moduleName === ORGANIZATION && (
+            <>
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="organization-name">Organization Name</label>
+                <input
+                  type="text"
+                  placeholder="Organization Name"
+                  id="organization-name"
+                  onChange={handleOrganizationName}
+                  autoComplete="true"
+                  value={organizationName}
+                />
+              </FlexBox>
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="organization-address">
+                  Organization Address
+                </label>
+                <textarea
+                  placeholder="Organization Address"
+                  id="organization-address"
+                  onChange={handleOrganizationAddress}
+                  autoComplete="true"
+                  value={organizationAddress}
+                  rows={4}
+                />
+              </FlexBox>
+            </>
+          )}
+          <FlexBox direction="column" gap="0.5rem">
+            {moduleName === ORGANIZATION && (
+              <H3 bold>Contact Person Details</H3>
+            )}
+            <FlexBox gap="0.5rem">
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="first-name">First Name</label>
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  id="first-name"
+                  onChange={handleFirstName}
+                  autoComplete="true"
+                  ref={firstNameRef}
+                  value={firstName}
+                />
+              </FlexBox>
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="last-name">Last Name</label>
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  id="last-name"
+                  onChange={handleLastName}
+                  autoComplete="true"
+                  value={lastName}
+                />
+              </FlexBox>
             </FlexBox>
           </FlexBox>
           <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
@@ -417,9 +459,7 @@ const SignUpForm = ({ moduleName }) => {
           {moduleName === ADMIN && (
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
               <label htmlFor="organizationName">Organization Name</label>
-              <CustomSelectBox
-                options={organizationOptions}
-              />
+              <CustomSelectBox options={organizationOptions} />
             </FlexBox>
           )}
           <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
