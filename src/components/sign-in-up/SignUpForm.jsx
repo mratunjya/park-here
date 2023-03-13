@@ -10,7 +10,7 @@ import CustomSelectBox from "./CustomSelectBox";
 import styled from "styled-components";
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import CommonLink from "../common/CommonLink";
-import { useDesktop } from "@hooks/CustomHook";
+import { useDesktop } from "@hooks/CustomHooks";
 import { copy } from "@meta/sign-in-up/copy";
 import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
 

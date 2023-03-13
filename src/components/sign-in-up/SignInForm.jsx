@@ -7,7 +7,7 @@ import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import CommonLink from "@common/CommonLink";
-import { useDesktop } from "@hooks/CustomHook";
+import { useDesktop } from "@hooks/CustomHooks";
 import { copy } from "@meta/sign-in-up/copy";
 
 const SignInFormWrapper = styled(FlexBox)`
