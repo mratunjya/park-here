@@ -127,6 +127,10 @@ export const H5 = styled.h5`
       padding: ${props.padding || 0};
       letter-spacing: ${props.spacing || "unset"};
     `}
+
+  ${(props) => props.whitespace && css`
+    white-space: ${props.whitespace};
+  `}
 `;
 
 export const H6 = styled.h6`

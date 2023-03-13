@@ -3,7 +3,7 @@ import CommonHead from "@common/CommonHead";
 import { PRIMARY_900, ACCENT_600 } from "@constants/colors";
 import { createGlobalStyle } from "styled-components";
 import "../styles/globals.css";
-import CommonNavBar from "@components/common/NavBar";
+import DesktopNavBar from "@components/common/NavBar/DesktopNavBar";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,7 +15,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <CommonHead />
-      <CommonNavBar />
+      <DesktopNavBar />
       <NextNProgress
         color={PRIMARY_900}
         startPosition={0.3}

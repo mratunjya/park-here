@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 import { ACCENT_400, ACCENT_700, PRIMARY_800, WHITE } from "@constants/colors";
 
+import { navButtonsData, navLinksData } from "@meta/NavBar/navLinksData";
+import CommonLink from "@components/common/CommonLink";
 import FlexBox from "@components/common/FlexBox";
 import Logo from "@components/common/Logo";
-import CommonLink from "@components/common/CommonLink";
 import { H5 } from "../Headings";
-import { navButtonsData, navLinksData } from "@meta/NavBar/navLinksData";
 
 const NavBarWrapper = styled.nav`
   display: flex;
@@ -22,6 +22,10 @@ const NavBarWrapper = styled.nav`
   z-index: 100;
   border-bottom: 1px solid ${ACCENT_400};
   background: ${WHITE};
+
+  @media (max-width: 768px) {
+    padding: 0.5rem 0;
+  }
 `;
 
 const NavBar = styled(FlexBox)`
@@ -31,6 +35,10 @@ const NavBar = styled(FlexBox)`
 
 const AllNavLinks = styled(FlexBox)`
   width: fit-content;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const CommonNavBar = () => {
@@ -57,16 +65,14 @@ const CommonNavBar = () => {
         <FlexBox
           align="center"
           justify="center"
-          gap="0.25rem"
           fontweight="bold"
           fontsize="0.8rem"
           texttransform="uppercase"
           padding="0.5rem"
         >
-          <H5 bold color={ACCENT_700}>
+          <H5 bold color={ACCENT_700} whitespace="nowrap">
             {navLink.name}
           </H5>
-          {navLink.icon}
         </FlexBox>
       </CommonLink>
     ));
@@ -93,9 +99,11 @@ const CommonNavBar = () => {
   return (
     <NavBarWrapper ref={navBarRef}>
       <NavBar justify="space-between" align="center">
-        <Logo size={48} />
-        <AllNavLinks align="center" gap="1rem">
-          <FlexBox align="center" justify="center">
+        <CommonLink href="/">
+          <Logo size={48} />
+        </CommonLink>
+        <AllNavLinks align="center" gap="1.5rem">
+          <FlexBox align="center" justify="center" gap="0.75rem">
             <RenderAllNavLinks />
           </FlexBox>
           <FlexBox>
