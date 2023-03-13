@@ -4,6 +4,18 @@ import CommonLayout from "@layout/common/CommonLayout";
 import { PRIMARY_400, WHITE } from "@constants/colors";
 import FlexBox from "@components/common/FlexBox";
 import { ContactData } from "@meta/contact";
+import styled from "styled-components";
+
+const StyledUl = styled.ul`
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
+`;
 
 const ContactComponent = () => {
   return (
@@ -26,22 +38,25 @@ const ContactComponent = () => {
         minheight="100%"
         overflow="auto"
       >
-        <FlexBox width="50%" widthmobile="100%" direction="column" gap="1.5rem">
+        <FlexBox
+          width="50%"
+          widthmobile="100%"
+          direction="column"
+          gap="1.5rem"
+          gapmobile="0.75rem"
+        >
           <H1 bold>{ContactData.heading}</H1>
           <P>{ContactData.paragraphs[1]}</P>
           <FlexBox
             direction="column"
             width="100%"
             gap="0.75rem"
+            gapmobile="0.5rem"
             height="fit-content"
           >
             <H4 bold>{ContactData.subHeadings[1]}</H4>
             <P>{ContactData.contactInfo.p}</P>
-            <ul
-              style={{
-                paddingLeft: "1.25rem",
-              }}
-            >
+            <StyledUl>
               <li>
                 <P>
                   <strong>Email:</strong> {ContactData.contactInfo.email}
@@ -57,12 +72,13 @@ const ContactComponent = () => {
                   <strong>Address:</strong> {ContactData.contactInfo.address}
                 </P>
               </li>
-            </ul>
+            </StyledUl>
           </FlexBox>
           <FlexBox
             direction="column"
             width="100%"
             gap="0.75rem"
+            gapmobile="0.5rem"
             height="fit-content"
           >
             <H4 bold>{ContactData.subHeadings[2]}</H4>
@@ -72,6 +88,7 @@ const ContactComponent = () => {
             direction="column"
             width="100%"
             gap="0.75rem"
+            gapmobile="0.5rem"
             height="fit-content"
           >
             <H4 bold>{ContactData.subHeadings[3]}</H4>

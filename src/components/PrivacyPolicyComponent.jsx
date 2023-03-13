@@ -4,6 +4,18 @@ import { H1, H2, P } from "@components/common/Headings";
 import CommonLayout from "@layout/common/CommonLayout";
 import { PRIMARY_400, WHITE } from "@constants/colors";
 import FlexBox from "@components/common/FlexBox";
+import styled from "styled-components";
+
+const StyledUl = styled.ul`
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
+`;
 
 const PrivacyPolicy = () => {
   return (
@@ -26,7 +38,13 @@ const PrivacyPolicy = () => {
         minheight="100%"
         overflow="auto"
       >
-        <FlexBox width="50%" widthmobile="100%" direction="column" gap="1.5rem">
+        <FlexBox
+          width="50%"
+          widthmobile="100%"
+          direction="column"
+          gap="1.5rem"
+          gapmobile="0.75rem"
+        >
           <H1 bold>Privacy Policy</H1>
           <P>
             At our company, we are committed to protecting your privacy as a
@@ -50,14 +68,7 @@ const PrivacyPolicy = () => {
 
           <H2 bold>How We Use Your Information</H2>
           <P>We use the information we receive from you to:</P>
-          <ul
-            style={{
-              paddingLeft: "1.25rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-            }}
-          >
+          <StyledUl>
             <li>
               <P>
                 Provide our products and services you have requested or
@@ -84,19 +95,22 @@ const PrivacyPolicy = () => {
                 be of interest to you
               </P>
             </li>
-          </ul>
+          </StyledUl>
 
           <H2 bold>Security of Your Personal Information</H2>
           <P>
             We ensure that all information collected will be safely and securely
             stored. We protect your personal information by:
           </P>
-          <ul
+          <StyledUl
             style={{
               paddingLeft: "1.25rem",
               display: "flex",
               flexDirection: "column",
               gap: "0.75rem",
+              "@media (max-width: 768px)": {
+                gap: "0.5rem",
+              },
             }}
           >
             <li>
@@ -114,7 +128,7 @@ const PrivacyPolicy = () => {
                 longer needed for our record retention purposes
               </P>
             </li>
-          </ul>
+          </StyledUl>
 
           <H2 bold>Changes to This Privacy Policy</H2>
           <P>

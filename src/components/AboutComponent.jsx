@@ -26,12 +26,19 @@ const AboutComponent = () => {
         minheight="100%"
         overflow="auto"
       >
-        <FlexBox width="50%" widthmobile="100%" direction="column" gap="1.5rem">
+        <FlexBox
+          width="50%"
+          widthmobile="100%"
+          direction="column"
+          gap="1.5rem"
+          gapmobile="0.75rem"
+        >
           <H1 bold>{AboutData.heading}</H1>
           <FlexBox
             direction="column"
             width="100%"
             gap="0.75rem"
+            gapmobile="0.5rem"
             height="fit-content"
           >
             {AboutData.paragraphs.map((paragraph, index) => (
