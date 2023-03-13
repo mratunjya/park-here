@@ -43,3 +43,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+@media only screen and (max-width: 768px) {
+  #nprogress .spinner {
+    display: none !important;
+  }
+}

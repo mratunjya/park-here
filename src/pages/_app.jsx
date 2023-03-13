@@ -1,9 +1,9 @@
-import NextNProgress from "nextjs-progressbar";
-import CommonHead from "@common/CommonHead";
 import { PRIMARY_900, ACCENT_700, ACCENT_600 } from "@constants/colors";
 import { createGlobalStyle } from "styled-components";
-import "../styles/globals.css";
 import CommonNavBar from "@components/common/NavBar";
+import NextNProgress from "nextjs-progressbar";
+import CommonHead from "@common/CommonHead";
+import "../styles/globals.css";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -35,7 +35,6 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <CommonHead />
-      <CommonNavBar />
       <NextNProgress
         color={PRIMARY_900}
         startPosition={0.3}
@@ -43,6 +42,7 @@ export default function MyApp({ Component, pageProps }) {
         height={3}
         showOnShallow={true}
       />
+      <CommonNavBar />
       <GlobalStyle />
       <Component {...pageProps} />
     </>
