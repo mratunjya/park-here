@@ -59,18 +59,30 @@ const PrivacyPolicy = () => {
             }}
           >
             <li>
-              Provide our products and services you have requested or purchased
-              from us
+              <P>
+                Provide our products and services you have requested or
+                purchased from us
+              </P>
             </li>
-            <li>Personalize and customize our content</li>
-            <li>Make improvements to our website</li>
             <li>
-              Contact you with updates to our website or products and services
+              <P>Personalize and customize our content</P>
             </li>
-            <li>Resolve problems and disputes</li>
             <li>
-              Contact you with marketing and advertising that we believe may be
-              of interest to you
+              <P>Make improvements to our website</P>
+            </li>
+            <li>
+              <P>
+                Contact you with updates to our website or products and services
+              </P>
+            </li>
+            <li>
+              <P>Resolve problems and disputes</P>
+            </li>
+            <li>
+              <P>
+                Contact you with marketing and advertising that we believe may
+                be of interest to you
+              </P>
             </li>
           </ul>
 
@@ -87,14 +99,20 @@ const PrivacyPolicy = () => {
               gap: "0.75rem",
             }}
           >
-            <li>Restricting access to personal information</li>
             <li>
-              Maintaining technology products to prevent unauthorized computer
-              access
+              <P>Restricting access to personal information</P>
             </li>
             <li>
-              Securely destroying your personal information when it&apos;s no
-              longer needed for our record retention purposes
+              <P>
+                Maintaining technology products to prevent unauthorized computer
+                access
+              </P>
+            </li>
+            <li>
+              <P>
+                Securely destroying your personal information when it&apos;s no
+                longer needed for our record retention purposes
+              </P>
             </li>
           </ul>
 
