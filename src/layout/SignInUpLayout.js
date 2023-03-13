@@ -7,7 +7,6 @@ import SignUpForm from "@components/sign-in-up/SignUpForm";
 import { WHITE } from "@constants/colors";
 import { useEffect, useState } from "react";
 import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
-import CommonNavBar from "@components/common/NavBar";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 100%;
@@ -58,7 +57,6 @@ const SignUpLayout = ({ path, pageTitle }) => {
   return (
     <>
       <CommonHead title={pageTitle} />
-      <CommonNavBar />
       <SignInUpWrapper directionmobile="column" navbarheight={navBarHeight}>
         <SignInUpLeft moduleName={moduleName} />
         {path?.indexOf("sign-in") != -1 ? (

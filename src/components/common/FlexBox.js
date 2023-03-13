@@ -21,6 +21,30 @@ const FlexBox = styled.div`
   max-width: ${(props) => props.maxwidth || "none"};
   background-color: ${(props) => props.backgroundcolor || "transparent"};
 
+  ${(props) =>
+    props.fontweight &&
+    css`
+      font-weight: ${props.fontweight};
+    `}
+
+  ${(props) =>
+    props.fontsize &&
+    css`
+      font-size: ${props.fontsize};
+    `}
+
+  ${(props) =>
+    props.color &&
+    css`
+      color: ${props.color};
+    `}
+
+  ${(props) =>
+    props.texttransform &&
+    css`
+      text-transform: ${props.texttransform};
+    `}
+
   @media (max-width: 768px) {
     flex-direction: ${(props) =>
       props.directionmobile || props.direction || "row"};
@@ -46,6 +70,30 @@ const FlexBox = styled.div`
     max-width: ${(props) => props.maxwidthmobile || props.maxwidth || "none"};
     background-color: ${(props) =>
       props.backgroundcolormobile || props.backgroundcolor || "transparent"};
+
+    ${(props) =>
+      props.fontweightmobile &&
+      css`
+        font-weight: ${props.fontweightmobile};
+      `}
+
+    ${(props) =>
+      props.fontsizemobile &&
+      css`
+        font-size: ${props.fontsizemobile};
+      `}
+
+    ${(props) =>
+      props.colormobile &&
+      css`
+        color: ${props.colormobile};
+      `}
+
+    ${(props) =>
+      props.texttransformmobile &&
+      css`
+        text-transform: ${props.texttransformmobile};
+      `}
 
     ${(props) =>
       props.desktoponly &&
