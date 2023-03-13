@@ -1,7 +1,7 @@
 import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
 
-const CommonLayout = ({ backgroundcolor, children }) => {
+const CommonLayout = ({ backgroundcolor, backgroundcolormobile, children }) => {
   const [navBarHeight, setNavBarHeight] = useState(0);
 
   useEffect(() => {
@@ -12,9 +12,10 @@ const CommonLayout = ({ backgroundcolor, children }) => {
     <FlexBox
       height={`calc(100vh - ${navBarHeight}px)`}
       overflow="auto"
-      paddingmobile="1.5rem 0 3rem"
       direction="column"
+      directionmobile="row"
       backgroundcolor={backgroundcolor}
+      backgroundcolormobile={backgroundcolormobile}
     >
       {children}
     </FlexBox>

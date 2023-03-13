@@ -13,12 +13,16 @@ const AboutComponent = () => {
   return (
     <>
       <CommonHead title="Park Here: About" />
-      <CommonLayout backgroundcolor={PRIMARY_400}>
+      <CommonLayout
+        backgroundcolor={PRIMARY_400}
+        backgroundcolormobile="transparent"
+      >
         <FlexBox
           width="86.67%"
           maxwidth="75rem"
           margin="0 auto"
           padding="2.5rem"
+          paddingmobile="1.5rem 0"
           gap="3rem"
           gapmobile="2rem"
           wrapmobile="wrap-reverse"
