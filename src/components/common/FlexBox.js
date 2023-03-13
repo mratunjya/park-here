@@ -27,6 +27,12 @@ const FlexBox = styled.div`
     `}
 
   ${(props) =>
+    props.minheight &&
+    css`
+      min-height: ${props.minheight};
+    `}
+
+  ${(props) =>
     props.fontweight &&
     css`
       font-weight: ${props.fontweight};
@@ -98,6 +104,13 @@ const FlexBox = styled.div`
       css`
         height: ${props.heightmobile};
       `}
+
+    ${(props) =>
+      props.minheightmobile &&
+      css`
+        min-height: ${props.minheightmobile};
+      `}
+
 
     ${(props) =>
       props.fontweightmobile &&

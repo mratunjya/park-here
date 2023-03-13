@@ -23,12 +23,6 @@ const CustomImage = styled(Image)`
     `}
 
   ${(props) =>
-    props.positionmobile &&
-    css`
-      position: ${props.positionmobile};
-    `}
-
-  ${(props) =>
     props.top &&
     css`
       top: ${props.top};
@@ -53,6 +47,12 @@ const CustomImage = styled(Image)`
     align-self: ${(props) =>
       props.alignselfmobile || props.alignself || "center"};
     padding: ${(props) => props.paddingmobile || props.padding || "0"};
+
+    ${(props) =>
+      props.positionmobile &&
+      css`
+        position: ${props.positionmobile};
+      `}
 `;
 
 const CommonImage = ({
