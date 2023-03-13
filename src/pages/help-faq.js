@@ -1,7 +1,7 @@
 import HelpFaqComponent from "@components/HelpFaqComponent";
 
-const About = () => {
+const HelpFaq = () => {
   return <HelpFaqComponent />;
 };
 
-export default About;
+export default HelpFaq;

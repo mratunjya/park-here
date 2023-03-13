@@ -1,7 +1,7 @@
 import ContactComponent from "@components/ContactComponent";
 
-const About = () => {
+const Contact = () => {
   return <ContactComponent />;
 };
 
-export default About;
+export default Contact;

@@ -12,7 +12,7 @@ import { ContactData } from "@meta/contact";
 const ContactComponent = () => {
   return (
     <>
-      <CommonHead title="Park Here: About" />
+      <CommonHead title="Park Here: Contact" />
       <CommonLayout
         backgroundcolor={PRIMARY_400}
         backgroundcolormobile="transparent"

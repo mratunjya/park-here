@@ -12,7 +12,7 @@ import HelpFaqSvg from "@assets/help-faq/help-faq.svg";
 const HelpFaqComponent = () => {
   return (
     <>
-      <CommonHead title="Park Here: Privacy Policy" />
+      <CommonHead title="Park Here: Help & FAQ" />
       <CommonLayout
         backgroundcolor={PRIMARY_400}
         backgroundcolormobile="transparent"
