@@ -16,6 +16,24 @@ const CustomImage = styled(Image)`
       height: ${props.height};
     `}
 
+  ${(props) =>
+    props.position &&
+    css`
+      position: ${props.position};
+    `}
+
+  ${(props) =>
+    props.top &&
+    css`
+      top: ${props.top};
+    `}
+
+  ${(props) =>
+    props.left &&
+    css`
+      left: ${props.left};
+    `}
+
   @media (max-width: 768px) {
     width: ${(props) => props.widthmobile || props.width || "100%"};
     background-color: ${(props) =>
@@ -52,6 +70,9 @@ const CommonImage = ({
   objectpositionmobile,
   alignselfmobile,
   paddingmobile,
+  position,
+  top,
+  left,
 }) => {
   return (
     <CustomImage
@@ -76,6 +97,9 @@ const CommonImage = ({
       padding={padding || "0"}
       paddingmobile={paddingmobile || "0"}
       draggable={false}
+      position={position}
+      top={top}
+      left={left}
     />
   );
 };

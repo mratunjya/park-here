@@ -15,11 +15,16 @@ const FlexBox = styled.div`
   padding: ${(props) => props.padding || "0"};
   margin: ${(props) => props.margin || "0"};
   width: ${(props) => props.width || "inherit"};
-  height: ${(props) => props.height || "inherit"};
   border-radius: ${(props) => props.borderadius || "0"};
   gap: ${(props) => props.gap || "0"};
   max-width: ${(props) => props.maxwidth || "none"};
   background-color: ${(props) => props.backgroundcolor || "transparent"};
+
+  ${(props) =>
+    props.height &&
+    css`
+      height: ${props.height};
+    `}
 
   ${(props) =>
     props.fontweight &&
@@ -45,6 +50,24 @@ const FlexBox = styled.div`
       text-transform: ${props.texttransform};
     `}
 
+  ${(props) =>
+    props.overflow &&
+    css`
+      overflow: ${props.overflow};
+    `}
+  
+  ${(props) =>
+    props.overflowx &&
+    css`
+      overflow-x: ${props.overflowx};
+    `}
+  
+  ${(props) =>
+    props.overflowy &&
+    css`
+      overflow-y: ${props.overflowy};
+    `}
+
   @media (max-width: 768px) {
     flex-direction: ${(props) =>
       props.directionmobile || props.direction || "row"};
@@ -63,13 +86,18 @@ const FlexBox = styled.div`
     padding: ${(props) => props.paddingmobile || props.padding || "0"};
     margin: ${(props) => props.marginmobile || props.margin || "0"};
     width: ${(props) => props.widthmobile || props.width || "inherit"};
-    height: ${(props) => props.heightmobile || props.height || "inherit"};
     border-radius: ${(props) =>
       props.borderadiusmobile || props.borderadius || "0"};
     gap: ${(props) => props.gapmobile || props.gap || "0"};
     max-width: ${(props) => props.maxwidthmobile || props.maxwidth || "none"};
     background-color: ${(props) =>
       props.backgroundcolormobile || props.backgroundcolor || "transparent"};
+
+    ${(props) =>
+      props.heightmobile &&
+      css`
+        height: ${props.heightmobile};
+      `}
 
     ${(props) =>
       props.fontweightmobile &&
@@ -99,6 +127,24 @@ const FlexBox = styled.div`
       props.desktoponly &&
       css`
         display: none;
+      `}
+
+    ${(props) =>
+      props.overflowmobile &&
+      css`
+        overflow: ${props.overflowmobile};
+      `}
+    
+    ${(props) =>
+      props.overflowxmobile &&
+      css`
+        overflow-x: ${props.overflowxmobile};
+      `}
+
+    ${(props) =>
+      props.overflowymobile &&
+      css`
+        overflow-y: ${props.overflowymobile};
       `}
   }
 
