@@ -111,6 +111,7 @@ const SignInForm = ({ moduleName }) => {
       gap="2rem"
       gapmobile="1.2rem"
       margin="0 auto"
+      paddingmobile="0 5%"
       width="100%"
       height="100%"
       maxheight="inherit"

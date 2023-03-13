@@ -33,6 +33,12 @@ const FlexBox = styled.div`
     `}
 
   ${(props) =>
+    props.position &&
+    css`
+      position: ${props.position};
+    `}
+
+  ${(props) =>
     props.fontweight &&
     css`
       font-weight: ${props.fontweight};
@@ -72,6 +78,12 @@ const FlexBox = styled.div`
     props.overflowy &&
     css`
       overflow-y: ${props.overflowy};
+    `}
+
+  ${(props) =>
+    props.zindex &&
+    css`
+      z-index: ${props.zindex};
     `}
 
   @media (max-width: 768px) {
