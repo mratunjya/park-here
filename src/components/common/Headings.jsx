@@ -54,6 +54,12 @@ export const H1 = styled.h1`
         line-height: 1.75rem;
       }
     `}
+
+  ${(props) =>
+    props.backgroundcolor &&
+    css`
+      background-color: ${props.backgroundcolor};
+    `}
 `;
 
 export const H2 = styled.h2`
@@ -112,6 +118,12 @@ export const H4 = styled.h4`
         line-height: 1.25rem;
       }
     `}
+
+  ${(props) =>
+    props.backgroundcolor &&
+    css`
+      background-color: ${props.backgroundcolor};
+    `}
 `;
 
 export const H5 = styled.h5`
@@ -128,9 +140,11 @@ export const H5 = styled.h5`
       letter-spacing: ${props.spacing || "unset"};
     `}
 
-  ${(props) => props.whitespace && css`
-    white-space: ${props.whitespace};
-  `}
+  ${(props) =>
+    props.whitespace &&
+    css`
+      white-space: ${props.whitespace};
+    `}
 `;
 
 export const H6 = styled.h6`

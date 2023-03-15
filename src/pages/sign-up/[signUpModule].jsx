@@ -1,10 +1,13 @@
 import CommonHead from "@components/common/CommonHead";
+import { AllModules } from "@constants/moduleNames";
 import SignInUpLayout from "@layout/SignInUpLayout";
+import PageNotFound from "@components/common/404";
 import { copy } from "@meta/sign-in-up/copy";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const SignUpModule = () => {
+  const [routeNotFound, setRouteNotFound] = useState(false);
   const [route, setRoute] = useState(null);
   const [path, setPath] = useState(null);
   const router = useRouter();
@@ -16,11 +19,19 @@ const SignUpModule = () => {
     }
   }, [router]);
 
-  return (
-    <>
-      <CommonHead title={`Park Here: ${copy[route]?.signUp?.title}`} />
-      <SignInUpLayout path={path} />
-    </>
+  useEffect(() => {
+    route && setRouteNotFound(AllModules?.indexOf(route) === -1);
+  }, [route]);
+
+  return routeNotFound ? (
+    <PageNotFound />
+  ) : (
+    copy[route] && (
+      <>
+        <CommonHead title={`Park Here: ${copy[route]?.signUp?.title}`} />
+        <SignInUpLayout path={path} />
+      </>
+    )
   );
 };
 
