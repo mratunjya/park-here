@@ -21,6 +21,25 @@ const FlexBox = styled.div`
   background-color: ${(props) => props.backgroundcolor || "transparent"};
 
   ${(props) =>
+    props.boxshadow &&
+    css`
+      box-shadow: ${props.boxshadow};
+    `}
+
+  ${(props) =>
+    props.cursor &&
+    css`
+      cursor: ${props.cursor};
+    `}
+
+  ${(props) =>
+    props.display &&
+    css`
+      display: ${props.display};
+    `}
+
+
+  ${(props) =>
     props.height &&
     css`
       height: ${props.height};

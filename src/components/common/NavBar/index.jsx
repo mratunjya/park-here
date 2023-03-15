@@ -2,6 +2,7 @@ import { navButtonsData, navLinksData } from "@meta/NavBar/navLinksData";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import styled, { keyframes } from "styled-components";
 import { useRef, useEffect, useState } from "react";
+import { AllModules } from "@constants/moduleNames";
 import CommonLink from "@common/CommonLink";
 import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
@@ -12,10 +13,10 @@ import {
   ACCENT_400,
   ACCENT_700,
   ACCENT_800,
+  ACCENT_900,
   PRIMARY_800,
   WHITE,
 } from "@constants/colors";
-
 
 const NavBarWrapper = styled.nav`
   display: flex;
@@ -91,6 +92,18 @@ const AllNavLinksMobile = styled(FlexBox)`
   }
 `;
 
+const LogInTooltip = styled(FlexBox)`
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: fit-content;
+  background-color: ${WHITE};
+  border-radius: 0.5rem;
+  z-index: 1000;
+  border: 1px solid ${ACCENT_400};
+  box-shadow: 0 0 0.5rem ${ACCENT_400};
+`;
+
 const HamBurgerButton = styled(FlexBox)`
   display: none;
 
@@ -114,6 +127,7 @@ const FallBackNavBar = styled(FlexBox)`
 `;
 
 const CommonNavBar = () => {
+  const [isNavButtonClicked, setIsNavButtonClicked] = useState(false);
   const [isSignInRoute, setIsSignInRoute] = useState(false);
   const [navBarHeight, setNavBarHeight] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -131,7 +145,18 @@ const CommonNavBar = () => {
   useEffect(() => {
     setIsSignInRoute(router?.pathname?.includes("sign-in"));
     setIsNavOpen(false);
+    setIsNavButtonClicked(false);
   }, [router]);
+
+  useEffect(() => {
+    document.body.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsNavButtonClicked(false);
+    });
+  }, []);
+
+  console.log(isNavButtonClicked);
 
   const openNavBar = () => {
     setIsNavOpen(true);
@@ -159,23 +184,44 @@ const CommonNavBar = () => {
       </CommonLink>
     ));
 
-  const RenderNavButtons = ({ name, href }) => (
-    <CommonLink href={href}>
-      <FlexBox
-        width="8.75rem"
-        height="2.5rem"
-        align="center"
-        justify="center"
-        borderadius="1.25rem"
-        fontweight="bold"
-        backgroundcolor={PRIMARY_800}
-        color={WHITE}
-        fontsize="0.8rem"
-        texttransform="uppercase"
-      >
+  const RenderNavButtons = ({ name }) => (
+    <FlexBox
+      width="8.75rem"
+      height="2.5rem"
+      align="center"
+      justify="center"
+      borderadius="1.25rem"
+      fontweight="bold"
+      backgroundcolor={PRIMARY_800}
+      color={WHITE}
+      fontsize="0.8rem"
+      texttransform="uppercase"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsNavButtonClicked(!isNavButtonClicked);
+      }}
+      cursor="pointer"
+    >
+      {name}
+    </FlexBox>
+  );
+
+  const RenderSubNavButtons = ({ name, href, disabled }) => (
+    <FlexBox
+      align="center"
+      justify="center"
+      fontweight="bold"
+      fontsize="0.8rem"
+      texttransform="uppercase"
+      padding="0.5rem"
+      cursor="pointer"
+      onClick={() => !disabled && router.push(href)}
+    >
+      <H5 bold color={!disabled ? ACCENT_700 : ACCENT_900} whitespace="nowrap">
         {name}
-      </FlexBox>
-    </CommonLink>
+      </H5>
+    </FlexBox>
   );
 
   return (
@@ -185,7 +231,7 @@ const CommonNavBar = () => {
           <CommonLink href="/">
             <Logo size={48} sizemobile={44} />
           </CommonLink>
-          <AllNavLinks align="center" gap="1.5rem">
+          <AllNavLinks align="center" gap="1.5rem" position="relative">
             <FlexBox align="center" justify="center" gap="0.75rem">
               <RenderAllNavLinks />
             </FlexBox>
@@ -201,6 +247,23 @@ const CommonNavBar = () => {
                   href={navButtonsData.signIn.href}
                 />
               )}
+              <LogInTooltip
+                gap="1rem"
+                padding="0.6rem 0.8rem"
+                align="flex-start"
+                justify="flex-start"
+                direction="column"
+                display={isNavButtonClicked ? "flex" : "none"}
+              >
+                {AllModules.map((module, index) => (
+                  <RenderSubNavButtons
+                    href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
+                    disabled={router?.asPath?.includes(module)}
+                    key={index + 1000}
+                    name={module}
+                  />
+                ))}
+              </LogInTooltip>
             </FlexBox>
           </AllNavLinks>
           <HamBurgerButton
