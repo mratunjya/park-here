@@ -1,12 +1,11 @@
-import FlexBox from "@components/common/FlexBox";
-import CommonHead from "@common/CommonHead";
-import styled from "styled-components";
+import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
 import SignInUpLeft from "@components/sign-in-up/SignInUpLeft";
 import SignInForm from "@components/sign-in-up/SignInForm";
 import SignUpForm from "@components/sign-in-up/SignUpForm";
-import { WHITE } from "@constants/colors";
+import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
-import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
+import { WHITE } from "@constants/colors";
+import styled from "styled-components";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 100%;
@@ -28,7 +27,7 @@ const SignInUpWrapper = styled(FlexBox)`
   }
 `;
 
-const SignUpLayout = ({ path, pageTitle }) => {
+const SignUpLayout = ({ path }) => {
   const [navBarHeight, setNavBarHeight] = useState(0);
   const [moduleName, setModuleName] = useState(null);
 
@@ -56,7 +55,6 @@ const SignUpLayout = ({ path, pageTitle }) => {
 
   return (
     <>
-      <CommonHead title={pageTitle} />
       <SignInUpWrapper directionmobile="column" navbarheight={navBarHeight}>
         <SignInUpLeft moduleName={moduleName} />
         {path?.indexOf("sign-in") != -1 ? (
