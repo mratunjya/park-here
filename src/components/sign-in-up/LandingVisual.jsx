@@ -1,7 +1,7 @@
 import CarParking from "@assets/sign-in-up/car-parking.png";
-import CommonImage from "@common/CommonImage";
-import FlexBox from "@components/common/FlexBox";
 import { PRIMARY_100, WHITE } from "@constants/colors";
+import CommonImage from "@common/CommonImage";
+import FlexBox from "@common/FlexBox";
 
 const LandingVisual = () => {
   return (

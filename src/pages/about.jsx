@@ -1,5 +1,5 @@
 import AboutComponent from "@components/AboutComponent";
-import CommonHead from "@components/common/CommonHead";
+import CommonHead from "@common/CommonHead";
 
 const About = () => {
   return (

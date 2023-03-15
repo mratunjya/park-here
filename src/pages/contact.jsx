@@ -1,5 +1,5 @@
 import ContactComponent from "@components/ContactComponent";
-import CommonHead from "@components/common/CommonHead";
+import CommonHead from "@common/CommonHead";
 
 const Contact = () => {
   return (

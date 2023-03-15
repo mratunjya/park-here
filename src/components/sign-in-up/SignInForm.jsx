@@ -1,14 +1,13 @@
-import Logo from "@common/Logo";
-import { H1, P } from "@common/Headings";
-import { SmallButtom } from "@common/Button";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import FlexBox from "@components/common/FlexBox";
-import styled from "styled-components";
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
-import CommonLink from "@common/CommonLink";
+import { useEffect, useRef, useState } from "react";
 import { useDesktop } from "@hooks/CustomHooks";
+import { SmallButtom } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
+import CommonLink from "@common/CommonLink";
+import { H1, P } from "@common/Headings";
+import styled from "styled-components";
+import FlexBox from "@common/FlexBox";
+import axios from "axios";
 
 const SignInFormWrapper = styled(FlexBox)`
   overflow: auto;

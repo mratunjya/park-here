@@ -1,7 +1,12 @@
-import { useRef, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-
+import { navButtonsData, navLinksData } from "@meta/NavBar/navLinksData";
+import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import styled, { keyframes } from "styled-components";
+import { useRef, useEffect, useState } from "react";
+import CommonLink from "@common/CommonLink";
+import { useRouter } from "next/router";
+import FlexBox from "@common/FlexBox";
+import { H5 } from "@common/Headings";
+import Logo from "@common/Logo";
 
 import {
   ACCENT_400,
@@ -11,12 +16,6 @@ import {
   WHITE,
 } from "@constants/colors";
 
-import { navButtonsData, navLinksData } from "@meta/NavBar/navLinksData";
-import CommonLink from "@components/common/CommonLink";
-import FlexBox from "@components/common/FlexBox";
-import Logo from "@components/common/Logo";
-import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
-import { H5 } from "../Headings";
 
 const NavBarWrapper = styled.nav`
   display: flex;

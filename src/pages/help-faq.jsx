@@ -1,5 +1,5 @@
 import HelpFaqComponent from "@components/HelpFaqComponent";
-import CommonHead from "@components/common/CommonHead";
+import CommonHead from "@common/CommonHead";
 
 const HelpFaq = () => {
   return (

@@ -2,10 +2,10 @@ import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
 import SignInUpLeft from "@components/sign-in-up/SignInUpLeft";
 import SignInForm from "@components/sign-in-up/SignInForm";
 import SignUpForm from "@components/sign-in-up/SignUpForm";
-import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
 import { WHITE } from "@constants/colors";
 import styled from "styled-components";
+import FlexBox from "@common/FlexBox";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 100%;

@@ -1,10 +1,10 @@
 import PrivacyPolicySvg from "@assets/privacy-policy/privacy-policy.svg";
-import CommonImage from "@components/common/CommonImage";
-import { H1, H2, P } from "@components/common/Headings";
 import CommonLayout from "@layout/common/CommonLayout";
 import { PRIMARY_400, WHITE } from "@constants/colors";
-import FlexBox from "@components/common/FlexBox";
+import CommonImage from "@common/CommonImage";
+import { H1, H2, P } from "@common/Headings";
 import styled from "styled-components";
+import FlexBox from "@common/FlexBox";
 
 const StyledUl = styled.ul`
   padding-left: 1.25rem;

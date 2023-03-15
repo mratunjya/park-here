@@ -1,9 +1,9 @@
-import CommonImage from "@components/common/CommonImage";
-import { H1, H4, P } from "@components/common/Headings";
 import { PRIMARY_400, WHITE } from "@constants/colors";
 import CommonLayout from "@layout/common/CommonLayout";
-import FlexBox from "@components/common/FlexBox";
+import CommonImage from "@common/CommonImage";
+import { H1, H4, P } from "@common/Headings";
 import { AboutData } from "@meta/about";
+import FlexBox from "@common/FlexBox";
 
 const AboutComponent = () => {
   return (

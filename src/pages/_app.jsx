@@ -1,11 +1,11 @@
 import { PRIMARY_900, ACCENT_700, ACCENT_600 } from "@constants/colors";
 import { createGlobalStyle } from "styled-components";
-import CommonNavBar from "@components/common/NavBar";
 import NextNProgress from "nextjs-progressbar";
-import CommonHead from "@common/CommonHead";
-import "../styles/globals.css";
 import { useEffect, useState } from "react";
-import PageLoader from "@components/common/PageLoader";
+import CommonHead from "@common/CommonHead";
+import PageLoader from "@common/PageLoader";
+import CommonNavBar from "@common/NavBar";
+import "../styles/globals.css";
 
 const GlobalStyle = createGlobalStyle`
   * {

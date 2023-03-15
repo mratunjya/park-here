@@ -1,16 +1,14 @@
-import FlexBox from "@components/common/FlexBox";
-import styled from "styled-components";
 import { PRIMARY_900, PRIMARY_700, PRIMARY_100 } from "@constants/colors";
-import { H3, P } from "@components/common/Headings";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/autoplay";
-import "swiper/css/pagination";
-// import required modules
 import { Autoplay, Pagination, Mousewheel, Keyboard } from "swiper";
 import { CarouselData } from "@meta/sign-in-up/sign-in-up-carousel";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { H3, P } from "@common/Headings";
+import styled from "styled-components";
+import FlexBox from "@common/FlexBox";
+// Import Swiper React CSS styles
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import "swiper/css";
 
 const SwiperFlex = styled(Swiper)`
   padding-bottom: 2.5rem;

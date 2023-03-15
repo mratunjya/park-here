@@ -1,18 +1,17 @@
-import Logo from "@common/Logo";
+import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
+import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
+import { useEffect, useRef, useState } from "react";
+import PhoneInput from "react-phone-number-input";
+import CustomSelectBox from "./CustomSelectBox";
+import { useDesktop } from "@hooks/CustomHooks";
+import CommonLink from "../common/CommonLink";
 import { H1, H3, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import FlexBox from "@components/common/FlexBox";
-import CustomSelectBox from "./CustomSelectBox";
-import styled from "styled-components";
-import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
-import CommonLink from "../common/CommonLink";
-import { useDesktop } from "@hooks/CustomHooks";
 import { copy } from "@meta/sign-in-up/copy";
-import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
+import "react-phone-number-input/style.css";
+import styled from "styled-components";
+import FlexBox from "@common/FlexBox";
+import axios from "axios";
 
 const SignUpFormWrapper = styled(FlexBox)`
   overflow: auto;

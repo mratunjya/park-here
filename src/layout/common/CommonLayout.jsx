@@ -1,5 +1,5 @@
-import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
+import FlexBox from "@common/FlexBox";
 
 const CommonLayout = ({ backgroundcolor, backgroundcolormobile, children }) => {
   const [navBarHeight, setNavBarHeight] = useState(0);

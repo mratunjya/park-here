@@ -1,5 +1,5 @@
 import PrivacyPolicyComponent from "@components/PrivacyPolicyComponent";
-import CommonHead from "@components/common/CommonHead";
+import CommonHead from "@common/CommonHead";
 
 const PrivacyPolicy = () => {
   return (

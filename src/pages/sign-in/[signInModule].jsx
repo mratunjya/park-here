@@ -1,10 +1,10 @@
-import CommonHead from "@components/common/CommonHead";
 import { AllModules } from "@constants/moduleNames";
 import SignInUpLayout from "@layout/SignInUpLayout";
-import PageNotFound from "@components/common/404";
 import { copy } from "@meta/sign-in-up/copy";
 import { useEffect, useState } from "react";
+import CommonHead from "@common/CommonHead";
 import { useRouter } from "next/router";
+import PageNotFound from "@common/404";
 
 const SignInModule = () => {
   const [routeNotFound, setRouteNotFound] = useState(false);

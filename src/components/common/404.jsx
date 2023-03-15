@@ -1,8 +1,8 @@
-import CommonHead from "@components/common/CommonHead";
 import CommonLayout from "@layout/common/CommonLayout";
 import { ACCENT_900, WHITE } from "@constants/colors";
-import FlexBox from "@components/common/FlexBox";
-import { H1 } from "@components/common/Headings";
+import CommonHead from "@common/CommonHead";
+import FlexBox from "@common/FlexBox";
+import { H1 } from "@common/Headings";
 
 const PageNotFound = () => {
   return (

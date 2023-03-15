@@ -1,5 +1,5 @@
-import FlexBox from "@components/common/FlexBox";
 import styled from "styled-components";
+import FlexBox from "@common/FlexBox";
 import {
   PRIMARY_900,
   PRIMARY_100,
