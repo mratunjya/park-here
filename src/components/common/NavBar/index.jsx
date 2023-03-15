@@ -3,6 +3,7 @@ import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import styled, { keyframes } from "styled-components";
 import { useRef, useEffect, useState } from "react";
 import { AllModules } from "@constants/moduleNames";
+import { FiChevronDown } from "react-icons/fi";
 import CommonLink from "@common/CommonLink";
 import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
@@ -92,6 +93,35 @@ const AllNavLinksMobile = styled(FlexBox)`
   }
 `;
 
+const ChevronUpRotate = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+`;
+
+const ChevronDownRotate = keyframes`
+  0% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+`;
+
+const NavButton = styled(FlexBox)`
+  svg {
+    transform: rotate(${(props) => (props.isnavbuttonclicked ? "180deg" : 0)});
+    animation: ${(props) =>
+        props.isnavbuttonclicked
+          ? ChevronUpRotate
+          : props.isnavbuttonclicked === false && ChevronDownRotate}
+      0.3s ease-in-out;
+  }
+`;
+
 const LogInTooltip = styled(FlexBox)`
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -132,7 +162,7 @@ const FallBackNavBar = styled(FlexBox)`
 `;
 
 const CommonNavBar = () => {
-  const [isNavButtonClicked, setIsNavButtonClicked] = useState(false);
+  const [isNavButtonClicked, setIsNavButtonClicked] = useState(null);
   const [isSignInRoute, setIsSignInRoute] = useState(false);
   const [navBarHeight, setNavBarHeight] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -150,14 +180,14 @@ const CommonNavBar = () => {
   useEffect(() => {
     setIsSignInRoute(router?.pathname?.includes("sign-in"));
     setIsNavOpen(false);
-    setIsNavButtonClicked(false);
+    setIsNavButtonClicked(null);
   }, [router]);
 
   useEffect(() => {
     document.body.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setIsNavButtonClicked(false);
+      setIsNavButtonClicked(null);
     });
   }, []);
 
@@ -182,7 +212,23 @@ const CommonNavBar = () => {
           texttransform="uppercase"
           padding="0.5rem"
         >
-          <H5 bold color={ACCENT_700} whitespace="nowrap">
+          <H5
+            bold
+            color={
+              router?.asPath?.includes(
+                navLink.name
+                  .toLocaleLowerCase()
+                  .replaceAll("&", "")
+                  .split(" ")
+                  .filter((item) => item !== "")
+                  .join("-")
+              )
+                ? ACCENT_900
+                : ACCENT_700
+            }
+            whitespace="nowrap"
+            hovercolor={ACCENT_800}
+          >
             {navLink.name}
           </H5>
         </FlexBox>
@@ -190,26 +236,28 @@ const CommonNavBar = () => {
     ));
 
   const RenderNavButtons = ({ name }) => (
-    <FlexBox
+    <NavButton
       width="8.75rem"
       height="2.5rem"
       align="center"
-      justify="center"
+      justify="space-evenly"
       borderadius="1.25rem"
       fontweight="bold"
       backgroundcolor={PRIMARY_800}
       color={WHITE}
       fontsize="0.8rem"
       texttransform="uppercase"
+      cursor="pointer"
+      isnavbuttonclicked={isNavButtonClicked}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         setIsNavButtonClicked(!isNavButtonClicked);
       }}
-      cursor="pointer"
     >
       {name}
-    </FlexBox>
+      <FiChevronDown size={20} />
+    </NavButton>
   );
 
   const RenderSubNavButtons = ({ name, href, disabled }) => (
@@ -223,7 +271,12 @@ const CommonNavBar = () => {
       cursor="pointer"
       onClick={() => !disabled && router.push(href)}
     >
-      <H5 bold color={!disabled ? ACCENT_700 : ACCENT_900} whitespace="nowrap">
+      <H5
+        bold
+        color={!disabled ? ACCENT_700 : ACCENT_900}
+        whitespace="nowrap"
+        hovercolor={ACCENT_800}
+      >
         {name}
       </H5>
     </FlexBox>

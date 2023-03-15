@@ -145,6 +145,14 @@ export const H5 = styled.h5`
     css`
       white-space: ${props.whitespace};
     `}
+
+  :hover {
+    ${(props) =>
+      props.hovercolor &&
+      css`
+        color: ${props.hovercolor};
+      `}
+  }
 `;
 
 export const H6 = styled.h6`
