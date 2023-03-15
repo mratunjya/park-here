@@ -102,6 +102,11 @@ const LogInTooltip = styled(FlexBox)`
   z-index: 1000;
   border: 1px solid ${ACCENT_400};
   box-shadow: 0 0 0.5rem ${ACCENT_400};
+
+  @media (max-width: 768px) {
+    left: 0;
+    right: unset;
+  }
 `;
 
 const HamBurgerButton = styled(FlexBox)`
@@ -297,7 +302,7 @@ const CommonNavBar = () => {
         position="fixed"
         backgroundcolor={WHITE}
         direction="column"
-        padding="2rem 1rem"
+        padding="2rem 0rem"
         isnavbaropen={isNavOpen}
         zindex="100"
       >
@@ -310,7 +315,7 @@ const CommonNavBar = () => {
           >
             <RenderAllNavLinks />
           </FlexBox>
-          <FlexBox>
+          <FlexBox position="relative">
             {isSignInRoute ? (
               <RenderNavButtons
                 name={navButtonsData.signUp.name}
@@ -322,6 +327,23 @@ const CommonNavBar = () => {
                 href={navButtonsData.signIn.href}
               />
             )}
+            <LogInTooltip
+              gap="1rem"
+              padding="0.6rem 0.8rem"
+              align="flex-start"
+              justify="flex-start"
+              direction="column"
+              display={isNavButtonClicked ? "flex" : "none"}
+            >
+              {AllModules.map((module, index) => (
+                <RenderSubNavButtons
+                  href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
+                  disabled={router?.asPath?.includes(module)}
+                  key={index + 1000}
+                  name={module}
+                />
+              ))}
+            </LogInTooltip>
           </FlexBox>
         </AllNavLinksMobile>
       </OnlyMobileNavBar>
