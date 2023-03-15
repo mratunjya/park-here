@@ -102,17 +102,7 @@ const PrivacyPolicy = () => {
             We ensure that all information collected will be safely and securely
             stored. We protect your personal information by:
           </P>
-          <StyledUl
-            style={{
-              paddingLeft: "1.25rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-              "@media (max-width: 768px)": {
-                gap: "0.5rem",
-              },
-            }}
-          >
+          <StyledUl>
             <li>
               <P>Restricting access to personal information</P>
             </li>

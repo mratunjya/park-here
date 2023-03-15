@@ -80,7 +80,7 @@ const OnlyMobileNavBar = styled(FlexBox)`
           ? OnlyMobileNavBarEnteringAnimation
           : OnlyMobileNavBarExitingAnimation}
       0.3s ease-in-out;
-    left: ${(props) => (props.isnavbaropen ? "0" : "100%")};
+    left: ${(props) => (props.isnavbaropen ? "30%" : "100%")};
   }
 `;
 
@@ -97,6 +97,20 @@ const HamBurgerButton = styled(FlexBox)`
 
   @media (max-width: 768px) {
     display: flex;
+  }
+`;
+
+const FallBackNavBar = styled(FlexBox)`
+  display: none;
+
+  @media (max-width: 768px) {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -203,8 +217,20 @@ const CommonNavBar = () => {
           </HamBurgerButton>
         </NavBar>
       </NavBarWrapper>
+      {isNavOpen && (
+        <FallBackNavBar
+          onClick={closeNavBar}
+          width="100%"
+          height={`calc(100vh - ${navBarHeight}px)`}
+          position="fixed"
+          backgroundcolor={WHITE}
+          direction="column"
+          padding="2rem 1rem"
+          zindex="100"
+        />
+      )}
       <OnlyMobileNavBar
-        width="100%"
+        width="70%"
         height={`calc(100vh - ${navBarHeight}px)`}
         position="fixed"
         backgroundcolor={WHITE}
