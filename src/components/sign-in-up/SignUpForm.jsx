@@ -151,7 +151,7 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignUpForm = ({ moduleName }) => {
+const SignUpForm = ({ module }) => {
   const [organizationAddress, setOrganizationAddress] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -359,9 +359,9 @@ const SignUpForm = ({ moduleName }) => {
         marginmobile="calc(2% + 1.5rem) auto"
         height="auto"
       >
-        <H1 bold>{copy[`${moduleName}`]?.signUp.title}</H1>
+        <H1 bold>{copy[`${module}`]?.signUp.title}</H1>
         <FlexForm onSubmit={handleSignUp}>
-          {moduleName === ORGANIZATION && (
+          {module === ORGANIZATION && (
             <>
               <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
                 <label htmlFor="organization-name">Organization Name</label>
@@ -390,9 +390,7 @@ const SignUpForm = ({ moduleName }) => {
             </>
           )}
           <FlexBox direction="column" gap="0.5rem">
-            {moduleName === ORGANIZATION && (
-              <H3 bold>Contact Person Details</H3>
-            )}
+            {module === ORGANIZATION && <H3 bold>Contact Person Details</H3>}
             <FlexBox gap="0.5rem">
               <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
                 <label htmlFor="first-name">First Name</label>
@@ -448,7 +446,7 @@ const SignUpForm = ({ moduleName }) => {
               </P>
             )}
           </FlexBox>
-          {moduleName === ATTENDANT && (
+          {module === ATTENDANT && (
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
               <label htmlFor="parkingLotID">Parking Lot ID</label>
               <input
@@ -461,7 +459,7 @@ const SignUpForm = ({ moduleName }) => {
               />
             </FlexBox>
           )}
-          {moduleName === ADMIN && (
+          {module === ADMIN && (
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
               <label htmlFor="organizationName">Organization Name</label>
               <CustomSelectBox options={organizationOptions} />
@@ -508,9 +506,9 @@ const SignUpForm = ({ moduleName }) => {
             <SmallButtom type="submit" disabled={submitButtonDisabled}>
               Sign Up
             </SmallButtom>
-            {copy[`${moduleName}`]?.signUp.signInRoute && (
+            {copy[`${module}`]?.signUp.signInRoute && (
               <CommonLink
-                href={copy[`${moduleName}`]?.signUp.signInRoute}
+                href={copy[`${module}`]?.signUp.signInRoute}
                 alignself="flex-end"
               >
                 <P

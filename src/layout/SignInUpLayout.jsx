@@ -1,4 +1,3 @@
-import { ADMIN, ATTENDANT, ORGANIZATION, USER } from "@constants/moduleNames";
 import SignInUpLeft from "@components/sign-in-up/SignInUpLeft";
 import SignInForm from "@components/sign-in-up/SignInForm";
 import SignUpForm from "@components/sign-in-up/SignUpForm";
@@ -27,40 +26,21 @@ const SignInUpWrapper = styled(FlexBox)`
   }
 `;
 
-const SignUpLayout = ({ path }) => {
+const SignUpLayout = ({ path, module }) => {
   const [navBarHeight, setNavBarHeight] = useState(0);
-  const [moduleName, setModuleName] = useState(null);
 
   useEffect(() => {
     setNavBarHeight(localStorage.getItem("navBarHeight"));
   });
 
-  useEffect(() => {
-    if (path == `/sign-in/${ADMIN}` || path == `/sign-up/${ADMIN}`) {
-      setModuleName(ADMIN);
-    } else if (path == `/sign-in/${USER}` || path == `/sign-up/${USER}`) {
-      setModuleName(USER);
-    } else if (
-      path == `/sign-in/${ATTENDANT}` ||
-      path == `/sign-up/${ATTENDANT}`
-    ) {
-      setModuleName(ATTENDANT);
-    } else if (
-      path == `/sign-in/${ORGANIZATION}` ||
-      path == `/sign-up/${ORGANIZATION}`
-    ) {
-      setModuleName(ORGANIZATION);
-    }
-  }, [path]);
-
   return (
     <>
       <SignInUpWrapper directionmobile="column" navbarheight={navBarHeight}>
-        <SignInUpLeft moduleName={moduleName} />
+        <SignInUpLeft module={module} />
         {path?.indexOf("sign-in") != -1 ? (
-          <SignInForm moduleName={moduleName} />
+          <SignInForm module={module} />
         ) : (
-          <SignUpForm moduleName={moduleName} />
+          <SignUpForm module={module} />
         )}
       </SignInUpWrapper>
     </>

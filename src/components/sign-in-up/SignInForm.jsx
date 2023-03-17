@@ -57,7 +57,7 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = ({ moduleName }) => {
+const SignInForm = ({ module }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
@@ -126,7 +126,7 @@ const SignInForm = ({ moduleName }) => {
         marginmobile="calc(2% + 1.5rem) auto"
         height="auto"
       >
-        <H1 bold>{copy[`${moduleName}`]?.signIn.title}</H1>
+        <H1 bold>{copy[`${module}`]?.signIn.title}</H1>
         <FlexForm onSubmit={handleSignIn}>
           <FlexBox direction="column" gap="0.5rem">
             <label htmlFor="email">Email</label>
@@ -162,9 +162,9 @@ const SignInForm = ({ moduleName }) => {
             <SmallButtom type="submit" disabled={submitButtonDisabled}>
               Sign In
             </SmallButtom>
-            {copy[`${moduleName}`]?.signIn.signUpRoute && (
+            {copy[`${module}`]?.signIn.signUpRoute && (
               <CommonLink
-                href={copy[`${moduleName}`]?.signIn.signUpRoute}
+                href={copy[`${module}`]?.signIn.signUpRoute}
                 alignself="flex-end"
               >
                 <P

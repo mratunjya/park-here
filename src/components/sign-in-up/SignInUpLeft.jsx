@@ -31,7 +31,7 @@ const SignInUpWrapper = styled(FlexBox)`
   }
 `;
 
-const SignInUp = ({ moduleName }) => {
+const SignInUp = ({ module }) => {
   return (
     <SignInUpWrapper
       direction="column"
@@ -40,7 +40,7 @@ const SignInUp = ({ moduleName }) => {
       align="center"
       alignmobile="flex-start"
     >
-      <Carousel moduleName={moduleName} />
+      <Carousel module={module} />
       <LandingVisual />
     </SignInUpWrapper>
   );

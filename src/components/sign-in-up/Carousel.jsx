@@ -98,10 +98,10 @@ const SwiperSlideFlex = styled(SwiperSlide)`
   }
 `;
 
-const Carousel = ({ moduleName }) => {
+const Carousel = ({ module }) => {
   const renderCarousel = ({ mobileonly, desktoponly }) => {
     return (
-      CarouselData[moduleName] && (
+      CarouselData[module] && (
         <FlexBox
           width="100%"
           widthmobile="70%"
@@ -136,7 +136,7 @@ const Carousel = ({ moduleName }) => {
             modules={[Pagination, Autoplay, Mousewheel, Keyboard]}
             className="mySwiper"
           >
-            {CarouselData[moduleName]?.[mobileonly ? "mobile" : "desktop"].map(
+            {CarouselData[module]?.[mobileonly ? "mobile" : "desktop"].map(
               (data, index) => (
                 <SwiperSlideFlex key={index}>
                   <H3 bold>{data.heading}</H3>
