@@ -163,7 +163,7 @@ const FallBackNavBar = styled(FlexBox)`
 
 const CommonNavBar = () => {
   const [isNavButtonClicked, setIsNavButtonClicked] = useState(null);
-  const [isSignInRoute, setIsSignInRoute] = useState(false);
+  const [isSignInRoute, setIsSignInRoute] = useState(null);
   const [navBarHeight, setNavBarHeight] = useState(0);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navBarRef = useRef(null);
@@ -178,9 +178,9 @@ const CommonNavBar = () => {
   }, [navBarHeight]);
 
   useEffect(() => {
-    setIsSignInRoute(router?.pathname?.includes("sign-in"));
     setIsNavOpen(false);
     setIsNavButtonClicked(null);
+    router.isReady && setIsSignInRoute(router?.asPath?.includes("sign-in"));
   }, [router]);
 
   useEffect(() => {
@@ -287,15 +287,11 @@ const CommonNavBar = () => {
               <RenderAllNavLinks />
             </FlexBox>
             <FlexBox>
-              {isSignInRoute ? (
+              {isSignInRoute !== null && (
                 <RenderNavButtons
-                  name={navButtonsData.signUp.name}
-                  href={navButtonsData.signUp.href}
-                />
-              ) : (
-                <RenderNavButtons
-                  name={navButtonsData.signIn.name}
-                  href={navButtonsData.signIn.href}
+                  name={
+                    navButtonsData?.[!isSignInRoute ? "signIn" : "signUp"]?.name
+                  }
                 />
               )}
               <LogInTooltip

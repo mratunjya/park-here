@@ -98,7 +98,7 @@ const SwiperSlideFlex = styled(SwiperSlide)`
   }
 `;
 
-const Carousel = ({ module }) => {
+export const Carousel = ({ module }) => {
   const renderCarousel = ({ mobileonly, desktoponly }) => {
     return (
       CarouselData[module] && (
@@ -157,5 +157,3 @@ const Carousel = ({ module }) => {
     </>
   );
 };
-
-export default Carousel;

@@ -27,10 +27,11 @@ const SignInModule = () => {
     }
   }, [router]);
 
-  return routeNotFound === true ? (
-    <PageNotFound />
-  ) : (
-    routeNotFound === false && (
+  return (
+    routeNotFound !== null &&
+    (routeNotFound ? (
+      <PageNotFound />
+    ) : (
       <>
         <CommonHead
           title={
@@ -44,7 +45,7 @@ const SignInModule = () => {
         />
         <SignInUpLayout path={path} module={module} />
       </>
-    )
+    ))
   );
 };
 

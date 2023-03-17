@@ -2,7 +2,7 @@ import LandingVisual from "./LandingVisual";
 import { WHITE } from "@constants/colors";
 import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
-import Carousel from "./Carousel";
+import { Carousel } from "./Carousel";
 
 const SignInUpWrapper = styled(FlexBox)`
   width: 40%;
