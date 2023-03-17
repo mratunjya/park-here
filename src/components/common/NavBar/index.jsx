@@ -191,8 +191,6 @@ const CommonNavBar = () => {
     });
   }, []);
 
-  console.log(isNavButtonClicked);
-
   const openNavBar = () => {
     setIsNavOpen(true);
   };
@@ -260,7 +258,7 @@ const CommonNavBar = () => {
     </NavButton>
   );
 
-  const RenderSubNavButtons = ({ name, href, disabled }) => (
+  const RenderSubNavButtons = ({ name, href }) => (
     <FlexBox
       align="center"
       justify="center"
@@ -269,14 +267,9 @@ const CommonNavBar = () => {
       texttransform="uppercase"
       padding="0.5rem"
       cursor="pointer"
-      onClick={() => !disabled && router.push(href)}
+      onClick={() => router.push(href)}
     >
-      <H5
-        bold
-        color={!disabled ? ACCENT_700 : ACCENT_900}
-        whitespace="nowrap"
-        hovercolor={ACCENT_800}
-      >
+      <H5 bold color={ACCENT_700} whitespace="nowrap" hovercolor={ACCENT_800}>
         {name}
       </H5>
     </FlexBox>
@@ -316,7 +309,6 @@ const CommonNavBar = () => {
                 {AllModules.map((module, index) => (
                   <RenderSubNavButtons
                     href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
-                    disabled={router?.asPath?.includes(module)}
                     key={index + 1000}
                     name={module}
                   />
@@ -391,7 +383,6 @@ const CommonNavBar = () => {
               {AllModules.map((module, index) => (
                 <RenderSubNavButtons
                   href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
-                  disabled={router?.asPath?.includes(module)}
                   key={index + 1000}
                   name={module}
                 />
