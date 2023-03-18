@@ -5,13 +5,10 @@ import CommonLayout from "@layout/common/CommonLayout";
 import { ACCENT_900, WHITE } from "@constants/colors";
 import FlexBox from "@components/common/FlexBox";
 import { H1 } from "@components/common/Headings";
-import { useRouter } from "next/router";
 import { signOut } from "@utils/auth";
 import { useEffect } from "react";
 
 const SignOut = (ctx) => {
-  const router = useRouter();
-
   useEffect(() => {
     signOut(ctx);
   }, [ctx]);

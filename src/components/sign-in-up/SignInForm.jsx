@@ -63,8 +63,9 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = (ctx, { module }) => {
+const SignInForm = (ctx) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [module, setModule] = useState(ctx.module);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const router = useRouter();
