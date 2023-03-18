@@ -1,8 +1,10 @@
 import CommonLayout from "@layout/common/CommonLayout";
 import { ACCENT_900, WHITE } from "@constants/colors";
 import CommonHead from "@common/CommonHead";
+import { H1, H3 } from "@common/Headings";
+import { LargeButton } from "./Button";
+import CommonLink from "./CommonLink";
 import FlexBox from "@common/FlexBox";
-import { H1 } from "@common/Headings";
 
 const PageNotFound = () => {
   return (
@@ -15,6 +17,8 @@ const PageNotFound = () => {
           align="center"
           justify="center"
           height="100%"
+          direction="column"
+          gap="2rem"
         >
           <FlexBox
             width="fit-content"
@@ -40,6 +44,12 @@ const PageNotFound = () => {
               Page Not Found
             </H1>
           </FlexBox>
+          <H3 color={WHITE} bold>
+            The page you are looking for does not exist.
+          </H3>
+          <CommonLink href="/">
+            <LargeButton>Go to Home</LargeButton>
+          </CommonLink>
         </FlexBox>
       </CommonLayout>
     </>
