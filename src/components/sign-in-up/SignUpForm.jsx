@@ -246,13 +246,10 @@ const SignUpForm = ({ module }) => {
           value: org.organizationName,
           label: org.organizationName,
         }));
-        console.log(organizationNames);
         setOrganizationOptions(organizationNames);
       })
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(organizationOptions);
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError) {
