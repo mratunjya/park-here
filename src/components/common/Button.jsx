@@ -40,3 +40,18 @@ export const SmallButtom = styled.button`
     filter: grayscale(1);
   }
 `;
+
+export const LargeButton = styled(SmallButtom)`
+  padding: ${(props) => props.padding || "0 4rem"};
+  height: ${(props) => props.height || "4rem"};
+  font-size: ${(props) => props.fontsize || "1.5rem"};
+  font-weight: ${(props) => props.fontweight || "600"};
+
+  &:hover {
+    padding: ${(props) => props.hoverpadding || props.padding || "0 4rem"};
+    height: ${(props) => props.hoverheight || props.height || "4rem"};
+    font-size: ${(props) => props.hoverfontsize || props.fontsize || "1.5rem"};
+    font-weight: ${(props) =>
+      props.hoverfontweight || props.fontweight || "600"};
+  }
+`;
