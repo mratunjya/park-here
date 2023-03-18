@@ -1,7 +1,7 @@
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import { useEffect, useRef, useState } from "react";
 import { useDesktop } from "@hooks/CustomHooks";
-import { SmallButtom } from "@common/Button";
+import { SmallButton } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import CommonLink from "@common/CommonLink";
 import axiosInstance from "@axiosInstance";
@@ -63,9 +63,8 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = (ctx) => {
+const SignInForm = ({module}) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
-  const [module, setModule] = useState(ctx.module);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const router = useRouter();
@@ -107,7 +106,7 @@ const SignInForm = (ctx) => {
       .then((res) => {
         const token = res.data.token;
 
-        signIn(ctx, token);
+        signIn(token);
 
         // Redirect to about
         router.push("/about");
@@ -172,13 +171,13 @@ const SignInForm = (ctx) => {
             direction="column-reverse"
             marginmobile="0"
           >
-            <SmallButtom
+            <SmallButton
               type="submit"
               disabled={submitButtonDisabled}
               onClick={handleSignIn}
             >
               Sign In
-            </SmallButtom>
+            </SmallButton>
             {copy[`${module}`]?.signIn.signUpRoute && (
               <CommonLink
                 href={copy[`${module}`]?.signIn.signUpRoute}
