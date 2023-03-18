@@ -15,7 +15,7 @@ const SignOut = (ctx) => {
 
   return (
     <>
-      <CommonHead title="Park Here: Error 404, Page Not Found" />
+      <CommonHead title="Park Here: Signed Out Successfully" />
       <CommonLayout>
         <FlexBox
           width="100%"
