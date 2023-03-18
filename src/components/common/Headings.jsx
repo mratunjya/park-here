@@ -124,6 +124,12 @@ export const H4 = styled.h4`
     css`
       background-color: ${props.backgroundcolor};
     `}
+
+  ${(props) =>
+    props.texttransform &&
+    css`
+      text-transform: ${props.texttransform};
+    `}
 `;
 
 export const H5 = styled.h5`
