@@ -4,21 +4,23 @@ import styled, { keyframes } from "styled-components";
 import { useRef, useEffect, useState } from "react";
 import { AllModules } from "@constants/moduleNames";
 import { FiChevronDown } from "react-icons/fi";
-import { isAuthenticated, isAuthenticating } from "@utils/auth";
+import { isAuthenticated, signOut } from "@utils/auth";
 import CommonLink from "@common/CommonLink";
 import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
-import { H5 } from "@common/Headings";
+import { H4, H5 } from "@common/Headings";
 import Logo from "@common/Logo";
-
 import {
   ACCENT_400,
   ACCENT_700,
   ACCENT_800,
   ACCENT_900,
   PRIMARY_800,
+  TERTIARY_800,
+  TERTIARY_900,
   WHITE,
 } from "@constants/colors";
+import { SmallButton } from "../Button";
 
 const NavBarWrapper = styled.nav`
   display: flex;
@@ -162,7 +164,7 @@ const FallBackNavBar = styled(FlexBox)`
   }
 `;
 
-const CommonNavBar = () => {
+const CommonNavBar = (ctx) => {
   const [isNavButtonClicked, setIsNavButtonClicked] = useState(null);
   const [isSignInRoute, setIsSignInRoute] = useState(null);
   const [navBarHeight, setNavBarHeight] = useState(0);
@@ -309,8 +311,9 @@ const CommonNavBar = () => {
                 direction="column"
                 display={isNavButtonClicked ? "flex" : "none"}
               >
-                {isAuthenticated()
-                  ? navButtonsData.myAccount.subNav.map(
+                {isAuthenticated() ? (
+                  <>
+                    {navButtonsData.myAccount.subNav.map(
                       (accountOption, index) => (
                         <RenderSubNavButtons
                           href={accountOption.href}
@@ -318,16 +321,31 @@ const CommonNavBar = () => {
                           name={accountOption.name}
                         />
                       )
-                    )
-                  : AllModules.map((module, index) => (
-                      <RenderSubNavButtons
-                        href={`/${
-                          isSignInRoute ? "sign-up" : "sign-in"
-                        }/${module}`}
-                        key={index + 1000}
-                        name={module}
-                      />
-                    ))}
+                    )}
+                    <SmallButton
+                      backgroundcolor={TERTIARY_800}
+                      hoverbackgroundcolor={TERTIARY_900}
+                      onClick={() => {
+                        signOut(ctx);
+                        router.push("/sign-out");
+                      }}
+                    >
+                      <H4 bold color={WHITE} texttransform="uppercase">
+                        Sign Out
+                      </H4>
+                    </SmallButton>
+                  </>
+                ) : (
+                  AllModules.map((module, index) => (
+                    <RenderSubNavButtons
+                      href={`/${
+                        isSignInRoute ? "sign-up" : "sign-in"
+                      }/${module}`}
+                      key={index + 1000}
+                      name={module}
+                    />
+                  ))
+                )}
               </LogInTooltip>
             </FlexBox>
           </AllNavLinks>
@@ -400,8 +418,9 @@ const CommonNavBar = () => {
               direction="column"
               display={isNavButtonClicked ? "flex" : "none"}
             >
-              {isAuthenticated()
-                ? navButtonsData.myAccount.subNav.map(
+              {isAuthenticated() ? (
+                <>
+                  {navButtonsData.myAccount.subNav.map(
                     (accountOption, index) => (
                       <RenderSubNavButtons
                         href={accountOption.href}
@@ -409,16 +428,30 @@ const CommonNavBar = () => {
                         name={accountOption.name}
                       />
                     )
-                  )
-                : AllModules.map((module, index) => (
-                    <RenderSubNavButtons
-                      href={`/${
-                        isSignInRoute ? "sign-up" : "sign-in"
-                      }/${module}`}
-                      key={index + 1000}
-                      name={module}
-                    />
-                  ))}
+                  )}
+                  <SmallButton
+                    backgroundcolor={TERTIARY_800}
+                    hoverbackgroundcolor={TERTIARY_900}
+                    onClick={() => {
+                      signOut(ctx);
+                      router.push("/sign-out");
+                    }}
+                    mobilepadding="0.5rem 1rem"
+                  >
+                    <H4 bold color={WHITE} texttransform="uppercase">
+                      Sign Out
+                    </H4>
+                  </SmallButton>
+                </>
+              ) : (
+                AllModules.map((module, index) => (
+                  <RenderSubNavButtons
+                    href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
+                    key={index + 1000}
+                    name={module}
+                  />
+                ))
+              )}
             </LogInTooltip>
           </FlexBox>
         </AllNavLinksMobile>
