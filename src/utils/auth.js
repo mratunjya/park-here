@@ -1,6 +1,6 @@
 import axiosInstance from "@axiosInstance";
-import localforage from "localforage";
 import { parseCookies } from "nookies";
+import localforage from "localforage";
 
 export const isAuthenticated = (ctx) => {
   const { token } = parseCookies(ctx);

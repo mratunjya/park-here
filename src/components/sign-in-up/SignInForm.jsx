@@ -1,7 +1,6 @@
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import { useEffect, useRef, useState } from "react";
 import { useDesktop } from "@hooks/CustomHooks";
-import { isAuthenticated, signIn } from "@utils/auth";
 import { SmallButtom } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import CommonLink from "@common/CommonLink";
@@ -10,7 +9,7 @@ import { H1, P } from "@common/Headings";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
-import localforage from "localforage";
+import { signIn } from "@utils/auth";
 
 const SignInFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -64,7 +63,7 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = ({ module }) => {
+const SignInForm = (ctx, { module }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -107,7 +106,7 @@ const SignInForm = ({ module }) => {
       .then((res) => {
         const token = res.data.token;
 
-        signIn(token);
+        signIn(ctx, token);
 
         // Redirect to about
         router.push("/about");
