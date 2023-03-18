@@ -2,7 +2,7 @@ import axios from "axios";
 import localforage from "localforage";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: "https://17a0-182-70-239-81.in.ngrok.io/api",
   timeout: 5000, // 5 seconds
   headers: {
     "Content-Type": "application/json",
