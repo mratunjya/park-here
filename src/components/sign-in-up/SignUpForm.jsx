@@ -1,17 +1,24 @@
-import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
+import { USER_ADD_SUCCESS } from "@constants/api-messages";
 import { useEffect, useRef, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import PhoneInput from "react-phone-number-input";
 import CustomSelectBox from "./CustomSelectBox";
-import { useDesktop } from "@hooks/CustomHooks";
 import CommonLink from "../common/CommonLink";
 import { H1, H3, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import "react-phone-number-input/style.css";
 import axiosInstance from "@axiosInstance";
-import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
+import {
+  ACCENT_900,
+  BLACK,
+  PRIMARY_800,
+  TERTIARY_800,
+  WHITE,
+  WHITE_200,
+} from "@constants/colors";
 
 const SignUpFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -155,29 +162,77 @@ const FlexForm = styled.form`
   }
 `;
 
+const Stroke = keyframes`
+  100% {
+    stroke-dashoffset: 0;
+  }
+`;
+
+const Scale = keyframes`
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: scale3d(2.2, 2.2, 2);
+  }
+`;
+
+const Fill = keyframes`
+  100% {
+    box-shadow: inset 0px 0px 0px 30px ${PRIMARY_800};
+  }
+`;
+
+const SuccessCheckSvg = styled.svg`
+  width: 56px;
+  aspect-ratio: 1/1;
+  margin: 10% auto;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: ${WHITE};
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px ${PRIMARY_800};
+  animation: ${Fill} 0.4s ease-in-out 0.4s forwards,
+    ${Scale} 0.5s ease-in-out 0.9s both;
+
+  .checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: ${PRIMARY_800};
+    fill: none;
+    animation: ${Stroke} 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+
+  .checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: ${Stroke} 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  }
+`;
+
 const SignUpForm = ({ module }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [organizationAddress, setOrganizationAddress] = useState("");
+  const [customEmailError, setCustomEmailError] = useState(null);
   const [organizationName, setOrganizationName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("HGf3Uh2p2WKCfmM@");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
+  const [signUpSuccess, setSignUpSuccess] = useState(true);
   const [parkingLotID, setParkingLotID] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
-  const [firstName, setFirstName] = useState("Mratunjya");
-  const [lastName, setLastName] = useState("Shankhdhar");
-  const [password, setPassword] = useState("HGf3Uh2p2WKCfmM@");
-  const [email, setEmail] = useState("mratunjya@theinnehour.com");
-  const [phone, setPhone] = useState("+919997168704");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const firstNameRef = useRef(null);
-
-  const isDesktop = useDesktop();
-
-  useEffect(() => {
-    isDesktop ? firstNameRef.current.focus() : firstNameRef.current.blur();
-  }, [isDesktop]);
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError) {
@@ -244,6 +299,7 @@ const SignUpForm = ({ module }) => {
     setEmailError(
       e.target.value === "" ? false : !verifyEmail(e.target.value.toLowerCase())
     );
+    setCustomEmailError(null);
   };
 
   const VerifyPhone = (phone) => {
@@ -333,12 +389,15 @@ const SignUpForm = ({ module }) => {
       timeStamp: timeStamp,
     };
 
-    console.log(dataPayload);
-
     axiosInstance
       .post("/signup", dataPayload)
       .then((res) => {
         console.log(res);
+        if (res.status === 200) {
+          res.data.message === USER_ADD_SUCCESS
+            ? setSignUpSuccess(true)
+            : setCustomEmailError("Email already exists");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -368,174 +427,197 @@ const SignUpForm = ({ module }) => {
         height="auto"
       >
         <H1 bold>{copy[`${module}`]?.signUp.title}</H1>
-        <FlexForm>
-          {module === ORGANIZATION && (
-            <>
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="organization-name">Organization Name</label>
-                <input
-                  type="text"
-                  placeholder="Organization Name"
-                  id="organization-name"
-                  onChange={handleOrganizationName}
-                  autoComplete="true"
-                  value={organizationName}
-                />
-              </FlexBox>
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="organization-address">
-                  Organization Address
-                </label>
-                <textarea
-                  placeholder="Organization Address"
-                  id="organization-address"
-                  onChange={handleOrganizationAddress}
-                  autoComplete="true"
-                  value={organizationAddress}
-                  rows={4}
-                />
-              </FlexBox>
-            </>
-          )}
-          <FlexBox direction="column" gap="0.5rem">
-            {module === ORGANIZATION && <H3 bold>Contact Person Details</H3>}
-            <FlexBox gap="0.5rem">
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="first-name">First Name</label>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  id="first-name"
-                  onChange={handleFirstName}
-                  autoComplete="true"
-                  ref={firstNameRef}
-                  value={firstName}
-                />
-              </FlexBox>
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="last-name">Last Name</label>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  id="last-name"
-                  onChange={handleLastName}
-                  autoComplete="true"
-                  value={lastName}
-                />
-              </FlexBox>
-            </FlexBox>
-          </FlexBox>
-          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              placeholder="Email"
-              id="email"
-              onChange={handleEmail}
-              autoComplete="true"
-              value={email}
-            />
-            {emailError && (
-              <P style={{ color: TERTIARY_800 }}>
-                Please enter a valid email address
-              </P>
-            )}
-          </FlexBox>
-          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-            <label htmlFor="phone">Phone</label>
-            <PhoneInput
-              placeholder="Enter phone number"
-              value={phone}
-              onChange={setPhone}
-            />
-            {phoneError && (
-              <P style={{ color: TERTIARY_800 }}>
-                Please enter a valid phone number
-              </P>
-            )}
-          </FlexBox>
-          {module === ATTENDANT && (
-            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="parkingLotID">Parking Lot ID</label>
-              <input
-                type="text"
-                placeholder="Parking Lot ID"
-                id="parkingLotID"
-                onChange={handleParkingLotID}
-                autoComplete="true"
-                value={parkingLotID}
-              />
-            </FlexBox>
-          )}
-          {module === ADMIN && (
-            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="organizationName">Organization Name</label>
-              <CustomSelectBox options={organizationOptions} />
-            </FlexBox>
-          )}
-          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              onChange={handlePassword}
-              autoComplete="true"
-              value={password}
-            />
-            {passwordError && (
-              <P style={{ color: TERTIARY_800 }}>{passwordError}</P>
-            )}
-          </FlexBox>
-          <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-            <label htmlFor="confirm-password">Confirm Password</label>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              id="confirm-password"
-              onChange={handleConfirmPassword}
-              autoComplete="true"
-              value={confirmPassword}
-            />
-            {confirmPasswordError && (
-              <P style={{ color: TERTIARY_800 }}>
-                Passwords do not match. Please try again.
-              </P>
-            )}
-          </FlexBox>
-          <FlexBox
-            justify="space-between"
-            gap="0.5rem"
-            gapmobile="2rem"
-            margin="0.625rem 0 0"
-            direction="column-reverse"
-            marginmobile="0"
+        {signUpSuccess ? (
+          <SuccessCheckSvg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
           >
-            <SmallButtom
-              type="submit"
-              disabled={submitButtonDisabled}
-              onClick={handleSignUp}
-            >
-              Sign Up
-            </SmallButtom>
-            {copy[`${module}`]?.signUp.signInRoute && (
-              <CommonLink
-                href={copy[`${module}`]?.signUp.signInRoute}
-                alignself="flex-end"
-              >
-                <P
-                  fontSize="0.75rem"
-                  bold
-                  color={TERTIARY_800}
-                  margin="-1.75rem 0 0"
-                  marginmobile="-0.75rem 0 0"
-                >
-                  Don&apos;t have an account? <u>Sign In</u>
-                </P>
-              </CommonLink>
+            <circle
+              className="checkmark__circle"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              className="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </SuccessCheckSvg>
+        ) : (
+          <FlexForm>
+            {module === ORGANIZATION && (
+              <>
+                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                  <label htmlFor="organization-name">Organization Name</label>
+                  <input
+                    type="text"
+                    placeholder="Organization Name"
+                    id="organization-name"
+                    onChange={handleOrganizationName}
+                    autoComplete="true"
+                    value={organizationName}
+                  />
+                </FlexBox>
+                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                  <label htmlFor="organization-address">
+                    Organization Address
+                  </label>
+                  <textarea
+                    placeholder="Organization Address"
+                    id="organization-address"
+                    onChange={handleOrganizationAddress}
+                    autoComplete="true"
+                    value={organizationAddress}
+                    rows={4}
+                  />
+                </FlexBox>
+              </>
             )}
-          </FlexBox>
-        </FlexForm>
+            <FlexBox direction="column" gap="0.5rem">
+              {module === ORGANIZATION && <H3 bold>Contact Person Details</H3>}
+              <FlexBox gap="0.5rem">
+                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                  <label htmlFor="first-name">First Name</label>
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    id="first-name"
+                    onChange={handleFirstName}
+                    autoComplete="true"
+                    ref={firstNameRef}
+                    value={firstName}
+                  />
+                </FlexBox>
+                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                  <label htmlFor="last-name">Last Name</label>
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    id="last-name"
+                    onChange={handleLastName}
+                    autoComplete="true"
+                    value={lastName}
+                  />
+                </FlexBox>
+              </FlexBox>
+            </FlexBox>
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="Email"
+                id="email"
+                onChange={handleEmail}
+                autoComplete="true"
+                value={email}
+              />
+              {emailError && (
+                <P style={{ color: TERTIARY_800 }}>
+                  Please enter a valid email address
+                </P>
+              )}
+              {customEmailError && (
+                <P style={{ color: TERTIARY_800 }}>{customEmailError}</P>
+              )}
+            </FlexBox>
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="phone">Phone</label>
+              <PhoneInput
+                placeholder="Enter phone number"
+                value={phone}
+                onChange={setPhone}
+              />
+              {phoneError && (
+                <P style={{ color: TERTIARY_800 }}>
+                  Please enter a valid phone number
+                </P>
+              )}
+            </FlexBox>
+            {module === ATTENDANT && (
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="parkingLotID">Parking Lot ID</label>
+                <input
+                  type="text"
+                  placeholder="Parking Lot ID"
+                  id="parkingLotID"
+                  onChange={handleParkingLotID}
+                  autoComplete="true"
+                  value={parkingLotID}
+                />
+              </FlexBox>
+            )}
+            {module === ADMIN && (
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="organizationName">Organization Name</label>
+                <CustomSelectBox options={organizationOptions} />
+              </FlexBox>
+            )}
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                id="password"
+                onChange={handlePassword}
+                autoComplete="true"
+                value={password}
+              />
+              {passwordError && (
+                <P style={{ color: TERTIARY_800 }}>{passwordError}</P>
+              )}
+            </FlexBox>
+            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+              <label htmlFor="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                id="confirm-password"
+                onChange={handleConfirmPassword}
+                autoComplete="true"
+                value={confirmPassword}
+              />
+              {confirmPasswordError && (
+                <P style={{ color: TERTIARY_800 }}>
+                  Passwords do not match. Please try again.
+                </P>
+              )}
+            </FlexBox>
+            <FlexBox
+              justify="space-between"
+              gap="0.5rem"
+              gapmobile="2rem"
+              margin="0.625rem 0 0"
+              direction="column-reverse"
+              marginmobile="0"
+            >
+              <SmallButtom
+                type="submit"
+                disabled={submitButtonDisabled}
+                onClick={handleSignUp}
+              >
+                Sign Up
+              </SmallButtom>
+              {copy[`${module}`]?.signUp.signInRoute && (
+                <CommonLink
+                  href={copy[`${module}`]?.signUp.signInRoute}
+                  alignself="flex-end"
+                >
+                  <P
+                    fontSize="0.75rem"
+                    bold
+                    color={TERTIARY_800}
+                    margin="-1.75rem 0 0"
+                    marginmobile="-0.75rem 0 0"
+                  >
+                    Don&apos;t have an account? <u>Sign In</u>
+                  </P>
+                </CommonLink>
+              )}
+            </FlexBox>
+          </FlexForm>
+        )}
       </FlexBox>
     </SignUpFormWrapper>
   );
