@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PRIMARY_900, PRIMARY_800, WHITE } from "@constants/colors";
 
-export const SmallButtom = styled.button`
+export const SmallButton = styled.button`
   background-color: ${(props) => props.backgroundcolor || PRIMARY_800};
   color: ${(props) => props.color || WHITE};
   border: ${(props) => props.border || "none"};
@@ -20,7 +20,7 @@ export const SmallButtom = styled.button`
     background-color: ${(props) =>
       props.hoverbackgroundcolor || props.backgroundcolor || PRIMARY_900};
     color: ${(props) => props.hovercolor || props.color || WHITE};
-    border: $(props) => props.hoverborder || props.border || "none";
+    border: ${(props) => props.hoverborder || props.border || "none"};
     border-radius: ${(props) =>
       props.hoverborderadius || props.borderadius || "6.25rem"};
     padding: ${(props) => props.hoverpadding || props.padding || "0 3rem"};
@@ -39,9 +39,25 @@ export const SmallButtom = styled.button`
   &:disabled {
     filter: grayscale(1);
   }
+
+  @media (max-width: 768px) {
+    padding: ${(props) => props.mobilepadding || props.padding || "0 3rem"};
+    height: ${(props) => props.mobileheight || props.height || "3rem"};
+    font-size: ${(props) => props.mobilefontsize || props.fontsize || "1rem"};
+    font-weight: ${(props) =>
+      props.mobilefontweight || props.fontweight || "600"};
+
+    &:hover {
+      padding: ${(props) =>
+        props.hovermobilepadding ||
+        props.mobilepadding ||
+        props.padding ||
+        "0 3rem"};
+    }
+  }
 `;
 
-export const LargeButton = styled(SmallButtom)`
+export const LargeButton = styled(SmallButton)`
   padding: ${(props) => props.padding || "0 4rem"};
   height: ${(props) => props.height || "4rem"};
   font-size: ${(props) => props.fontsize || "1.5rem"};
