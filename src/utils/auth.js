@@ -8,7 +8,7 @@ export const isAuthenticated = (ctx) => {
   return !!token;
 };
 
-export const signIn = async (ctx, token) => {
+export const signIn = async (token, ctx) => {
   // Set token to local storage
   await localforage.setItem("token", token);
 
@@ -37,5 +37,7 @@ export const signOut = (ctx) => {
 
     // Change the state of the app to authenticated
     isAuthenticated(ctx);
+
+    return;
   }
 };
