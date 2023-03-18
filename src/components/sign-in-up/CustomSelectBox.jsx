@@ -91,14 +91,15 @@ const CustomSelect = styled(Select)`
   }
 `;
 
-const CustomSelectBox = ({ options }) => {
+const CustomSelectBox = ({ options, onChange }) => {
   return (
     <CustomSelect
       classNamePrefix="select"
-      isClearable={true}
+      isClearable={false}
       isSearchable={true}
       options={options}
       placeholder="Select your organization"
+      onChange={onChange}
     />
   );
 };

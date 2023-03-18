@@ -219,6 +219,7 @@ const SignUpForm = ({ module }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [organizationAddress, setOrganizationAddress] = useState("");
+  const [organizationOptions, setOrganizationOptions] = useState([]);
   const [customEmailError, setCustomEmailError] = useState(null);
   const [organizationName, setOrganizationName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -236,6 +237,22 @@ const SignUpForm = ({ module }) => {
   const firstNameRef = useRef(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+    axiosInstance
+      .get("/organization/names")
+      .then((res) => {
+        const organizationNames = res.data.organizationNames.map((org) => ({
+          value: org.organizationName,
+          label: org.organizationName,
+        }));
+        console.log(organizationNames);
+        setOrganizationOptions(organizationNames);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(organizationOptions);
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError) {
@@ -265,29 +282,6 @@ const SignUpForm = ({ module }) => {
       return () => clearTimeout(routeToSignIn);
     }
   }, [module, router, signUpSuccess]);
-
-  const organizationOptions = [
-    {
-      value: "Organization 1",
-      label: "Organization 1",
-    },
-    {
-      value: "Organization 2",
-      label: "Organization 2",
-    },
-    {
-      value: "Organization 3",
-      label: "Organization 3",
-    },
-    {
-      value: "Organization 4",
-      label: "Organization 4",
-    },
-    {
-      value: "Organization 5",
-      label: "Organization 5",
-    },
-  ];
 
   const handleOrganizationAddress = (e) => {
     setOrganizationAddress(e.target.value);
@@ -376,6 +370,10 @@ const SignUpForm = ({ module }) => {
 
   const handleParkingLotID = (e) => {
     setParkingLotID(e.target.value);
+  };
+
+  const handleReactSelectOrganizationName = (selectedOption) => {
+    setOrganizationName(selectedOption?.value);
   };
 
   const handleOrganizationName = (e) => {
@@ -563,8 +561,11 @@ const SignUpForm = ({ module }) => {
             )}
             {module === ADMIN && (
               <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label htmlFor="organizationName">Organization Name</label>
-                <CustomSelectBox options={organizationOptions} />
+                <label>Organization Name</label>
+                <CustomSelectBox
+                  options={organizationOptions}
+                  onChange={handleReactSelectOrganizationName}
+                />
               </FlexBox>
             )}
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
