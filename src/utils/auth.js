@@ -5,7 +5,11 @@ import localforage from "localforage";
 export const isAuthenticated = (ctx) => {
   const { token } = parseCookies(ctx);
 
-  return !!token;
+  if (token) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const signIn = async (token, ctx) => {
@@ -20,6 +24,8 @@ export const signIn = async (token, ctx) => {
 
   // Change the state of the app to authenticated
   isAuthenticated(ctx);
+
+  return;
 };
 
 export const signOut = (ctx) => {
