@@ -6,13 +6,9 @@ import { ACCENT_900, WHITE } from "@constants/colors";
 import FlexBox from "@components/common/FlexBox";
 import { H1 } from "@components/common/Headings";
 import { signOut } from "@utils/auth";
-import { useEffect } from "react";
 
-const SignOut = (ctx) => {
-  useEffect(() => {
-    signOut(ctx);
-  }, [ctx]);
-
+const SignOut = () => {
+  signOut();
   return (
     <>
       <CommonHead title="Park Here: Signed Out Successfully" />
