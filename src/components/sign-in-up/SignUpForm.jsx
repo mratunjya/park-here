@@ -9,9 +9,9 @@ import { H1, H3, P } from "@common/Headings";
 import { SmallButtom } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import "react-phone-number-input/style.css";
+import axiosInstance from "@axiosInstance";
 import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
-import axios from "axios";
 
 const SignUpFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -65,6 +65,10 @@ const FlexForm = styled.form`
   /* Firefox */
   input[type="number"] {
     -moz-appearance: textfield;
+  }
+
+  input[type="email"] {
+    text-transform: lowercase;
   }
 
   input:focus,
@@ -152,20 +156,20 @@ const FlexForm = styled.form`
 `;
 
 const SignUpForm = ({ module }) => {
-  const [organizationAddress, setOrganizationAddress] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState(false);
-  const [parkingLotID, setParkingLotID] = useState("");
-  const [organizationName, setOrganizationName] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [organizationAddress, setOrganizationAddress] = useState("");
+  const [organizationName, setOrganizationName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("HGf3Uh2p2WKCfmM@");
+  const [passwordError, setPasswordError] = useState(false);
+  const [parkingLotID, setParkingLotID] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [firstName, setFirstName] = useState("Mratunjya");
+  const [lastName, setLastName] = useState("Shankhdhar");
+  const [password, setPassword] = useState("HGf3Uh2p2WKCfmM@");
+  const [email, setEmail] = useState("mratunjya@theinnehour.com");
+  const [phone, setPhone] = useState("+919997168704");
 
   const firstNameRef = useRef(null);
 
@@ -315,20 +319,24 @@ const SignUpForm = ({ module }) => {
     if (submitButtonDisabled) return;
 
     const date = new Date();
-    const timestamp = date.getTime();
+    const timeStamp = date.getTime();
 
     const dataPayload = {
       firstName: firstName,
       lastName: lastName,
       email: email,
       phone: phone,
-      parkingLotID: parkingLotID,
       password: password,
-      timestamp: timestamp,
+      parkingLotID: parkingLotID,
+      organizationName: organizationName,
+      organizationAddress: organizationAddress,
+      timeStamp: timeStamp,
     };
 
-    axios
-      .post("http://localhost:4000/api/sign-up", dataPayload)
+    console.log(dataPayload);
+
+    axiosInstance
+      .post("/signup", dataPayload)
       .then((res) => {
         console.log(res);
       })
@@ -360,7 +368,7 @@ const SignUpForm = ({ module }) => {
         height="auto"
       >
         <H1 bold>{copy[`${module}`]?.signUp.title}</H1>
-        <FlexForm onSubmit={handleSignUp}>
+        <FlexForm>
           {module === ORGANIZATION && (
             <>
               <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
@@ -503,7 +511,11 @@ const SignUpForm = ({ module }) => {
             direction="column-reverse"
             marginmobile="0"
           >
-            <SmallButtom type="submit" disabled={submitButtonDisabled}>
+            <SmallButtom
+              type="submit"
+              disabled={submitButtonDisabled}
+              onClick={handleSignUp}
+            >
               Sign Up
             </SmallButtom>
             {copy[`${module}`]?.signUp.signInRoute && (

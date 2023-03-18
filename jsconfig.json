@@ -9,7 +9,9 @@
       "@constants/*": ["./src/constants/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@layout/*": ["./src/layout/*"],
-      "@meta/*": ["./src/meta/*"]
+      "@meta/*": ["./src/meta/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

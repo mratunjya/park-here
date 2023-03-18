@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import { useRef, useEffect, useState } from "react";
 import { AllModules } from "@constants/moduleNames";
 import { FiChevronDown } from "react-icons/fi";
+import { isAuthenticated, isAuthenticating } from "@utils/auth";
 import CommonLink from "@common/CommonLink";
 import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
@@ -260,14 +261,15 @@ const CommonNavBar = () => {
 
   const RenderSubNavButtons = ({ name, href }) => (
     <FlexBox
-      align="center"
-      justify="center"
+      onClick={() => router.push(href)}
+      texttransform="uppercase"
+      justify="flex-start"
       fontweight="bold"
       fontsize="0.8rem"
-      texttransform="uppercase"
       padding="0.5rem"
       cursor="pointer"
-      onClick={() => router.push(href)}
+      align="center"
+      width="100%"
     >
       <H5 bold color={ACCENT_700} whitespace="nowrap" hovercolor={ACCENT_800}>
         {name}
@@ -287,12 +289,17 @@ const CommonNavBar = () => {
               <RenderAllNavLinks />
             </FlexBox>
             <FlexBox>
-              {isSignInRoute !== null && (
-                <RenderNavButtons
-                  name={
-                    navButtonsData?.[!isSignInRoute ? "signIn" : "signUp"]?.name
-                  }
-                />
+              {isAuthenticated() ? (
+                <RenderNavButtons name="My Account" />
+              ) : (
+                isSignInRoute !== null && (
+                  <RenderNavButtons
+                    name={
+                      navButtonsData?.[!isSignInRoute ? "signIn" : "signUp"]
+                        ?.name
+                    }
+                  />
+                )
               )}
               <LogInTooltip
                 gap="1rem"
@@ -302,13 +309,25 @@ const CommonNavBar = () => {
                 direction="column"
                 display={isNavButtonClicked ? "flex" : "none"}
               >
-                {AllModules.map((module, index) => (
-                  <RenderSubNavButtons
-                    href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
-                    key={index + 1000}
-                    name={module}
-                  />
-                ))}
+                {isAuthenticated()
+                  ? navButtonsData.myAccount.subNav.map(
+                      (accountOption, index) => (
+                        <RenderSubNavButtons
+                          href={accountOption.href}
+                          key={index + 1000}
+                          name={accountOption.name}
+                        />
+                      )
+                    )
+                  : AllModules.map((module, index) => (
+                      <RenderSubNavButtons
+                        href={`/${
+                          isSignInRoute ? "sign-up" : "sign-in"
+                        }/${module}`}
+                        key={index + 1000}
+                        name={module}
+                      />
+                    ))}
               </LogInTooltip>
             </FlexBox>
           </AllNavLinks>
@@ -327,9 +346,9 @@ const CommonNavBar = () => {
       </NavBarWrapper>
       {isNavOpen && (
         <FallBackNavBar
+          height={`calc(100vh - ${navBarHeight}px)`}
           onClick={closeNavBar}
           width="100%"
-          height={`calc(100vh - ${navBarHeight}px)`}
           position="fixed"
           backgroundcolor={WHITE}
           direction="column"
@@ -338,8 +357,8 @@ const CommonNavBar = () => {
         />
       )}
       <OnlyMobileNavBar
-        width="70%"
         height={`calc(100vh - ${navBarHeight}px)`}
+        width="70%"
         position="fixed"
         backgroundcolor={WHITE}
         direction="column"
@@ -357,7 +376,12 @@ const CommonNavBar = () => {
             <RenderAllNavLinks />
           </FlexBox>
           <FlexBox position="relative">
-            {isSignInRoute ? (
+            {isAuthenticated() ? (
+              <RenderNavButtons
+                name={navButtonsData.myAccount.name}
+                href={navButtonsData.myAccount.href}
+              />
+            ) : isSignInRoute ? (
               <RenderNavButtons
                 name={navButtonsData.signUp.name}
                 href={navButtonsData.signUp.href}
@@ -376,13 +400,25 @@ const CommonNavBar = () => {
               direction="column"
               display={isNavButtonClicked ? "flex" : "none"}
             >
-              {AllModules.map((module, index) => (
-                <RenderSubNavButtons
-                  href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
-                  key={index + 1000}
-                  name={module}
-                />
-              ))}
+              {isAuthenticated()
+                ? navButtonsData.myAccount.subNav.map(
+                    (accountOption, index) => (
+                      <RenderSubNavButtons
+                        href={accountOption.href}
+                        key={index + 1000}
+                        name={accountOption.name}
+                      />
+                    )
+                  )
+                : AllModules.map((module, index) => (
+                    <RenderSubNavButtons
+                      href={`/${
+                        isSignInRoute ? "sign-up" : "sign-in"
+                      }/${module}`}
+                      key={index + 1000}
+                      name={module}
+                    />
+                  ))}
             </LogInTooltip>
           </FlexBox>
         </AllNavLinksMobile>

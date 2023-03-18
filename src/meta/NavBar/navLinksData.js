@@ -26,4 +26,21 @@ export const navButtonsData = {
     name: "Sign Up",
     href: "/sign-up/user",
   },
+  myAccount: {
+    name: "My Account",
+    subNav: [
+      {
+        name: "My Profile",
+        href: "/my-account/profile",
+      },
+      {
+        name: "My Orders",
+        href: "/my-account/orders",
+      },
+      {
+        name: "Sign Out",
+        href: "/sign-out",
+      },
+    ],
+  },
 };

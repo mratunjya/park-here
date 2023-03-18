@@ -1,13 +1,16 @@
 import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
 import { useEffect, useRef, useState } from "react";
 import { useDesktop } from "@hooks/CustomHooks";
+import { isAuthenticated, signIn } from "@utils/auth";
 import { SmallButtom } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import CommonLink from "@common/CommonLink";
+import axiosInstance from "@axiosInstance";
 import { H1, P } from "@common/Headings";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
-import axios from "axios";
+import localforage from "localforage";
 
 const SignInFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -44,6 +47,10 @@ const FlexForm = styled.form`
     }
   }
 
+  input[type="email"] {
+    text-transform: lowercase;
+  }
+
   & input:focus {
     border: 0.0625rem solid ${BLACK};
   }
@@ -58,9 +65,10 @@ const FlexForm = styled.form`
 `;
 
 const SignInForm = ({ module }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const router = useRouter();
 
   const emailRef = useRef(null);
 
@@ -90,14 +98,19 @@ const SignInForm = ({ module }) => {
     if (submitButtonDisabled) return;
 
     const dataPayload = {
-      email: email,
+      email: email.toLowerCase(),
       password: password,
     };
 
-    axios
-      .post("http://localhost:4000/", dataPayload)
+    axiosInstance
+      .post("/signin", dataPayload)
       .then((res) => {
-        console.log(res);
+        const token = res.data.token;
+
+        signIn(token);
+
+        // Redirect to about
+        router.push("/about");
       })
       .catch((err) => {
         console.log(err);
@@ -127,7 +140,7 @@ const SignInForm = ({ module }) => {
         height="auto"
       >
         <H1 bold>{copy[`${module}`]?.signIn.title}</H1>
-        <FlexForm onSubmit={handleSignIn}>
+        <FlexForm>
           <FlexBox direction="column" gap="0.5rem">
             <label htmlFor="email">Email</label>
             <input
@@ -159,7 +172,11 @@ const SignInForm = ({ module }) => {
             direction="column-reverse"
             marginmobile="0"
           >
-            <SmallButtom type="submit" disabled={submitButtonDisabled}>
+            <SmallButtom
+              type="submit"
+              disabled={submitButtonDisabled}
+              onClick={handleSignIn}
+            >
               Sign In
             </SmallButtom>
             {copy[`${module}`]?.signIn.signUpRoute && (
