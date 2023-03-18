@@ -6,7 +6,7 @@ import PhoneInput from "react-phone-number-input";
 import CustomSelectBox from "./CustomSelectBox";
 import CommonLink from "../common/CommonLink";
 import { H1, H3, P } from "@common/Headings";
-import { SmallButtom } from "@common/Button";
+import { SmallButton } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import "react-phone-number-input/style.css";
 import axiosInstance from "@axiosInstance";
@@ -605,13 +605,13 @@ const SignUpForm = ({ module }) => {
               direction="column-reverse"
               marginmobile="0"
             >
-              <SmallButtom
+              <SmallButton
                 type="submit"
                 disabled={submitButtonDisabled}
                 onClick={handleSignUp}
               >
                 Sign Up
-              </SmallButtom>
+              </SmallButton>
               {copy[`${module}`]?.signUp.signInRoute && (
                 <CommonLink
                   href={copy[`${module}`]?.signUp.signInRoute}
