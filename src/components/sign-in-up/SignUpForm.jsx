@@ -10,6 +10,7 @@ import { SmallButtom } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
 import "react-phone-number-input/style.css";
 import axiosInstance from "@axiosInstance";
+import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
 import {
   ACCENT_900,
@@ -222,7 +223,7 @@ const SignUpForm = ({ module }) => {
   const [organizationName, setOrganizationName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [signUpSuccess, setSignUpSuccess] = useState(true);
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
   const [parkingLotID, setParkingLotID] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
@@ -233,6 +234,8 @@ const SignUpForm = ({ module }) => {
   const [phone, setPhone] = useState("");
 
   const firstNameRef = useRef(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError) {
@@ -252,6 +255,16 @@ const SignUpForm = ({ module }) => {
     password,
     confirmPassword,
   ]);
+
+  useEffect(() => {
+    if (signUpSuccess) {
+      const routeToSignIn = setTimeout(
+        () => router.push(`/sign-in/${module}`),
+        1750
+      );
+      return () => clearTimeout(routeToSignIn);
+    }
+  }, [module, router, signUpSuccess]);
 
   const organizationOptions = [
     {
