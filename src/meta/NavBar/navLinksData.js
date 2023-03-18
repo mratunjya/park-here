@@ -37,10 +37,6 @@ export const navButtonsData = {
         name: "My Orders",
         href: "/my-account/orders",
       },
-      {
-        name: "Sign Out",
-        href: "/sign-out",
-      },
     ],
   },
 };
