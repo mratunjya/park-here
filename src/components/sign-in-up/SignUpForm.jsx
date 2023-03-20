@@ -2,13 +2,11 @@ import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
 import { USER_ADD_SUCCESS } from "@constants/api-messages";
 import { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import PhoneInput from "react-phone-number-input";
 import CustomSelectBox from "./CustomSelectBox";
 import CommonLink from "../common/CommonLink";
 import { H1, H3, P } from "@common/Headings";
 import { SmallButton } from "@common/Button";
 import { copy } from "@meta/sign-in-up/copy";
-import "react-phone-number-input/style.css";
 import axiosInstance from "@axiosInstance";
 import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
@@ -91,71 +89,6 @@ const FlexForm = styled.form`
   input::placeholder,
   textarea::placeholder {
     color: ${WHITE_200};
-  }
-
-  .PhoneInput {
-    width: 100%;
-    gap: 0.5rem;
-
-    .PhoneInputCountry {
-      border: 0.0625rem solid ${WHITE_200};
-      border-radius: 0.5rem;
-      outline: none;
-      font-size: 1.125rem;
-      font-weight: 600;
-      padding: 0.5rem;
-      cursor: pointer;
-
-      .PhoneInputCountrySelect {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .PhoneInputCountrySelect
-        + .PhoneInputCountryIcon
-        > .PhoneInputCountryIconImg {
-        opacity: 1;
-      }
-
-      .PhoneInputCountrySelect:focus
-        + .PhoneInputCountryIcon
-        > .PhoneInputCountryIconImg
-        > .PhoneInputInternationalIconGlobe {
-        color: ${BLACK};
-        stroke-width: 2.5;
-      }
-
-      .PhoneInputCountrySelect:focus
-        + .PhoneInputCountryIcon
-        + .PhoneInputCountrySelectArrow {
-        color: ${BLACK};
-        border-width: 0.125rem 0 0 0.125rem;
-      }
-
-      .PhoneInputCountryIcon--border {
-        box-shadow: none;
-        border: none;
-        background: none;
-      }
-
-      @media (max-width: 768px) {
-        font-size: 1rem;
-        padding: 0.3rem;
-      }
-    }
-
-    * {
-      transition: none !important;
-    }
-  }
-
-  .PhoneInput:focus,
-  .PhoneInput:active,
-  .PhoneInput:hover {
-    .PhoneInputCountry {
-      border: 0.0625rem solid ${BLACK};
-    }
   }
 
   @media (max-width: 768px) {
@@ -253,6 +186,7 @@ const SignUpForm = ({ module }) => {
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError) {
+    if (emailError || passwordError || confirmPasswordError || phoneError) {
       setSubmitButtonDisabled(true);
     } else if (firstName && lastName && email && password && confirmPassword) {
       setSubmitButtonDisabled(false);
@@ -268,6 +202,7 @@ const SignUpForm = ({ module }) => {
     email,
     password,
     confirmPassword,
+    phoneError,
   ]);
 
   useEffect(() => {
@@ -307,19 +242,21 @@ const SignUpForm = ({ module }) => {
   };
 
   const VerifyPhone = (phone) => {
-    // Verify Phone for country code and 10 digits
-    const phoneRegex = /^\+[1-9]{1}[0-9]{3,14}$/;
+    // Verify Phone for at least 10 digits
+    const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(String(phone));
   };
 
-  useEffect(() => {
-    const handlePhone = () => {
-      setPhoneError(
-        phone === "" || phone === undefined ? false : !VerifyPhone(phone)
-      );
-    };
-    handlePhone();
-  }, [phone]);
+  const handlePhone = (e) => {
+    let phoneNumber = e.target.value.replace(/\D/g, "");
+    setPhoneError(phoneNumber === "" ? false : !VerifyPhone(phoneNumber));
+    phoneNumber = phoneNumber.split("");
+    phoneNumber.length > 0 && phoneNumber.splice(0, 0, "(");
+    phoneNumber.length > 4 && phoneNumber.splice(4, 0, ") ");
+    phoneNumber.length > 9 && phoneNumber.splice(9, 0, "-");
+    phoneNumber = phoneNumber.join("");
+    setPhone(phoneNumber);
+  };
 
   const verifyPassword = (password) => {
     // Verify Password for at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character and no spaces allowed in password and return a appropriate message
@@ -532,11 +469,25 @@ const SignUpForm = ({ module }) => {
             </FlexBox>
             <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
               <label htmlFor="phone">Phone</label>
-              <PhoneInput
-                placeholder="Enter phone number"
-                value={phone}
-                onChange={setPhone}
-              />
+              <FlexBox align="center" gap="1rem">
+                <FlexBox
+                  padding="0 0 0 1rem"
+                  width="fit-content"
+                  align="center"
+                  justify="center"
+                >
+                  <H3 bold>+91</H3>
+                </FlexBox>
+                <input
+                  type="text"
+                  placeholder="Phone"
+                  id="phone"
+                  onChange={handlePhone}
+                  autoComplete="true"
+                  value={phone}
+                  style={{ width: "100%" }}
+                />
+              </FlexBox>
               {phoneError && (
                 <P style={{ color: TERTIARY_800 }}>
                   Please enter a valid phone number
