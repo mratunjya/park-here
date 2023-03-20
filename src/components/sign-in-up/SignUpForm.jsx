@@ -172,17 +172,18 @@ const SignUpForm = ({ module }) => {
   const router = useRouter();
 
   useEffect(() => {
-    axiosInstance
-      .get("/organization/names")
-      .then((res) => {
-        const organizationNames = res.data.organizationNames.map((org) => ({
-          value: org.organizationName,
-          label: org.organizationName,
-        }));
-        setOrganizationOptions(organizationNames);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    module === ADMIN &&
+      axiosInstance
+        .get("/organization/names")
+        .then((res) => {
+          const organizationNames = res.data.organizationNames.map((org) => ({
+            value: org.organizationName,
+            label: org.organizationName,
+          }));
+          setOrganizationOptions(organizationNames);
+        })
+        .catch((err) => console.log(err));
+  }, [module]);
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError) {
