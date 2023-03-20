@@ -102,7 +102,7 @@ const SignInForm = ({module}) => {
     };
 
     axiosInstance
-      .post("/signin", dataPayload)
+      .post(`/sign-in/${module}`, dataPayload)
       .then((res) => {
         const token = res.data.token;
 

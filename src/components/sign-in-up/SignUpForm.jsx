@@ -398,7 +398,7 @@ const SignUpForm = ({ module }) => {
     };
 
     axiosInstance
-      .post("/signup", dataPayload)
+      .post(`/sign-up/${module}`, dataPayload)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
