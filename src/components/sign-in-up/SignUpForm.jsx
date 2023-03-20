@@ -11,12 +11,12 @@ import axiosInstance from "@axiosInstance";
 import { useRouter } from "next/router";
 import FlexBox from "@common/FlexBox";
 import {
-  ACCENT_900,
-  BLACK,
-  PRIMARY_800,
   TERTIARY_800,
-  WHITE,
+  PRIMARY_800,
+  ACCENT_900,
   WHITE_200,
+  BLACK,
+  WHITE,
 } from "@constants/colors";
 
 const SignUpFormWrapper = styled(FlexBox)`
@@ -186,7 +186,6 @@ const SignUpForm = ({ module }) => {
   }, [module]);
 
   useEffect(() => {
-    if (emailError || passwordError || confirmPasswordError) {
     if (emailError || passwordError || confirmPasswordError || phoneError) {
       setSubmitButtonDisabled(true);
     } else if (firstName && lastName && email && password && confirmPassword) {
@@ -279,7 +278,7 @@ const SignUpForm = ({ module }) => {
     } else if (password.search(/[!@#$%^&*]/) === -1) {
       return "Password must contain at least one special character";
     } else {
-      return !passwordRegex.test(String(password));
+      return passwordRegex.test(String(password));
     }
   };
 
@@ -320,20 +319,34 @@ const SignUpForm = ({ module }) => {
 
     if (submitButtonDisabled) return;
 
-    const date = new Date();
-    const timeStamp = date.getTime();
-
-    const dataPayload = {
+    let dataPayload = {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      phone: phone,
+      phone: phone.replace(/\D/g, ""),
       password: password,
-      parkingLotID: parkingLotID,
-      organizationName: organizationName,
-      organizationAddress: organizationAddress,
-      timeStamp: timeStamp,
     };
+
+    if (module === ADMIN || module === ORGANIZATION) {
+      dataPayload = {
+        ...dataPayload,
+        organizationName: organizationName,
+      };
+
+      if (module === ORGANIZATION) {
+        dataPayload = {
+          ...dataPayload,
+          organizationAddress: organizationAddress,
+        };
+      }
+    }
+
+    if (module === ATTENDANT) {
+      dataPayload = {
+        ...dataPayload,
+        parkingLotID: parkingLotID,
+      };
+    }
 
     axiosInstance
       .post(`/sign-up/${module}`, dataPayload)
