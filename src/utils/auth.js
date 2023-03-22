@@ -14,7 +14,7 @@ export const isAuthenticated = (ctx) => {
 
 export const signIn = async (token, ctx) => {
   // Set token to local storage
-  await localforage.setItem("token", token);
+  await localforage?.setItem("token", token);
 
   // Set token to axios instance
   axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -33,7 +33,7 @@ export const signOut = (ctx) => {
 
   if (token) {
     // Remove token from local storage
-    localforage.removeItem("token");
+    localforage?.removeItem("token");
 
     // Remove token from axios instance
     delete axiosInstance.defaults.headers.common["Authorization"];

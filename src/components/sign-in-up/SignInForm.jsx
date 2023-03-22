@@ -109,7 +109,7 @@ const SignInForm = ({module}) => {
         signIn(token);
 
         // Redirect to about
-        router.push("/about");
+        router.push("/dashboard");
       })
       .catch((err) => {
         console.log(err);
