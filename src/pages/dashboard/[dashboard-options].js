@@ -41,7 +41,7 @@ const Dashboard = () => {
       );
       allowedRoutes.push(module);
       allowedRoutes.push("profile");
-      allowedRoutes.push(...allMenuOptions);
+      allMenuOptions && allowedRoutes.push(...allMenuOptions);
       setPossibleRoutes([...allowedRoutes]);
     });
   }, [router]);
