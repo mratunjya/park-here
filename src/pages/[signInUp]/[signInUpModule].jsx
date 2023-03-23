@@ -1,10 +1,12 @@
 import { AllModules } from "@constants/moduleNames";
 import SignInUpLayout from "@layout/SignInUpLayout";
+import { isAuthenticated } from "@utils/auth";
 import { copy } from "@meta/sign-in-up/copy";
 import { useEffect, useState } from "react";
 import CommonHead from "@common/CommonHead";
 import { useRouter } from "next/router";
 import PageNotFound from "@common/404";
+import localforage from "localforage";
 
 const SignInModule = () => {
   const [routeNotFound, setRouteNotFound] = useState(null);
@@ -15,11 +17,17 @@ const SignInModule = () => {
 
   useEffect(() => {
     if (router.isReady) {
+      isAuthenticated() &&
+        localforage.getItem("module").then((module) => {
+          console.log("module", module);
+          module && router.push(`/dashboard/${module}`);
+        });
+
       const signInUpQueryParamsAllowed = ["sign-in", "sign-up"];
 
       setPath(router.asPath);
-      setModule(router.query.signInUpModule);
       setSignInUp(router.query.signInUp);
+      setModule(router.query.signInUpModule);
       setRouteNotFound(
         !signInUpQueryParamsAllowed.includes(router.query.signInUp) ||
           !AllModules.includes(router.query.signInUpModule)
