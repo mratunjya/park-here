@@ -39,12 +39,15 @@ export const signOut = (ctx) => {
   if (token) {
     // Remove token from local storage
     localforage?.removeItem("token");
+    localforage?.removeItem("module");
+    localforage?.removeItem("data");
 
     // Remove token from axios instance
     delete axiosInstance.defaults.headers.common["Authorization"];
 
     // Remove token from cookie
     document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    document.cookie = `module=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
     // Change the state of the app to authenticated
     isAuthenticated(ctx);
