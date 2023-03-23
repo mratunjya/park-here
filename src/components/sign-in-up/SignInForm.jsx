@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
 import { signIn } from "@utils/auth";
+import localforage from "localforage";
 
 const SignInFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -105,7 +106,7 @@ const SignInForm = ({module}) => {
       .post(`/sign-in/${module}`, dataPayload)
       .then((res) => {
         const token = res.data.token;
-
+        localforage.setItem("data", res.data.user);
         signIn(token, module);
       })
       .catch((err) => {
