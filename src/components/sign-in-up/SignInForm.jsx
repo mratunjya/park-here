@@ -106,10 +106,7 @@ const SignInForm = ({module}) => {
       .then((res) => {
         const token = res.data.token;
 
-        signIn(token);
-
-        // Redirect to about
-        router.push("/dashboard");
+        signIn(token, module);
       })
       .catch((err) => {
         console.log(err);
