@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import DashBoard from "./DashBoard";
 import Profile from "./Profile";
+import ManageParkingLot from "./ManageParkingLot";
 
 const DashboardOptionRightWrapper = styled(FlexBox)``;
 
@@ -19,6 +20,7 @@ const DashBoardOptionsRight = ({ module, data }) => {
     <DashboardOptionRightWrapper height="100%" align="center" justify="center">
       {route === module && <DashBoard />}
       {route === "profile" && <Profile module={module} data={data} />}
+      {route === "manage-parking-lots" && <ManageParkingLot data={data} />}
     </DashboardOptionRightWrapper>
   );
 };

@@ -64,7 +64,7 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = ({module}) => {
+const SignInForm = ({ module }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
