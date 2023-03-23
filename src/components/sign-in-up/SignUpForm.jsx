@@ -17,6 +17,7 @@ import {
   WHITE_200,
   BLACK,
   WHITE,
+  SECONDARY_800,
 } from "@constants/colors";
 
 const SignUpFormWrapper = styled(FlexBox)`
@@ -188,8 +189,25 @@ const SignUpForm = ({ module }) => {
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError || phoneError) {
       setSubmitButtonDisabled(true);
-    } else if (firstName && lastName && email && password && confirmPassword) {
-      setSubmitButtonDisabled(false);
+    } else if (
+      firstName &&
+      lastName &&
+      email &&
+      phone &&
+      password &&
+      confirmPassword
+    ) {
+      if (module === ADMIN) {
+        organizationName && setSubmitButtonDisabled(false);
+      } else if (module === ATTENDANT) {
+        parkingLotID && setSubmitButtonDisabled(false);
+      } else if (module === ORGANIZATION) {
+        organizationAddress &&
+          organizationName &&
+          setSubmitButtonDisabled(false);
+      } else {
+        setSubmitButtonDisabled(false);
+      }
     } else {
       setSubmitButtonDisabled(true);
     }
@@ -200,9 +218,14 @@ const SignUpForm = ({ module }) => {
     firstName,
     lastName,
     email,
+    phone,
     password,
     confirmPassword,
     phoneError,
+    module,
+    organizationName,
+    parkingLotID,
+    organizationAddress,
   ]);
 
   useEffect(() => {
@@ -583,11 +606,11 @@ const SignUpForm = ({ module }) => {
                   <P
                     fontSize="0.75rem"
                     bold
-                    color={TERTIARY_800}
+                    color={SECONDARY_800}
                     margin="-1.75rem 0 0"
                     marginmobile="-0.75rem 0 0"
                   >
-                    Don&apos;t have an account? <u>Sign In</u>
+                    Already have an account? <u>Sign In</u>
                   </P>
                 </CommonLink>
               )}
