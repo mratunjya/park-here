@@ -1,4 +1,4 @@
-import { ADMIN, ORGANIZATION } from "@constants/moduleNames";
+import { ORGANIZATION } from "@constants/moduleNames";
 import styled, { keyframes } from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { H1, H3, P } from "@common/Headings";
@@ -156,20 +156,6 @@ const Profile = ({ module, data }) => {
   const [phone, setPhone] = useState("");
 
   const firstNameRef = useRef(null);
-
-  useEffect(() => {
-    module === ADMIN &&
-      axiosInstance
-        .get("/organization/names")
-        .then((res) => {
-          const organizationNames = res.data.organizationNames.map((org) => ({
-            value: org.organizationName,
-            label: org.organizationName,
-          }));
-          setOrganizationOptions(organizationNames);
-        })
-        .catch((err) => console.log(err));
-  }, [module]);
 
   useEffect(() => {
     if (data) {
