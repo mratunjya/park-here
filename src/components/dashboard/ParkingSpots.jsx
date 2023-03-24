@@ -150,7 +150,7 @@ const ManageParkingLot = ({ data }) => {
       axiosInstance
         .get("/parking-lots")
         .then((res) => {
-          setAllParkingLots(res.data.parkingLots);
+          setAllParkingLots(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -164,7 +164,7 @@ const ManageParkingLot = ({ data }) => {
     axiosInstance
       .get("/parking-lots")
       .then((res) => {
-        setAllParkingLots(res.data.parkingLots);
+        setAllParkingLots(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -231,7 +231,6 @@ const ManageParkingLot = ({ data }) => {
                 <H4>{parkingLot.address}</H4>
                 <H4>{parkingLot.city}</H4>
                 <H4>{parkingLot.state}</H4>
-                <H4>{parkingLot.booked}</H4>
                 <H4>
                   {parkingLot.booked}/{parkingLot.total_capacity}
                 </H4>
