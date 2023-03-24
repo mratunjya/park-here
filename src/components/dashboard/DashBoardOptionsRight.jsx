@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import DashBoard from "./DashBoard";
 import Profile from "./Profile";
 import ManageParkingLot from "./ManageParkingLot";
+import ParkingSpots from "./ParkingSpots";
 
 const DashboardOptionRightWrapper = styled(FlexBox)``;
 
@@ -21,6 +22,7 @@ const DashBoardOptionsRight = ({ module, data }) => {
       {route === module && <DashBoard />}
       {route === "profile" && <Profile module={module} data={data} />}
       {route === "manage-parking-lots" && <ManageParkingLot data={data} />}
+      {route === "parking-spots" && <ParkingSpots data={data} />}
     </DashboardOptionRightWrapper>
   );
 };
