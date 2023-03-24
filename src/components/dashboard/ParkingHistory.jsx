@@ -1,16 +1,11 @@
+import { WHITE, TERTIARY_800, TERTIARY_900 } from "@constants/colors";
 import { H1, H4 } from "@components/common/Headings";
 import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
 import axiosInstance from "@axiosInstance";
-import { useRouter } from "next/router";
 import styled from "styled-components";
-import {
-  SECONDARY_900,
-  SECONDARY_800,
-  WHITE,
-} from "@constants/colors";
 
-const AllParkingLots = styled(FlexBox)``;
+const BookedParkingLots = styled(FlexBox)``;
 
 const ParkingLotCard = styled(FlexBox)`
   background-color: ${WHITE};
@@ -25,8 +20,8 @@ const ParkingLotCard = styled(FlexBox)`
   }
 `;
 
-const DeleteButton = styled(FlexBox)`
-  background-color: ${SECONDARY_800};
+const CancelButton = styled(FlexBox)`
+  background-color: ${TERTIARY_800};
   color: ${WHITE};
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -41,53 +36,25 @@ const DeleteButton = styled(FlexBox)`
   width: fit-content;
 
   &:hover {
-    background-color: ${SECONDARY_900};
+    background-color: ${TERTIARY_900};
   }
 `;
 
-const ParkingSpots = ({ data }) => {
-  const [allParkingLots, setAllParkingLots] = useState([]);
-  const router = useRouter();
+const ParkingHistory = ({ data }) => {
+  const [allBookedParkingLots, setAllBookedParkingLots] = useState([]);
 
   useEffect(() => {
     axiosInstance
-      .get("/parking-lots")
+      .post("/bookings/history", {
+        email: data.email,
+      })
       .then((res) => {
-        setAllParkingLots(res.data);
+        setAllBookedParkingLots(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
-  const getAvailableParkingLots = () => {
-    axiosInstance
-      .get("/parking-lots")
-      .then((res) => {
-        setAllParkingLots([...res.data]);
-        router.push("/dashboard/parking-history");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleBooking = (parkingLotId) => {
-    const dataPayload = {
-      email: data.email,
-      parkingLotId: parkingLotId,
-      timeStamp: new Date().getTime(),
-    };
-
-    axiosInstance
-      .post("/bookings/create", dataPayload)
-      .then((res) => {
-        getAvailableParkingLots();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  }, [data.email]);
 
   return (
     <FlexBox
@@ -101,16 +68,16 @@ const ParkingSpots = ({ data }) => {
       overflow="auto"
     >
       <FlexBox align="flex-start" justify="space-around">
-        <H1 bold>Available Parking Lots for tomorrow</H1>
+        <H1 bold>Your Parking History</H1>
       </FlexBox>
-      <AllParkingLots
+      <BookedParkingLots
         width="100%"
         align="flex-start"
         justify="center"
         gap="2rem"
         wrap="wrap"
       >
-        {allParkingLots.map((parkingLot, index) => (
+        {allBookedParkingLots.map((parkingLot, index) => (
           <ParkingLotCard direction="column" key={index}>
             <FlexBox gap="1rem" width="100%">
               <FlexBox
@@ -124,8 +91,10 @@ const ParkingSpots = ({ data }) => {
                 <H4 bold>Address</H4>
                 <H4 bold>City</H4>
                 <H4 bold>State</H4>
-                <H4 bold>Booked</H4>
                 <H4 bold>Price (Rs.)</H4>
+                <H4 bold>Booking Id</H4>
+                <H4 bold>Transaction Id</H4>
+                <H4 bold>Date</H4>
               </FlexBox>
               <FlexBox
                 direction="column"
@@ -137,24 +106,21 @@ const ParkingSpots = ({ data }) => {
                 <H4>{parkingLot.address}</H4>
                 <H4>{parkingLot.city}</H4>
                 <H4>{parkingLot.state}</H4>
-                <H4>
-                  {parkingLot.booked}/{parkingLot.total_capacity}
-                </H4>
                 <H4>{parkingLot.price}</H4>
+                <H4>{parkingLot.booking_id}</H4>
+                <H4>{parkingLot.transaction_id}</H4>
+                <H4>
+                  {new Date(parkingLot.timestamp).getDate()}-
+                  {new Date(parkingLot.timestamp).getMonth()}-
+                  {new Date(parkingLot.timestamp).getYear()}
+                </H4>
               </FlexBox>
             </FlexBox>
-            <DeleteButton
-              onClick={() => {
-                handleBooking(parkingLot.id);
-              }}
-            >
-              Book
-            </DeleteButton>
           </ParkingLotCard>
         ))}
-      </AllParkingLots>
+      </BookedParkingLots>
     </FlexBox>
   );
 };
 
-export default ParkingSpots;
+export default ParkingHistory;

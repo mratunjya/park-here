@@ -1,11 +1,12 @@
+import ManageParkingLot from "./ManageParkingLot";
 import FlexBox from "@components/common/FlexBox";
+import ParkingHistory from "./ParkingHistory";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import ParkingSpots from "./ParkingSpots";
 import { useRouter } from "next/router";
+import styled from "styled-components";
 import DashBoard from "./DashBoard";
 import Profile from "./Profile";
-import ManageParkingLot from "./ManageParkingLot";
-import ParkingSpots from "./ParkingSpots";
 
 const DashboardOptionRightWrapper = styled(FlexBox)``;
 
@@ -23,6 +24,7 @@ const DashBoardOptionsRight = ({ module, data }) => {
       {route === "profile" && <Profile module={module} data={data} />}
       {route === "manage-parking-lots" && <ManageParkingLot data={data} />}
       {route === "parking-spots" && <ParkingSpots data={data} />}
+      {route === "parking-history" && <ParkingHistory data={data} />}
     </DashboardOptionRightWrapper>
   );
 };
