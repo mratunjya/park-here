@@ -2,7 +2,7 @@ import { H1, H3, H4 } from "@components/common/Headings";
 import { SmallButton } from "@components/common/Button";
 import styled, { keyframes } from "styled-components";
 import FlexBox from "@components/common/FlexBox";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosInstance from "@axiosInstance";
 import {
   ACCENT_900,
@@ -31,7 +31,7 @@ const AddParkingLotModal = styled(FlexBox)`
 
   &:before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -149,6 +149,8 @@ const ManageParkingLot = ({ data }) => {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
 
+  const ManageParkingLotRef = useRef();
+
   useEffect(() => {
     const getAllParkingLots = () => {
       axiosInstance
@@ -168,10 +170,12 @@ const ManageParkingLot = ({ data }) => {
 
   const openModal = () => {
     setShowAddModal(true);
+    ManageParkingLotRef.current.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setShowAddModal(false);
+    ManageParkingLotRef.current.style.overflow = "auto";
   };
 
   const handleNameChange = (e) => {
@@ -250,6 +254,7 @@ const ManageParkingLot = ({ data }) => {
       position="relative"
       direction="column"
       overflow="auto"
+      ref={ManageParkingLotRef}
     >
       <FlexBox align="flex-start" justify="space-around">
         <H1 bold>Manage Parking Lot</H1>
