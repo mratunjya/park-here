@@ -182,6 +182,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4 bold>State</H4>
                 <H4 bold>Capacity</H4>
                 <H4 bold>Id</H4>
+                <H4 bold>Price</H4>
               </FlexBox>
               <FlexBox
                 direction="column"
@@ -195,6 +196,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4>{parkingLot.state}</H4>
                 <H4>{parkingLot.total_capacity}</H4>
                 <H4>{parkingLot.id}</H4>
+                <H4>{parkingLot.price}</H4>
               </FlexBox>
             </FlexBox>
             <FlexBox alignself="flex-end" width="fit-content" gap="1rem">

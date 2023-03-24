@@ -1,15 +1,15 @@
 import { H3, H4 } from "@components/common/Headings";
 import styled, { keyframes } from "styled-components";
 import FlexBox from "@components/common/FlexBox";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axiosInstance from "@axiosInstance";
 import {
-  ACCENT_900,
-  BLACK,
   SECONDARY_800,
   SECONDARY_900,
-  WHITE,
+  ACCENT_900,
   WHITE_200,
+  BLACK,
+  WHITE,
 } from "@constants/colors";
 
 const GrowAniamtion = keyframes`
@@ -54,6 +54,12 @@ const EditParkingLotModalWrapper = styled(FlexBox)`
     & label {
         font-size: 1rem;
         cursor: pointer;
+    }
+
+    & label {
+        ${H4} {
+            white-space: nowrap;
+        }
     }
 
     & label,
@@ -125,6 +131,7 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
   const [capacity, setCapacity] = useState(editData?.total_capacity);
   const [address, setAddress] = useState(editData?.address);
   const [state, setState] = useState(editData?.state);
+  const [price, setPrice] = useState(editData?.price);
   const [name, setName] = useState(editData?.name);
   const [city, setCity] = useState(editData?.city);
 
@@ -148,6 +155,10 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
     setCapacity(e.target.value);
   };
 
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataPayload = {
@@ -157,6 +168,7 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
       city: city,
       state: state,
       capacity: capacity,
+      price: price,
     };
 
     console.log(dataPayload);
@@ -210,6 +222,9 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
             <label htmlFor="capacity">
               <H4 bold>Capacity</H4>
             </label>
+            <label htmlFor="price">
+              <H4 bold>Price (Rs.)</H4>
+            </label>
           </FlexBox>
           <FlexBox
             direction="column"
@@ -251,6 +266,13 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
               id="capacity"
               onChange={handleCapacityChange}
               value={capacity}
+            />
+            <input
+              type="number"
+              name="price"
+              id="price"
+              onChange={handlePriceChange}
+              value={price}
             />
           </FlexBox>
         </FlexBox>

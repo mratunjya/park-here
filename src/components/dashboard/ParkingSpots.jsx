@@ -16,101 +16,6 @@ import {
   WHITE_200,
 } from "@constants/colors";
 
-const GrowAniamtion = keyframes`
-    0% {
-        transform: scale(0.25);
-    }
-    100% {
-        transform: scale(1);
-    }
-`;
-
-const AddParkingLotModal = styled(FlexBox)`
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-
-  form {
-    display: flex;
-    background-color: ${WHITE};
-    z-index: 2;
-    width: 100%;
-    max-width: 500px;
-    flex-direction: column;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    gap: 2rem;
-    animation: ${GrowAniamtion} 0.3s ease-out;
-
-    & label {
-        font-size: 1rem;
-        cursor: pointer;
-    }
-
-    & label,
-    & input {
-        width: 100%;
-        color: ${ACCENT_900};
-    }
-
-    & input {
-        padding: 0.5rem 1rem;
-        border: 0.0625rem solid ${WHITE_200};
-        border-radius: 0.5rem;
-        outline: none;
-        font-size: 1.2rem;
-        font-weight: 600;
-
-        @media (max-width: 768px) {
-        font-size: 1rem;
-        padding: 0.3rem 0.5rem;
-        }
-    }
-
-    & input:focus {
-        border: 0.0625rem solid ${BLACK};
-    }
-
-    & input::placeholder {
-        color: ${WHITE_200};
-    }
-
-    & input[type="submit"] {
-        background-color: ${PRIMARY_800};
-        color: ${WHITE};
-        font-size: 1.2rem;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: fit-content;
-        align-self: flex-end;
-        text-transform: uppercase;
-
-        &:hover {
-        background-color: ${PRIMARY_900};
-
-        @media (max-width: 768px) {
-            font-size: 1rem;
-        }
-    }
-  }
-`;
-
 const AllParkingLots = styled(FlexBox)``;
 
 const ParkingLotCard = styled(FlexBox)`
@@ -120,6 +25,10 @@ const ParkingLotCard = styled(FlexBox)`
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
   gap: 1rem;
   width: 400px;
+
+  ${H4} {
+    white-space: nowrap;
+  }
 `;
 
 const DeleteButton = styled(FlexBox)`
@@ -142,7 +51,7 @@ const DeleteButton = styled(FlexBox)`
   }
 `;
 
-const ManageParkingLot = ({ data }) => {
+const ParkingSpots = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
 
   useEffect(() => {
@@ -220,6 +129,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4 bold>City</H4>
                 <H4 bold>State</H4>
                 <H4 bold>Booked</H4>
+                <H4 bold>Price (Rs.)</H4>
               </FlexBox>
               <FlexBox
                 direction="column"
@@ -234,6 +144,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4>
                   {parkingLot.booked}/{parkingLot.total_capacity}
                 </H4>
+                <H4>{parkingLot.price}</H4>
               </FlexBox>
             </FlexBox>
             <DeleteButton
@@ -250,4 +161,4 @@ const ManageParkingLot = ({ data }) => {
   );
 };
 
-export default ManageParkingLot;
+export default ParkingSpots;

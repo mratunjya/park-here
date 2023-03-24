@@ -4,12 +4,12 @@ import FlexBox from "@components/common/FlexBox";
 import { useState } from "react";
 import axiosInstance from "@axiosInstance";
 import {
-  ACCENT_900,
-  BLACK,
   PRIMARY_800,
   PRIMARY_900,
-  WHITE,
+  ACCENT_900,
   WHITE_200,
+  BLACK,
+  WHITE,
 } from "@constants/colors";
 
 const GrowAniamtion = keyframes`
@@ -54,6 +54,12 @@ const AddParkingLotModalWrapper = styled(FlexBox)`
     & label {
         font-size: 1rem;
         cursor: pointer;
+    }
+
+    & label {
+        ${H4} {
+            white-space: nowrap;
+        }
     }
 
     & label,
@@ -125,6 +131,7 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
   const [capacity, setCapacity] = useState("");
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
+  const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
 
@@ -148,6 +155,10 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
     setCapacity(e.target.value);
   };
 
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataPayload = {
@@ -157,6 +168,7 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
       city: city,
       state: state,
       capacity: capacity,
+      price: price,
     };
 
     console.log(dataPayload);
@@ -210,6 +222,9 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
             <label htmlFor="capacity">
               <H4 bold>Capacity</H4>
             </label>
+            <label htmlFor="price">
+              <H4 bold>Price (Rs.)</H4>
+            </label>
           </FlexBox>
           <FlexBox
             direction="column"
@@ -251,6 +266,13 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
               id="capacity"
               onChange={handleCapacityChange}
               value={capacity}
+            />
+            <input
+              type="number"
+              name="price"
+              id="price"
+              onChange={handlePriceChange}
+              value={price}
             />
           </FlexBox>
         </FlexBox>
