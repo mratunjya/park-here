@@ -3,17 +3,12 @@ import styled, { keyframes } from "styled-components";
 import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
 import axiosInstance from "@axiosInstance";
+import { useRouter } from "next/router";
 import {
-  ACCENT_900,
-  BLACK,
-  PRIMARY_800,
-  PRIMARY_900,
-  SECONDARY_800,
   SECONDARY_900,
-  TERTIARY_800,
-  TERTIARY_900,
+  SECONDARY_800,
+  PRIMARY_800,
   WHITE,
-  WHITE_200,
 } from "@constants/colors";
 
 const AllParkingLots = styled(FlexBox)``;
@@ -51,25 +46,32 @@ const DeleteButton = styled(FlexBox)`
   }
 `;
 
+const Stroke = keyframes`
+  100% {
+    stroke-dashoffset: 0;
+  }
+`;
+
+const Scale = keyframes`
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: scale3d(2.2, 2.2, 2);
+  }
+`;
+
+const Fill = keyframes`
+  100% {
+    box-shadow: inset 0px 0px 0px 30px ${PRIMARY_800};
+  }
+`;
+
 const ParkingSpots = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
-    const getAllParkingLots = () => {
-      axiosInstance
-        .get("/parking-lots")
-        .then((res) => {
-          setAllParkingLots(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    getAllParkingLots();
-  }, []);
-
-  const getAllParkingLots = () => {
     axiosInstance
       .get("/parking-lots")
       .then((res) => {
@@ -78,15 +80,31 @@ const ParkingSpots = ({ data }) => {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
+
+  const getAvailableParkingLots = () => {
+    axiosInstance
+      .get("/parking-lots")
+      .then((res) => {
+        setAllParkingLots([...res.data]);
+        router.push("/dashboard/parking-history");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const deleteParkingLot = (id) => {
+  const handleBooking = (parkingLotId) => {
+    const dataPayload = {
+      email: data.email,
+      parkingLotId: parkingLotId,
+      timeStamp: new Date().getTime(),
+    };
+
     axiosInstance
-      .post("/parking-lots/delete", {
-        id: id,
-      })
+      .post("/bookings/create", dataPayload)
       .then((res) => {
-        getAllParkingLots();
+        getAvailableParkingLots();
       })
       .catch((err) => {
         console.log(err);
@@ -149,7 +167,7 @@ const ParkingSpots = ({ data }) => {
             </FlexBox>
             <DeleteButton
               onClick={() => {
-                deleteParkingLot(parkingLot.id);
+                handleBooking(parkingLot.id);
               }}
             >
               Book

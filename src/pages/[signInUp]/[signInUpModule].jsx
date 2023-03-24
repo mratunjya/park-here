@@ -19,7 +19,6 @@ const SignInModule = () => {
     if (router.isReady) {
       isAuthenticated() &&
         localforage.getItem("module").then((module) => {
-          console.log("module", module);
           module && router.push(`/dashboard/${module}`);
         });
 

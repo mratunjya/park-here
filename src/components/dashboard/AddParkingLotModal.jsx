@@ -171,8 +171,6 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
       price: price,
     };
 
-    console.log(dataPayload);
-
     axiosInstance
       .post("/parking-lots/add", dataPayload)
       .then((res) => {

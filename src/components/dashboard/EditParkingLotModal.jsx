@@ -1,8 +1,8 @@
 import { H3, H4 } from "@components/common/Headings";
 import styled, { keyframes } from "styled-components";
 import FlexBox from "@components/common/FlexBox";
-import { useState } from "react";
 import axiosInstance from "@axiosInstance";
+import { useState } from "react";
 import {
   SECONDARY_800,
   SECONDARY_900,
@@ -170,8 +170,6 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
       capacity: capacity,
       price: price,
     };
-
-    console.log(dataPayload);
 
     axiosInstance
       .post("/parking-lots/edit", dataPayload)
