@@ -1,169 +1,77 @@
-import { H1, H3, H4 } from "@components/common/Headings";
+import { H1, H4 } from "@components/common/Headings";
 import { SmallButton } from "@components/common/Button";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import FlexBox from "@components/common/FlexBox";
 import { useEffect, useRef, useState } from "react";
 import axiosInstance from "@axiosInstance";
 import {
-  ACCENT_900,
-  BLACK,
-  PRIMARY_800,
-  PRIMARY_900,
+  SECONDARY_800,
+  SECONDARY_900,
   TERTIARY_800,
   TERTIARY_900,
   WHITE,
-  WHITE_200,
 } from "@constants/colors";
-
-const GrowAniamtion = keyframes`
-    0% {
-        transform: scale(0.25);
-    }
-    100% {
-        transform: scale(1);
-    }
-`;
-
-const AddParkingLotModal = styled(FlexBox)`
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  &:before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-
-  form {
-    display: flex;
-    background-color: ${WHITE};
-    z-index: 2;
-    width: 100%;
-    max-width: 500px;
-    flex-direction: column;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    gap: 2rem;
-    animation: ${GrowAniamtion} 0.3s ease-out;
-
-    & label {
-        font-size: 1rem;
-        cursor: pointer;
-    }
-
-    & label,
-    & input {
-        width: 100%;
-        color: ${ACCENT_900};
-    }
-
-    & input {
-        padding: 0.5rem 1rem;
-        border: 0.0625rem solid ${WHITE_200};
-        border-radius: 0.5rem;
-        outline: none;
-        font-size: 1.2rem;
-        font-weight: 600;
-
-        @media (max-width: 768px) {
-        font-size: 1rem;
-        padding: 0.3rem 0.5rem;
-        }
-    }
-
-    & input:focus {
-        border: 0.0625rem solid ${BLACK};
-    }
-
-    & input::placeholder {
-        color: ${WHITE_200};
-    }
-
-    // Remove arrow from number input
-    /* Chrome, Safari, Edge, Opera */
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    /* Firefox */
-    input[type="number"] {
-      -moz-appearance: textfield;
-    }
-
-    & input[type="submit"] {
-        background-color: ${PRIMARY_800};
-        color: ${WHITE};
-        font-size: 1.2rem;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: fit-content;
-        align-self: flex-end;
-        text-transform: uppercase;
-
-        &:hover {
-        background-color: ${PRIMARY_900};
-
-        @media (max-width: 768px) {
-            font-size: 1rem;
-        }
-    }
-  }
-`;
+import AddParkingLotModal from "./AddParkingLotModal";
+import EditParkingLotModal from "./EditParkingLotModal";
 
 const AllParkingLots = styled(FlexBox)``;
 
 const ParkingLotCard = styled(FlexBox)`
-  background-color: ${WHITE};
-  padding: 1rem;
-  border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-  gap: 1rem;
+  background-color: ${WHITE};
+  border-radius: 0.5rem;
+  padding: 1rem;
   width: 400px;
+  gap: 1rem;
 `;
 
 const DeleteButton = styled(FlexBox)`
   background-color: ${TERTIARY_800};
-  color: ${WHITE};
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
-  font-size: 1rem;
-  font-weight: 600;
   text-transform: uppercase;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
   align-self: flex-end;
   align-items: center;
-  justify-content: center;
   width: fit-content;
+  font-weight: 600;
+  color: ${WHITE};
+  cursor: pointer;
+  font-size: 1rem;
 
   &:hover {
     background-color: ${TERTIARY_900};
   }
 `;
 
+const EditButton = styled(DeleteButton)`
+  background-color: ${SECONDARY_800};
+  &:hover {
+    background-color: ${SECONDARY_900};
+  }
+`;
+
 const ManageParkingLot = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [capacity, setCapacity] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
+  const [modalName, setModalName] = useState("");
+  const [editData, setEditData] = useState({});
 
   const ManageParkingLotRef = useRef();
+
+  const getAllParkingLots = () => {
+    axiosInstance
+      .post("/parking-lots", {
+        email: data.email,
+      })
+      .then((res) => {
+        setAllParkingLots(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     const getAllParkingLots = () => {
@@ -172,7 +80,7 @@ const ManageParkingLot = ({ data }) => {
           email: data.email,
         })
         .then((res) => {
-          setAllParkingLots(res.data.parkingLots);
+          setAllParkingLots(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -183,46 +91,20 @@ const ManageParkingLot = ({ data }) => {
   }, [data.email]);
 
   const openModal = () => {
-    setShowAddModal(true);
     ManageParkingLotRef.current.style.overflow = "hidden";
+    setShowAddModal(true);
   };
 
   const closeModal = () => {
-    setShowAddModal(false);
     ManageParkingLotRef.current.style.overflow = "auto";
+    setShowAddModal(false);
+    setModalName("");
   };
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
-  };
-
-  const handleCityChange = (e) => {
-    setCity(e.target.value);
-  };
-
-  const handleStateChange = (e) => {
-    setState(e.target.value);
-  };
-
-  const handleCapacityChange = (e) => {
-    setCapacity(e.target.value);
-  };
-
-  const getAllParkingLots = () => {
-    axiosInstance
-      .post("/parking-lots", {
-        email: data.email,
-      })
-      .then((res) => {
-        setAllParkingLots(res.data.parkingLots);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const editParkingLot = (parkingLotData) => {
+    setEditData(parkingLotData);
+    setModalName("edit");
+    openModal();
   };
 
   const deleteParkingLot = (id) => {
@@ -238,136 +120,45 @@ const ManageParkingLot = ({ data }) => {
       });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const dataPayload = {
-      email: data.email,
-      name: name,
-      address: address,
-      city: city,
-      state: state,
-      capacity: capacity,
-    };
-
-    console.log(dataPayload);
-
-    axiosInstance
-      .post("/parking-lots/add", dataPayload)
-      .then((res) => {
-        getAllParkingLots();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    closeModal();
-  };
-
   return (
     <FlexBox
-      padding="1rem"
-      width="100%"
-      align="flex-start"
       gap="3rem"
+      width="100%"
       height="100%"
-      position="relative"
-      direction="column"
+      padding="1rem"
       overflow="auto"
+      direction="column"
+      align="flex-start"
+      position="relative"
       ref={ManageParkingLotRef}
     >
       <FlexBox align="flex-start" justify="space-around">
         <H1 bold>Manage Parking Lot</H1>
-        <SmallButton onClick={openModal}>
+        <SmallButton
+          onClick={() => {
+            setModalName("add");
+            openModal();
+          }}
+        >
           <H4 bold color={WHITE} texttransform="uppercase">
             + Add Parking Lot
           </H4>
         </SmallButton>
       </FlexBox>
-      {showAddModal && (
+      {(showAddModal && modalName === "add" && (
         <AddParkingLotModal
-          height="100%"
-          align="center"
-          justify="center"
-          onClick={closeModal}
-        >
-          <form
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onSubmit={handleSubmit}
-          >
-            <H3 bold>Add Parking Lot</H3>
-            <FlexBox gap="1rem" align="stretch">
-              <FlexBox
-                direction="column"
-                width="fit-content"
-                gap="0.5rem"
-                justify="space-around"
-                align="stretch"
-              >
-                <label htmlFor="name">
-                  <H4 bold>Name</H4>
-                </label>
-                <label htmlFor="address">
-                  <H4 bold>Address</H4>
-                </label>
-                <label htmlFor="city">
-                  <H4 bold>City</H4>
-                </label>
-                <label htmlFor="state">
-                  <H4 bold>State</H4>
-                </label>
-                <label htmlFor="capacity">
-                  <H4 bold>Capacity</H4>
-                </label>
-              </FlexBox>
-              <FlexBox
-                direction="column"
-                justify="space-between"
-                align="stretch"
-                gap="0.5rem"
-              >
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  onChange={handleNameChange}
-                  value={name}
-                />
-                <input
-                  type="text"
-                  name="address"
-                  id="address"
-                  onChange={handleAddressChange}
-                  value={address}
-                />
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  onChange={handleCityChange}
-                  value={city}
-                />
-                <input
-                  type="text"
-                  name="state"
-                  id="state"
-                  onChange={handleStateChange}
-                  value={state}
-                />
-                <input
-                  type="number"
-                  name="capacity"
-                  id="capacity"
-                  onChange={handleCapacityChange}
-                  value={capacity}
-                />
-              </FlexBox>
-            </FlexBox>
-            <input type="submit" value="Add Parking Lot" />
-          </form>
-        </AddParkingLotModal>
-      )}
+          data={data}
+          closeModal={closeModal}
+          getAllParkingLots={getAllParkingLots}
+        />
+      )) ||
+        (modalName === "edit" && (
+          <EditParkingLotModal
+            editData={editData}
+            closeModal={closeModal}
+            getAllParkingLots={getAllParkingLots}
+          />
+        ))}
       <AllParkingLots
         width="100%"
         align="flex-start"
@@ -375,7 +166,7 @@ const ManageParkingLot = ({ data }) => {
         gap="2rem"
         wrap="wrap"
       >
-        {allParkingLots.map((parkingLot, index) => (
+        {allParkingLots?.map((parkingLot, index) => (
           <ParkingLotCard direction="column" key={index}>
             <FlexBox gap="1rem" width="100%">
               <FlexBox
@@ -406,13 +197,22 @@ const ManageParkingLot = ({ data }) => {
                 <H4>{parkingLot.id}</H4>
               </FlexBox>
             </FlexBox>
-            <DeleteButton
-              onClick={() => {
-                deleteParkingLot(parkingLot.id);
-              }}
-            >
-              Delete
-            </DeleteButton>
+            <FlexBox alignself="flex-end" width="fit-content" gap="1rem">
+              <EditButton
+                onClick={() => {
+                  editParkingLot(parkingLot);
+                }}
+              >
+                Edit
+              </EditButton>
+              <DeleteButton
+                onClick={() => {
+                  deleteParkingLot(parkingLot.id);
+                }}
+              >
+                Delete
+              </DeleteButton>
+            </FlexBox>
           </ParkingLotCard>
         ))}
       </AllParkingLots>
