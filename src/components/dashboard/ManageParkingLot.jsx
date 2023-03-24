@@ -86,6 +86,19 @@ const AddParkingLotModal = styled(FlexBox)`
         color: ${WHITE_200};
     }
 
+    // Remove arrow from number input
+    /* Chrome, Safari, Edge, Opera */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
     & input[type="submit"] {
         background-color: ${PRIMARY_800};
         color: ${WHITE};
@@ -144,6 +157,7 @@ const DeleteButton = styled(FlexBox)`
 const ManageParkingLot = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [capacity, setCapacity] = useState("");
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
   const [name, setName] = useState("");
@@ -194,6 +208,10 @@ const ManageParkingLot = ({ data }) => {
     setState(e.target.value);
   };
 
+  const handleCapacityChange = (e) => {
+    setCapacity(e.target.value);
+  };
+
   const getAllParkingLots = () => {
     axiosInstance
       .post("/parking-lots", {
@@ -228,6 +246,7 @@ const ManageParkingLot = ({ data }) => {
       address: address,
       city: city,
       state: state,
+      capacity: capacity,
     };
 
     console.log(dataPayload);
@@ -298,6 +317,9 @@ const ManageParkingLot = ({ data }) => {
                 <label htmlFor="state">
                   <H4 bold>State</H4>
                 </label>
+                <label htmlFor="capacity">
+                  <H4 bold>Capacity</H4>
+                </label>
               </FlexBox>
               <FlexBox
                 direction="column"
@@ -310,24 +332,35 @@ const ManageParkingLot = ({ data }) => {
                   name="name"
                   id="name"
                   onChange={handleNameChange}
+                  value={name}
                 />
                 <input
                   type="text"
                   name="address"
                   id="address"
                   onChange={handleAddressChange}
+                  value={address}
                 />
                 <input
                   type="text"
                   name="city"
                   id="city"
                   onChange={handleCityChange}
+                  value={city}
                 />
                 <input
                   type="text"
                   name="state"
                   id="state"
                   onChange={handleStateChange}
+                  value={state}
+                />
+                <input
+                  type="number"
+                  name="capacity"
+                  id="capacity"
+                  onChange={handleCapacityChange}
+                  value={capacity}
                 />
               </FlexBox>
             </FlexBox>
@@ -356,6 +389,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4 bold>Address</H4>
                 <H4 bold>City</H4>
                 <H4 bold>State</H4>
+                <H4 bold>Capacity</H4>
                 <H4 bold>Id</H4>
               </FlexBox>
               <FlexBox
@@ -368,6 +402,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4>{parkingLot.address}</H4>
                 <H4>{parkingLot.city}</H4>
                 <H4>{parkingLot.state}</H4>
+                <H4>{parkingLot.total_capacity}</H4>
                 <H4>{parkingLot.id}</H4>
               </FlexBox>
             </FlexBox>
