@@ -1,7 +1,8 @@
-import { H3, H4 } from "@components/common/Headings";
 import styled, { keyframes } from "styled-components";
+import { H3, H4 } from "@components/common/Headings";
 import FlexBox from "@components/common/FlexBox";
 import axiosInstance from "@axiosInstance";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import {
   PRIMARY_800,
@@ -133,8 +134,9 @@ const ConfirmParklingModal = ({
   getBookedParkingLots,
   bookingIdToConfirm,
 }) => {
-  const [transactionId, setTransactionId] = useState("");
   const [bookingId, setBookingId] = useState(bookingIdToConfirm);
+  const [transactionId, setTransactionId] = useState("");
+  const router = useRouter();
 
   const handleBookingIdChange = (e) => {
     setBookingId(e.target.value);
@@ -152,12 +154,11 @@ const ConfirmParklingModal = ({
       transactionId: transactionId,
     };
 
-    console.log(dataPayload);
-
     axiosInstance
       .post("/bookings/confirm", dataPayload)
       .then((res) => {
         getBookedParkingLots();
+        router.push("/dashboard/view-parking-history");
       })
       .catch((err) => {
         console.log(err);

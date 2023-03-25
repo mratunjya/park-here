@@ -1,9 +1,8 @@
-import { SECONDARY_900, SECONDARY_800, WHITE } from "@constants/colors";
-import ConfirmParklingModal from "./ConfirmParklingModal";
 import { H1, H2, H4 } from "@components/common/Headings";
 import FlexBox from "@components/common/FlexBox";
 import { useEffect, useState } from "react";
 import axiosInstance from "@axiosInstance";
+import { WHITE } from "@constants/colors";
 import styled from "styled-components";
 
 const AllParkingLots = styled(FlexBox)``;
@@ -21,38 +20,12 @@ const ParkingLotCard = styled(FlexBox)`
   }
 `;
 
-const ConfirmButton = styled(FlexBox)`
-  background-color: ${SECONDARY_800};
-  color: ${WHITE};
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  align-self: flex-end;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-
-  &:hover {
-    background-color: ${SECONDARY_900};
-  }
-`;
-
-const MonitorParkingLots = ({ data }) => {
+const ViewParkingHistory = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [bookingId, setBookingId] = useState("");
-
-  const closeModal = () => {
-    setShowAddModal(false);
-  };
 
   useEffect(() => {
     axiosInstance
-      .post("/bookings/booked", {
+      .post("/bookings/booked-history", {
         parkingLotID: data.parkingLotID,
       })
       .then((res) => {
@@ -63,24 +36,6 @@ const MonitorParkingLots = ({ data }) => {
         console.log(err);
       });
   }, [data.parkingLotID]);
-
-  const getBookedParkingLots = () => {
-    axiosInstance
-      .post("/bookings/booked", {
-        parkingLotID: data.parkingLotID,
-      })
-      .then((res) => {
-        setAllParkingLots(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleConfirm = (id) => {
-    setShowAddModal(true);
-    setBookingId(id);
-  };
 
   return (
     <FlexBox
@@ -126,7 +81,7 @@ const MonitorParkingLots = ({ data }) => {
         </FlexBox>
       </FlexBox>
       <FlexBox align="flex-start" justify="space-around">
-        <H1 bold>All Bookings for Today</H1>
+        <H1 bold>Parking Lot Bookings History</H1>
       </FlexBox>
       <AllParkingLots
         width="100%"
@@ -174,22 +129,11 @@ const MonitorParkingLots = ({ data }) => {
                 <H4>{parkingLot.booking_id}</H4>
               </FlexBox>
             </FlexBox>
-            <ConfirmButton onClick={() => handleConfirm(parkingLot.booking_id)}>
-              Confirm
-            </ConfirmButton>
           </ParkingLotCard>
         ))}
       </AllParkingLots>
-      {showAddModal && (
-        <ConfirmParklingModal
-          closeModal={closeModal}
-          getBookedParkingLots={getBookedParkingLots}
-          data={data}
-          bookingIdToConfirm={bookingId}
-        />
-      )}
     </FlexBox>
   );
 };
 
-export default MonitorParkingLots;
+export default ViewParkingHistory;
