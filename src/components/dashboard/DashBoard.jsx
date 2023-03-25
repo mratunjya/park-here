@@ -1,9 +1,9 @@
-import FlexBox from "@components/common/FlexBox";
-import styled from "styled-components";
 import DashBoardSvg from "@assets/dashboard/DashBoardSvg.svg";
 import CommonImage from "@components/common/CommonImage";
-import { useState } from "react";
+import FlexBox from "@components/common/FlexBox";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+import { useState } from "react";
 
 const DashBoardVisual = styled(FlexBox)`
   filter: grayscale(100%) opacity(0.4);
@@ -14,9 +14,6 @@ const DashBoardVisual = styled(FlexBox)`
 `;
 
 const DashBoard = () => {
-  const [route, setRoute] = useState();
-  const router = useRouter();
-
   return (
     <DashBoardVisual width="100%" align="center" justify="center">
       <CommonImage

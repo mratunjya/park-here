@@ -7,10 +7,5 @@ export const options = {
     "Parking Lot Status",
     "Generate Reports",
   ],
-  attendant: [
-    "Monitor Parking Lot",
-    "Issue Ticket",
-    "Collect Fee",
-    "View Parking History",
-  ],
+  attendant: ["Monitor Parking Lots", "Issue Ticket", "View Parking History"],
 };

@@ -21,7 +21,7 @@ const GrowAniamtion = keyframes`
     }
 `;
 
-const AddParkingLotModalWrapper = styled(FlexBox)`
+const ConfirmParklingModalWrapper = styled(FlexBox)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -127,54 +127,37 @@ const AddParkingLotModalWrapper = styled(FlexBox)`
   }
 `;
 
-const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
-  const [capacity, setCapacity] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
-  const [price, setPrice] = useState("");
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
+const ConfirmParklingModal = ({
+  closeModal,
+  data,
+  getBookedParkingLots,
+  bookingIdToConfirm,
+}) => {
+  const [transactionId, setTransactionId] = useState("");
+  const [bookingId, setBookingId] = useState(bookingIdToConfirm);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const handleBookingIdChange = (e) => {
+    setBookingId(e.target.value);
   };
 
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
-  };
-
-  const handleCityChange = (e) => {
-    setCity(e.target.value);
-  };
-
-  const handleStateChange = (e) => {
-    setState(e.target.value);
-  };
-
-  const handleCapacityChange = (e) => {
-    setCapacity(e.target.value);
-  };
-
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
+  const handleTransactionIdChange = (e) => {
+    setTransactionId(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataPayload = {
       email: data.email,
-      name: name,
-      address: address,
-      city: city,
-      state: state,
-      capacity: capacity,
-      price: price,
+      bookingId: bookingId,
+      transactionId: transactionId,
     };
 
+    console.log(dataPayload);
+
     axiosInstance
-      .post("/parking-lots/add", dataPayload)
+      .post("/bookings/confirm", dataPayload)
       .then((res) => {
-        getAllParkingLots();
+        getBookedParkingLots();
       })
       .catch((err) => {
         console.log(err);
@@ -184,7 +167,7 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
   };
 
   return (
-    <AddParkingLotModalWrapper
+    <ConfirmParklingModalWrapper
       height="100%"
       align="center"
       justify="center"
@@ -196,7 +179,6 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
         }}
         onSubmit={handleSubmit}
       >
-        <H3 bold>Add Parking Lot</H3>
         <FlexBox gap="1rem" align="stretch">
           <FlexBox
             direction="column"
@@ -205,23 +187,11 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
             justify="space-around"
             align="stretch"
           >
-            <label htmlFor="name">
-              <H4 bold>Name</H4>
+            <label htmlFor="bookingId">
+              <H4 bold>Booking Id</H4>
             </label>
-            <label htmlFor="address">
-              <H4 bold>Address</H4>
-            </label>
-            <label htmlFor="city">
-              <H4 bold>City</H4>
-            </label>
-            <label htmlFor="state">
-              <H4 bold>State</H4>
-            </label>
-            <label htmlFor="capacity">
-              <H4 bold>Capacity</H4>
-            </label>
-            <label htmlFor="price">
-              <H4 bold>Price (Rs.)</H4>
+            <label htmlFor="transactionId">
+              <H4 bold>Transaction Id</H4>
             </label>
           </FlexBox>
           <FlexBox
@@ -231,53 +201,23 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
             gap="0.5rem"
           >
             <input
-              type="text"
-              name="name"
-              id="name"
-              onChange={handleNameChange}
-              value={name}
-            />
-            <input
-              type="text"
-              name="address"
-              id="address"
-              onChange={handleAddressChange}
-              value={address}
-            />
-            <input
-              type="text"
-              name="city"
-              id="city"
-              onChange={handleCityChange}
-              value={city}
-            />
-            <input
-              type="text"
-              name="state"
-              id="state"
-              onChange={handleStateChange}
-              value={state}
+              type="number"
+              id="bookingId"
+              onChange={handleBookingIdChange}
+              value={bookingId}
             />
             <input
               type="number"
-              name="capacity"
-              id="capacity"
-              onChange={handleCapacityChange}
-              value={capacity}
-            />
-            <input
-              type="number"
-              name="price"
-              id="price"
-              onChange={handlePriceChange}
-              value={price}
+              id="transactionId"
+              onChange={handleTransactionIdChange}
+              value={transactionId}
             />
           </FlexBox>
         </FlexBox>
-        <input type="submit" value="Add Parking Lot" />
+        <input type="submit" value="Confirm" />
       </form>
-    </AddParkingLotModalWrapper>
+    </ConfirmParklingModalWrapper>
   );
 };
 
-export default AddParkingLotModal;
+export default ConfirmParklingModal;

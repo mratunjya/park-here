@@ -1,8 +1,8 @@
+import { options } from "@meta/DashBoardOptions/options";
 import CommonLink from "@components/common/CommonLink";
 import FlexBox from "@components/common/FlexBox";
 import { H3 } from "@components/common/Headings";
 import { PRIMARY_400 } from "@constants/colors";
-import { options } from "@meta/DashBoardOptions/options";
 import styled from "styled-components";
 
 const DashboardOptionLeftWrapper = styled(FlexBox)``;
