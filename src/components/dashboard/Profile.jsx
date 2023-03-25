@@ -260,7 +260,6 @@ const Profile = ({ module, data }) => {
     axiosInstance
       .post(`/update/${module}`, dataPayload)
       .then((res) => {
-        console.log(res);
         localforage.setItem("data", res.data.newData);
         setUpdateSuccess(true);
         setTimeout(() => {
