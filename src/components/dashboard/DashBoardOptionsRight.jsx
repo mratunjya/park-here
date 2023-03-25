@@ -1,5 +1,6 @@
 import MonitorParkingLots from "./MonitorParkingLots";
 import ViewParkingHistory from "./ViewParkingHistory";
+import ManageParkingLot from "./ManageParkingLot";
 import FlexBox from "@components/common/FlexBox";
 import ParkingHistory from "./ParkingHistory";
 import { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ const DashBoardOptionsRight = ({ module, data }) => {
     <DashboardOptionRightWrapper height="100%" align="center" justify="center">
       {route === "view-parking-history" && <ViewParkingHistory  data={data} />}
       {route === "monitor-parking-lots" && <MonitorParkingLots data={data} />}
-      {route === "manage-parking-lots" && <MonitorParkingLots data={data} />}
+      {route === "manage-parking-lots" && <ManageParkingLot data={data} />}
       {route === "profile" && <Profile module={module} data={data} />}
       {route === "parking-history" && <ParkingHistory data={data} />}
       {route === "parking-spots" && <ParkingSpots data={data} />}
