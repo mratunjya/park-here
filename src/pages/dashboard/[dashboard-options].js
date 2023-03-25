@@ -58,6 +58,7 @@ const Dashboard = () => {
       <DashboardOptionstWrapper
         width="100%"
         height={`calc(100vh - ${height}px)`}
+        directionmobile="column"
       >
         <DashboardOptionsLeft module={module} />
         <DashBoardOptionsRight module={module} data={data} />

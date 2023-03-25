@@ -1,9 +1,11 @@
-import { H1, H4 } from "@components/common/Headings";
+import EditParkingLotModal from "./EditParkingLotModal";
 import { SmallButton } from "@components/common/Button";
-import styled from "styled-components";
-import FlexBox from "@components/common/FlexBox";
+import AddParkingLotModal from "./AddParkingLotModal";
+import { H1, H4 } from "@components/common/Headings";
 import { useEffect, useRef, useState } from "react";
+import FlexBox from "@components/common/FlexBox";
 import axiosInstance from "@axiosInstance";
+import styled from "styled-components";
 import {
   SECONDARY_800,
   SECONDARY_900,
@@ -11,8 +13,6 @@ import {
   TERTIARY_900,
   WHITE,
 } from "@constants/colors";
-import AddParkingLotModal from "./AddParkingLotModal";
-import EditParkingLotModal from "./EditParkingLotModal";
 
 const AllParkingLots = styled(FlexBox)``;
 
@@ -52,7 +52,7 @@ const EditButton = styled(DeleteButton)`
   }
 `;
 
-const ManageParkingLot = ({ data }) => {
+const ManageParkingLots = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [modalName, setModalName] = useState("");
@@ -132,8 +132,8 @@ const ManageParkingLot = ({ data }) => {
       position="relative"
       ref={ManageParkingLotRef}
     >
-      <FlexBox align="flex-start" justify="space-around">
-        <H1 bold>Manage Parking Lot</H1>
+      <FlexBox align="center" justify="space-around">
+        <H1 bold>Manage Parking Lots</H1>
         <SmallButton
           onClick={() => {
             setModalName("add");
@@ -183,6 +183,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4 bold>Capacity</H4>
                 <H4 bold>Id</H4>
                 <H4 bold>Price</H4>
+                <H4 bold>Status</H4>
               </FlexBox>
               <FlexBox
                 direction="column"
@@ -197,6 +198,7 @@ const ManageParkingLot = ({ data }) => {
                 <H4>{parkingLot.total_capacity}</H4>
                 <H4>{parkingLot.id}</H4>
                 <H4>{parkingLot.price}</H4>
+                <H4 bold>{parkingLot.booked} Booked</H4>
               </FlexBox>
             </FlexBox>
             <FlexBox alignself="flex-end" width="fit-content" gap="1rem">
@@ -222,4 +224,4 @@ const ManageParkingLot = ({ data }) => {
   );
 };
 
-export default ManageParkingLot;
+export default ManageParkingLots;

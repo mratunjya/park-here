@@ -6,7 +6,6 @@ import { copy } from "@meta/sign-in-up/copy";
 import CommonLink from "@common/CommonLink";
 import axiosInstance from "@axiosInstance";
 import { H1, P } from "@common/Headings";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import FlexBox from "@common/FlexBox";
 import { signIn } from "@utils/auth";
@@ -68,7 +67,6 @@ const SignInForm = ({ module }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const router = useRouter();
 
   const emailRef = useRef(null);
 

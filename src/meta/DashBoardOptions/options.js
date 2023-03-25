@@ -4,7 +4,6 @@ export const options = {
   organization: [
     "Manage Parking Lots",
     "Manage Attendants",
-    "Parking Lot Status",
     "Generate Reports",
   ],
   attendant: ["Monitor Parking Lots", "View Parking History"],
