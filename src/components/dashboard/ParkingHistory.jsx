@@ -1,9 +1,9 @@
-import { WHITE, TERTIARY_800, TERTIARY_900 } from "@constants/colors";
-import { H1, H4 } from "@components/common/Headings";
-import FlexBox from "@components/common/FlexBox";
-import { useEffect, useState } from "react";
-import axiosInstance from "@axiosInstance";
-import styled from "styled-components";
+import { H1, H4 } from '@components/common/Headings';
+import FlexBox from '@components/common/FlexBox';
+import { useEffect, useState } from 'react';
+import axiosInstance from '@axiosInstance';
+import { WHITE } from '@constants/colors';
+import styled from 'styled-components';
 
 const BookedParkingLots = styled(FlexBox)``;
 
@@ -20,32 +20,12 @@ const ParkingLotCard = styled(FlexBox)`
   }
 `;
 
-const CancelButton = styled(FlexBox)`
-  background-color: ${TERTIARY_800};
-  color: ${WHITE};
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  align-self: flex-end;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-
-  &:hover {
-    background-color: ${TERTIARY_900};
-  }
-`;
-
 const ParkingHistory = ({ data }) => {
   const [allBookedParkingLots, setAllBookedParkingLots] = useState([]);
 
   useEffect(() => {
     axiosInstance
-      .post("/bookings/history", {
+      .post('/bookings/history', {
         email: data.email,
       })
       .then((res) => {
@@ -112,7 +92,7 @@ const ParkingHistory = ({ data }) => {
                 <H4>
                   {new Date(parkingLot.timestamp).getDate()}-
                   {new Date(parkingLot.timestamp).getMonth()}-
-                  {new Date(parkingLot.timestamp).getYear()}
+                  {new Date(parkingLot.timestamp).getFullYear()}
                 </H4>
               </FlexBox>
             </FlexBox>
