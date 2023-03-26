@@ -1,8 +1,9 @@
-import { H3, H4 } from "@components/common/Headings";
-import styled, { keyframes } from "styled-components";
-import FlexBox from "@components/common/FlexBox";
-import axiosInstance from "@axiosInstance";
-import { useState } from "react";
+import CommonHead from '@components/common/CommonHead';
+import styled, { keyframes } from 'styled-components';
+import { H3, H4 } from '@components/common/Headings';
+import FlexBox from '@components/common/FlexBox';
+import axiosInstance from '@axiosInstance';
+import { useState } from 'react';
 import {
   SECONDARY_800,
   SECONDARY_900,
@@ -10,7 +11,7 @@ import {
   WHITE_200,
   BLACK,
   WHITE,
-} from "@constants/colors";
+} from '@constants/colors';
 
 const GrowAniamtion = keyframes`
     0% {
@@ -172,7 +173,7 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
     };
 
     axiosInstance
-      .post("/parking-lots/edit", dataPayload)
+      .post('/parking-lots/edit', dataPayload)
       .then((res) => {
         getAllParkingLots();
       })
@@ -184,99 +185,105 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
   };
 
   return (
-    <EditParkingLotModalWrapper
-      height="100%"
-      align="center"
-      justify="center"
-      onClick={closeModal}
-    >
-      <form
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        onSubmit={handleSubmit}
+    <>
+      <CommonHead
+        title="Park Here: Edit Parking Lot"
+        meta="Edit parking lot details"
+      />
+      <EditParkingLotModalWrapper
+        height="100%"
+        align="center"
+        justify="center"
+        onClick={closeModal}
       >
-        <H3 bold>Edit Parking Lot</H3>
-        <FlexBox gap="1rem" align="stretch">
-          <FlexBox
-            direction="column"
-            width="fit-content"
-            gap="0.5rem"
-            justify="space-around"
-            align="stretch"
-          >
-            <label htmlFor="name">
-              <H4 bold>Name</H4>
-            </label>
-            <label htmlFor="address">
-              <H4 bold>Address</H4>
-            </label>
-            <label htmlFor="city">
-              <H4 bold>City</H4>
-            </label>
-            <label htmlFor="state">
-              <H4 bold>State</H4>
-            </label>
-            <label htmlFor="capacity">
-              <H4 bold>Capacity</H4>
-            </label>
-            <label htmlFor="price">
-              <H4 bold>Price (Rs.)</H4>
-            </label>
+        <form
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          onSubmit={handleSubmit}
+        >
+          <H3 bold>Edit Parking Lot</H3>
+          <FlexBox gap="1rem" align="stretch">
+            <FlexBox
+              direction="column"
+              width="fit-content"
+              gap="0.5rem"
+              justify="space-around"
+              align="stretch"
+            >
+              <label htmlFor="name">
+                <H4 bold>Name</H4>
+              </label>
+              <label htmlFor="address">
+                <H4 bold>Address</H4>
+              </label>
+              <label htmlFor="city">
+                <H4 bold>City</H4>
+              </label>
+              <label htmlFor="state">
+                <H4 bold>State</H4>
+              </label>
+              <label htmlFor="capacity">
+                <H4 bold>Capacity</H4>
+              </label>
+              <label htmlFor="price">
+                <H4 bold>Price (Rs.)</H4>
+              </label>
+            </FlexBox>
+            <FlexBox
+              direction="column"
+              justify="space-between"
+              align="stretch"
+              gap="0.5rem"
+            >
+              <input
+                type="text"
+                name="name"
+                id="name"
+                onChange={handleNameChange}
+                value={name}
+              />
+              <input
+                type="text"
+                name="address"
+                id="address"
+                onChange={handleAddressChange}
+                value={address}
+              />
+              <input
+                type="text"
+                name="city"
+                id="city"
+                onChange={handleCityChange}
+                value={city}
+              />
+              <input
+                type="text"
+                name="state"
+                id="state"
+                onChange={handleStateChange}
+                value={state}
+              />
+              <input
+                type="number"
+                name="capacity"
+                id="capacity"
+                onChange={handleCapacityChange}
+                value={capacity}
+              />
+              <input
+                type="number"
+                name="price"
+                id="price"
+                onChange={handlePriceChange}
+                value={price}
+              />
+            </FlexBox>
           </FlexBox>
-          <FlexBox
-            direction="column"
-            justify="space-between"
-            align="stretch"
-            gap="0.5rem"
-          >
-            <input
-              type="text"
-              name="name"
-              id="name"
-              onChange={handleNameChange}
-              value={name}
-            />
-            <input
-              type="text"
-              name="address"
-              id="address"
-              onChange={handleAddressChange}
-              value={address}
-            />
-            <input
-              type="text"
-              name="city"
-              id="city"
-              onChange={handleCityChange}
-              value={city}
-            />
-            <input
-              type="text"
-              name="state"
-              id="state"
-              onChange={handleStateChange}
-              value={state}
-            />
-            <input
-              type="number"
-              name="capacity"
-              id="capacity"
-              onChange={handleCapacityChange}
-              value={capacity}
-            />
-            <input
-              type="number"
-              name="price"
-              id="price"
-              onChange={handlePriceChange}
-              value={price}
-            />
-          </FlexBox>
-        </FlexBox>
-        <input type="submit" value="Update Parking Lot" />
-      </form>
-    </EditParkingLotModalWrapper>
+          <input type="submit" value="Update Parking Lot" />
+        </form>
+      </EditParkingLotModalWrapper>
+    </>
   );
 };
 

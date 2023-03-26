@@ -1,9 +1,10 @@
-import styled, { keyframes } from "styled-components";
-import { H3, H4 } from "@components/common/Headings";
-import FlexBox from "@components/common/FlexBox";
-import axiosInstance from "@axiosInstance";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import CommonHead from '@components/common/CommonHead';
+import styled, { keyframes } from 'styled-components';
+import { H4 } from '@components/common/Headings';
+import FlexBox from '@components/common/FlexBox';
+import axiosInstance from '@axiosInstance';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import {
   PRIMARY_800,
   PRIMARY_900,
@@ -11,7 +12,7 @@ import {
   WHITE_200,
   BLACK,
   WHITE,
-} from "@constants/colors";
+} from '@constants/colors';
 
 const GrowAniamtion = keyframes`
     0% {
@@ -135,7 +136,7 @@ const ConfirmParklingModal = ({
   bookingIdToConfirm,
 }) => {
   const [bookingId, setBookingId] = useState(bookingIdToConfirm);
-  const [transactionId, setTransactionId] = useState("");
+  const [transactionId, setTransactionId] = useState('');
   const router = useRouter();
 
   const handleBookingIdChange = (e) => {
@@ -155,10 +156,10 @@ const ConfirmParklingModal = ({
     };
 
     axiosInstance
-      .post("/bookings/confirm", dataPayload)
+      .post('/bookings/confirm', dataPayload)
       .then((res) => {
         getBookedParkingLots();
-        router.push("/dashboard/view-parking-history");
+        router.push('/dashboard/view-parking-history');
       })
       .catch((err) => {
         console.log(err);
@@ -168,56 +169,62 @@ const ConfirmParklingModal = ({
   };
 
   return (
-    <ConfirmParklingModalWrapper
-      height="100%"
-      align="center"
-      justify="center"
-      onClick={closeModal}
-    >
-      <form
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        onSubmit={handleSubmit}
+    <>
+      <CommonHead
+        title="Park Here: Confirm Parking"
+        meta="Confirm Parking by entering transaction id"
+      />
+      <ConfirmParklingModalWrapper
+        height="100%"
+        align="center"
+        justify="center"
+        onClick={closeModal}
       >
-        <FlexBox gap="1rem" align="stretch">
-          <FlexBox
-            direction="column"
-            width="fit-content"
-            gap="0.5rem"
-            justify="space-around"
-            align="stretch"
-          >
-            <label htmlFor="bookingId">
-              <H4 bold>Booking Id</H4>
-            </label>
-            <label htmlFor="transactionId">
-              <H4 bold>Transaction Id</H4>
-            </label>
+        <form
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          onSubmit={handleSubmit}
+        >
+          <FlexBox gap="1rem" align="stretch">
+            <FlexBox
+              direction="column"
+              width="fit-content"
+              gap="0.5rem"
+              justify="space-around"
+              align="stretch"
+            >
+              <label htmlFor="bookingId">
+                <H4 bold>Booking Id</H4>
+              </label>
+              <label htmlFor="transactionId">
+                <H4 bold>Transaction Id</H4>
+              </label>
+            </FlexBox>
+            <FlexBox
+              direction="column"
+              justify="space-between"
+              align="stretch"
+              gap="0.5rem"
+            >
+              <input
+                type="number"
+                id="bookingId"
+                onChange={handleBookingIdChange}
+                value={bookingId}
+              />
+              <input
+                type="number"
+                id="transactionId"
+                onChange={handleTransactionIdChange}
+                value={transactionId}
+              />
+            </FlexBox>
           </FlexBox>
-          <FlexBox
-            direction="column"
-            justify="space-between"
-            align="stretch"
-            gap="0.5rem"
-          >
-            <input
-              type="number"
-              id="bookingId"
-              onChange={handleBookingIdChange}
-              value={bookingId}
-            />
-            <input
-              type="number"
-              id="transactionId"
-              onChange={handleTransactionIdChange}
-              value={transactionId}
-            />
-          </FlexBox>
-        </FlexBox>
-        <input type="submit" value="Confirm" />
-      </form>
-    </ConfirmParklingModalWrapper>
+          <input type="submit" value="Confirm" />
+        </form>
+      </ConfirmParklingModalWrapper>
+    </>
   );
 };
 

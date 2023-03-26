@@ -1,3 +1,4 @@
+import CommonHead from '@components/common/CommonHead';
 import { H1, H4 } from '@components/common/Headings';
 import FlexBox from '@components/common/FlexBox';
 import { useEffect, useState } from 'react';
@@ -54,57 +55,63 @@ const GenerateReport = ({ data }) => {
   console.log(parkingReport);
 
   return (
-    <FlexBox
-      padding="1rem"
-      width="100%"
-      align="flex-start"
-      gap="3rem"
-      height="100%"
-      position="relative"
-      direction="column"
-      overflow="auto"
-    >
-      <FlexBox align="flex-start" justify="space-around">
-        <H1 bold>Report</H1>
-      </FlexBox>
-      <BookedParkingLots
+    <>
+      <CommonHead
+        title="Park Here: Generate Report"
+        meta="Report consist of revenue and bookings for each parking lot"
+      />
+      <FlexBox
+        padding="1rem"
         width="100%"
         align="flex-start"
-        justify="center"
-        gap="2rem"
-        wrap="wrap"
+        gap="3rem"
+        height="100%"
+        position="relative"
+        direction="column"
+        overflow="auto"
       >
-        {parkingReport?.map((parkingLot, index) => (
-          <ParkingLotCard direction="column" key={index}>
-            <FlexBox gap="1rem" width="100%">
-              <FlexBox
-                direction="column"
-                width="fit-content"
-                gap="0.5rem"
-                justify="space-around"
-                align="stretch"
-              >
-                <H4 bold>Id</H4>
-                <H4 bold>Total Revenue (Rs.)</H4>
-                <H4 bold>Total bookings</H4>
-                <H4 bold>Total Show Up</H4>
+        <FlexBox align="flex-start" justify="space-around">
+          <H1 bold>Report</H1>
+        </FlexBox>
+        <BookedParkingLots
+          width="100%"
+          align="flex-start"
+          justify="center"
+          gap="2rem"
+          wrap="wrap"
+        >
+          {parkingReport?.map((parkingLot, index) => (
+            <ParkingLotCard direction="column" key={index}>
+              <FlexBox gap="1rem" width="100%">
+                <FlexBox
+                  direction="column"
+                  width="fit-content"
+                  gap="0.5rem"
+                  justify="space-around"
+                  align="stretch"
+                >
+                  <H4 bold>Id</H4>
+                  <H4 bold>Total Revenue (Rs.)</H4>
+                  <H4 bold>Total bookings</H4>
+                  <H4 bold>Total Show Up</H4>
+                </FlexBox>
+                <FlexBox
+                  direction="column"
+                  justify="space-between"
+                  align="stretch"
+                  gap="0.5rem"
+                >
+                  <H4>{parkingLot.id}</H4>
+                  <H4>{parkingLot.totalRevenue}</H4>
+                  <H4>{parkingLot.totalBookings}</H4>
+                  <H4>{parkingLot.showUp}</H4>
+                </FlexBox>
               </FlexBox>
-              <FlexBox
-                direction="column"
-                justify="space-between"
-                align="stretch"
-                gap="0.5rem"
-              >
-                <H4>{parkingLot.id}</H4>
-                <H4>{parkingLot.totalRevenue}</H4>
-                <H4>{parkingLot.totalBookings}</H4>
-                <H4>{parkingLot.showUp}</H4>
-              </FlexBox>
-            </FlexBox>
-          </ParkingLotCard>
-        ))}
-      </BookedParkingLots>
-    </FlexBox>
+            </ParkingLotCard>
+          ))}
+        </BookedParkingLots>
+      </FlexBox>
+    </>
   );
 };
 

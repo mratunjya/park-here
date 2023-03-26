@@ -1,3 +1,4 @@
+import CommonHead from '@components/common/CommonHead';
 import { H1, H4 } from '@components/common/Headings';
 import FlexBox from '@components/common/FlexBox';
 import { useEffect, useState } from 'react';
@@ -37,69 +38,75 @@ const ParkingHistory = ({ data }) => {
   }, [data.email]);
 
   return (
-    <FlexBox
-      padding="1rem"
-      width="100%"
-      align="flex-start"
-      gap="3rem"
-      height="100%"
-      position="relative"
-      direction="column"
-      overflow="auto"
-    >
-      <FlexBox align="flex-start" justify="space-around">
-        <H1 bold>Your Parking History</H1>
-      </FlexBox>
-      <BookedParkingLots
+    <>
+      <CommonHead
+        title="Park Here: Parking History"
+        meta="User Parking History"
+      />
+      <FlexBox
+        padding="1rem"
         width="100%"
         align="flex-start"
-        justify="center"
-        gap="2rem"
-        wrap="wrap"
+        gap="3rem"
+        height="100%"
+        position="relative"
+        direction="column"
+        overflow="auto"
       >
-        {allBookedParkingLots.map((parkingLot, index) => (
-          <ParkingLotCard direction="column" key={index}>
-            <FlexBox gap="1rem" width="100%">
-              <FlexBox
-                direction="column"
-                width="fit-content"
-                gap="0.5rem"
-                justify="space-around"
-                align="stretch"
-              >
-                <H4 bold>Name</H4>
-                <H4 bold>Address</H4>
-                <H4 bold>City</H4>
-                <H4 bold>State</H4>
-                <H4 bold>Price (Rs.)</H4>
-                <H4 bold>Booking Id</H4>
-                <H4 bold>Transaction Id</H4>
-                <H4 bold>Date</H4>
+        <FlexBox align="flex-start" justify="space-around">
+          <H1 bold>Your Parking History</H1>
+        </FlexBox>
+        <BookedParkingLots
+          width="100%"
+          align="flex-start"
+          justify="center"
+          gap="2rem"
+          wrap="wrap"
+        >
+          {allBookedParkingLots.map((parkingLot, index) => (
+            <ParkingLotCard direction="column" key={index}>
+              <FlexBox gap="1rem" width="100%">
+                <FlexBox
+                  direction="column"
+                  width="fit-content"
+                  gap="0.5rem"
+                  justify="space-around"
+                  align="stretch"
+                >
+                  <H4 bold>Name</H4>
+                  <H4 bold>Address</H4>
+                  <H4 bold>City</H4>
+                  <H4 bold>State</H4>
+                  <H4 bold>Price (Rs.)</H4>
+                  <H4 bold>Booking Id</H4>
+                  <H4 bold>Transaction Id</H4>
+                  <H4 bold>Date</H4>
+                </FlexBox>
+                <FlexBox
+                  direction="column"
+                  justify="space-between"
+                  align="stretch"
+                  gap="0.5rem"
+                >
+                  <H4>{parkingLot.name}</H4>
+                  <H4>{parkingLot.address}</H4>
+                  <H4>{parkingLot.city}</H4>
+                  <H4>{parkingLot.state}</H4>
+                  <H4>{parkingLot.price}</H4>
+                  <H4>{parkingLot.booking_id}</H4>
+                  <H4>{parkingLot.transaction_id}</H4>
+                  <H4>
+                    {new Date(parkingLot.timestamp).getDate()}-
+                    {new Date(parkingLot.timestamp).getMonth() + 1}-
+                    {new Date(parkingLot.timestamp).getFullYear()}
+                  </H4>
+                </FlexBox>
               </FlexBox>
-              <FlexBox
-                direction="column"
-                justify="space-between"
-                align="stretch"
-                gap="0.5rem"
-              >
-                <H4>{parkingLot.name}</H4>
-                <H4>{parkingLot.address}</H4>
-                <H4>{parkingLot.city}</H4>
-                <H4>{parkingLot.state}</H4>
-                <H4>{parkingLot.price}</H4>
-                <H4>{parkingLot.booking_id}</H4>
-                <H4>{parkingLot.transaction_id}</H4>
-                <H4>
-                  {new Date(parkingLot.timestamp).getDate()}-
-                  {new Date(parkingLot.timestamp).getMonth() + 1}-
-                  {new Date(parkingLot.timestamp).getFullYear()}
-                </H4>
-              </FlexBox>
-            </FlexBox>
-          </ParkingLotCard>
-        ))}
-      </BookedParkingLots>
-    </FlexBox>
+            </ParkingLotCard>
+          ))}
+        </BookedParkingLots>
+      </FlexBox>
+    </>
   );
 };
 

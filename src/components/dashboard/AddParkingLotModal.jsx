@@ -1,8 +1,9 @@
-import { H3, H4 } from "@components/common/Headings";
-import styled, { keyframes } from "styled-components";
-import FlexBox from "@components/common/FlexBox";
-import axiosInstance from "@axiosInstance";
-import { useState } from "react";
+import CommonHead from '@components/common/CommonHead';
+import styled, { keyframes } from 'styled-components';
+import { H3, H4 } from '@components/common/Headings';
+import FlexBox from '@components/common/FlexBox';
+import axiosInstance from '@axiosInstance';
+import { useState } from 'react';
 import {
   PRIMARY_800,
   PRIMARY_900,
@@ -10,7 +11,7 @@ import {
   WHITE_200,
   BLACK,
   WHITE,
-} from "@constants/colors";
+} from '@constants/colors';
 
 const GrowAniamtion = keyframes`
     0% {
@@ -128,12 +129,12 @@ const AddParkingLotModalWrapper = styled(FlexBox)`
 `;
 
 const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
-  const [capacity, setCapacity] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
-  const [price, setPrice] = useState("");
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
+  const [capacity, setCapacity] = useState('');
+  const [address, setAddress] = useState('');
+  const [state, setState] = useState('');
+  const [price, setPrice] = useState('');
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -172,7 +173,7 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
     };
 
     axiosInstance
-      .post("/parking-lots/add", dataPayload)
+      .post('/parking-lots/add', dataPayload)
       .then((res) => {
         getAllParkingLots();
       })
@@ -184,99 +185,105 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
   };
 
   return (
-    <AddParkingLotModalWrapper
-      height="100%"
-      align="center"
-      justify="center"
-      onClick={closeModal}
-    >
-      <form
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        onSubmit={handleSubmit}
+    <>
+      <CommonHead
+        title="Park Here: Add Parking Lot"
+        meta="Fill the required form and add a parking lot"
+      />
+      <AddParkingLotModalWrapper
+        height="100%"
+        align="center"
+        justify="center"
+        onClick={closeModal}
       >
-        <H3 bold>Add Parking Lot</H3>
-        <FlexBox gap="1rem" align="stretch">
-          <FlexBox
-            direction="column"
-            width="fit-content"
-            gap="0.5rem"
-            justify="space-around"
-            align="stretch"
-          >
-            <label htmlFor="name">
-              <H4 bold>Name</H4>
-            </label>
-            <label htmlFor="address">
-              <H4 bold>Address</H4>
-            </label>
-            <label htmlFor="city">
-              <H4 bold>City</H4>
-            </label>
-            <label htmlFor="state">
-              <H4 bold>State</H4>
-            </label>
-            <label htmlFor="capacity">
-              <H4 bold>Capacity</H4>
-            </label>
-            <label htmlFor="price">
-              <H4 bold>Price (Rs.)</H4>
-            </label>
+        <form
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          onSubmit={handleSubmit}
+        >
+          <H3 bold>Add Parking Lot</H3>
+          <FlexBox gap="1rem" align="stretch">
+            <FlexBox
+              direction="column"
+              width="fit-content"
+              gap="0.5rem"
+              justify="space-around"
+              align="stretch"
+            >
+              <label htmlFor="name">
+                <H4 bold>Name</H4>
+              </label>
+              <label htmlFor="address">
+                <H4 bold>Address</H4>
+              </label>
+              <label htmlFor="city">
+                <H4 bold>City</H4>
+              </label>
+              <label htmlFor="state">
+                <H4 bold>State</H4>
+              </label>
+              <label htmlFor="capacity">
+                <H4 bold>Capacity</H4>
+              </label>
+              <label htmlFor="price">
+                <H4 bold>Price (Rs.)</H4>
+              </label>
+            </FlexBox>
+            <FlexBox
+              direction="column"
+              justify="space-between"
+              align="stretch"
+              gap="0.5rem"
+            >
+              <input
+                type="text"
+                name="name"
+                id="name"
+                onChange={handleNameChange}
+                value={name}
+              />
+              <input
+                type="text"
+                name="address"
+                id="address"
+                onChange={handleAddressChange}
+                value={address}
+              />
+              <input
+                type="text"
+                name="city"
+                id="city"
+                onChange={handleCityChange}
+                value={city}
+              />
+              <input
+                type="text"
+                name="state"
+                id="state"
+                onChange={handleStateChange}
+                value={state}
+              />
+              <input
+                type="number"
+                name="capacity"
+                id="capacity"
+                onChange={handleCapacityChange}
+                value={capacity}
+              />
+              <input
+                type="number"
+                name="price"
+                id="price"
+                onChange={handlePriceChange}
+                value={price}
+              />
+            </FlexBox>
           </FlexBox>
-          <FlexBox
-            direction="column"
-            justify="space-between"
-            align="stretch"
-            gap="0.5rem"
-          >
-            <input
-              type="text"
-              name="name"
-              id="name"
-              onChange={handleNameChange}
-              value={name}
-            />
-            <input
-              type="text"
-              name="address"
-              id="address"
-              onChange={handleAddressChange}
-              value={address}
-            />
-            <input
-              type="text"
-              name="city"
-              id="city"
-              onChange={handleCityChange}
-              value={city}
-            />
-            <input
-              type="text"
-              name="state"
-              id="state"
-              onChange={handleStateChange}
-              value={state}
-            />
-            <input
-              type="number"
-              name="capacity"
-              id="capacity"
-              onChange={handleCapacityChange}
-              value={capacity}
-            />
-            <input
-              type="number"
-              name="price"
-              id="price"
-              onChange={handlePriceChange}
-              value={price}
-            />
-          </FlexBox>
-        </FlexBox>
-        <input type="submit" value="Add Parking Lot" />
-      </form>
-    </AddParkingLotModalWrapper>
+          <input type="submit" value="Add Parking Lot" />
+        </form>
+      </AddParkingLotModalWrapper>
+    </>
   );
 };
 

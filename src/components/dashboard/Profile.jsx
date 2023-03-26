@@ -1,10 +1,12 @@
-import { ORGANIZATION } from "@constants/moduleNames";
-import styled, { keyframes } from "styled-components";
-import { useEffect, useRef, useState } from "react";
-import { H1, H3, P } from "@common/Headings";
-import { SmallButton } from "@common/Button";
-import axiosInstance from "@axiosInstance";
-import FlexBox from "@common/FlexBox";
+import CommonHead from '@components/common/CommonHead';
+import { ORGANIZATION } from '@constants/moduleNames';
+import styled, { keyframes } from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
+import { H1, H3, P } from '@common/Headings';
+import { SmallButton } from '@common/Button';
+import axiosInstance from '@axiosInstance';
+import FlexBox from '@common/FlexBox';
+import localforage from 'localforage';
 import {
   TERTIARY_800,
   PRIMARY_800,
@@ -12,8 +14,7 @@ import {
   WHITE_200,
   BLACK,
   WHITE,
-} from "@constants/colors";
-import localforage from "localforage";
+} from '@constants/colors';
 
 const ProfileWrapper = styled(FlexBox)`
   overflow: auto;
@@ -58,18 +59,18 @@ const FlexForm = styled.form`
 
   // Remove arrow from number input
   /* Chrome, Safari, Edge, Opera */
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
   /* Firefox */
-  input[type="number"] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 
-  input[type="email"] {
+  input[type='email'] {
     text-transform: lowercase;
   }
 
@@ -146,14 +147,14 @@ const SuccessCheckSvg = styled.svg`
 
 const Profile = ({ module, data }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
-  const [organizationAddress, setOrganizationAddress] = useState("");
-  const [organizationName, setOrganizationName] = useState("");
+  const [organizationAddress, setOrganizationAddress] = useState('');
+  const [organizationName, setOrganizationName] = useState('');
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const firstNameRef = useRef(null);
 
@@ -163,11 +164,11 @@ const Profile = ({ module, data }) => {
       setLastName(data.lastName);
       setEmail(data.email);
       let phoneNumber = `${data.phone}`;
-      phoneNumber = phoneNumber.split("");
-      phoneNumber.length > 0 && phoneNumber.splice(0, 0, "(");
-      phoneNumber.length > 4 && phoneNumber.splice(4, 0, ") ");
-      phoneNumber.length > 9 && phoneNumber.splice(9, 0, "-");
-      setPhone(phoneNumber.join(""));
+      phoneNumber = phoneNumber.split('');
+      phoneNumber.length > 0 && phoneNumber.splice(0, 0, '(');
+      phoneNumber.length > 4 && phoneNumber.splice(4, 0, ') ');
+      phoneNumber.length > 9 && phoneNumber.splice(9, 0, '-');
+      setPhone(phoneNumber.join(''));
       setOrganizationName(data.organizationName);
       setOrganizationAddress(data.organizationAddress);
     }
@@ -216,13 +217,13 @@ const Profile = ({ module, data }) => {
   };
 
   const handlePhone = (e) => {
-    let phoneNumber = e.target.value.replace(/\D/g, "");
-    setPhoneError(phoneNumber === "" ? false : !VerifyPhone(phoneNumber));
-    phoneNumber = phoneNumber.split("");
-    phoneNumber.length > 0 && phoneNumber.splice(0, 0, "(");
-    phoneNumber.length > 4 && phoneNumber.splice(4, 0, ") ");
-    phoneNumber.length > 9 && phoneNumber.splice(9, 0, "-");
-    phoneNumber = phoneNumber.join("");
+    let phoneNumber = e.target.value.replace(/\D/g, '');
+    setPhoneError(phoneNumber === '' ? false : !VerifyPhone(phoneNumber));
+    phoneNumber = phoneNumber.split('');
+    phoneNumber.length > 0 && phoneNumber.splice(0, 0, '(');
+    phoneNumber.length > 4 && phoneNumber.splice(4, 0, ') ');
+    phoneNumber.length > 9 && phoneNumber.splice(9, 0, '-');
+    phoneNumber = phoneNumber.join('');
     setPhone(phoneNumber);
   };
 
@@ -239,7 +240,7 @@ const Profile = ({ module, data }) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      phone: phone.replace(/\D/g, ""),
+      phone: phone.replace(/\D/g, ''),
       oldData: data,
     };
 
@@ -260,7 +261,7 @@ const Profile = ({ module, data }) => {
     axiosInstance
       .post(`/update/${module}`, dataPayload)
       .then((res) => {
-        localforage.setItem("data", res.data.newData);
+        localforage.setItem('data', res.data.newData);
         setUpdateSuccess(true);
         setTimeout(() => {
           setUpdateSuccess(false);
@@ -272,151 +273,156 @@ const Profile = ({ module, data }) => {
   };
 
   return (
-    <ProfileWrapper
-      direction="column"
-      gap="2rem"
-      gapmobile="1.2rem"
-      margin="0 auto"
-      paddingmobile="0 5%"
-      width="100%"
-      height="100%"
-      maxheight="inherit"
-      minheight="fit-content"
-    >
-      <FlexBox
+    <>
+      <CommonHead title="Park Here: Profile" meta="Edit you profile details" />
+      <ProfileWrapper
         direction="column"
+        gap="2rem"
+        gapmobile="1.2rem"
+        margin="0 auto"
+        paddingmobile="0 5%"
         width="100%"
-        gap="1.5rem"
-        gapmobile="1rem"
-        maxwidth="26.25rem"
-        margin="2% auto"
-        marginmobile="calc(2% + 1.5rem) auto"
-        height="auto"
+        height="100%"
+        maxheight="inherit"
+        minheight="fit-content"
       >
-        <H1 bold>Update your details</H1>
-        {updateSuccess ? (
-          <SuccessCheckSvg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 52 52"
-          >
-            <circle
-              className="checkmark__circle"
-              cx="26"
-              cy="26"
-              r="25"
-              fill="none"
-            />
-            <path
-              className="checkmark__check"
-              fill="none"
-              d="M14.1 27.2l7.1 7.2 16.7-16.8"
-            />
-          </SuccessCheckSvg>
-        ) : (
-          <FlexForm>
-            {module === ORGANIZATION && (
-              <>
-                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                  <label htmlFor="organization-name">Organization Name</label>
-                  <input
-                    type="text"
-                    placeholder="Organization Name"
-                    id="organization-name"
-                    onChange={handleOrganizationName}
-                    autoComplete="true"
-                    value={organizationName}
-                  />
-                </FlexBox>
-                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                  <label htmlFor="organization-address">
-                    Organization Address
-                  </label>
-                  <textarea
-                    placeholder="Organization Address"
-                    id="organization-address"
-                    onChange={handleOrganizationAddress}
-                    autoComplete="true"
-                    value={organizationAddress}
-                    rows={4}
-                  />
-                </FlexBox>
-              </>
-            )}
-            <FlexBox direction="column" gap="0.5rem">
-              {module === ORGANIZATION && <H3 bold>Contact Person Details</H3>}
-              <FlexBox gap="0.5rem">
-                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                  <label htmlFor="first-name">First Name</label>
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    id="first-name"
-                    onChange={handleFirstName}
-                    autoComplete="true"
-                    ref={firstNameRef}
-                    value={firstName}
-                  />
-                </FlexBox>
-                <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                  <label htmlFor="last-name">Last Name</label>
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    id="last-name"
-                    onChange={handleLastName}
-                    autoComplete="true"
-                    value={lastName}
-                  />
-                </FlexBox>
-              </FlexBox>
-            </FlexBox>
-            <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-              <label htmlFor="phone">Phone</label>
-              <FlexBox align="center" gap="1rem">
-                <FlexBox
-                  padding="0 0 0 1rem"
-                  width="fit-content"
-                  align="center"
-                  justify="center"
-                >
-                  <H3 bold>+91</H3>
-                </FlexBox>
-                <input
-                  type="text"
-                  placeholder="Phone"
-                  id="phone"
-                  onChange={handlePhone}
-                  autoComplete="true"
-                  value={phone}
-                  style={{ width: "100%" }}
-                />
-              </FlexBox>
-              {phoneError && (
-                <P style={{ color: TERTIARY_800 }}>
-                  Please enter a valid phone number
-                </P>
-              )}
-            </FlexBox>
-            <FlexBox
-              justify="space-between"
-              gap="0.5rem"
-              gapmobile="2rem"
-              margin="0.625rem 0 0"
-              direction="column-reverse"
-              marginmobile="0"
+        <FlexBox
+          direction="column"
+          width="100%"
+          gap="1.5rem"
+          gapmobile="1rem"
+          maxwidth="26.25rem"
+          margin="2% auto"
+          marginmobile="calc(2% + 1.5rem) auto"
+          height="auto"
+        >
+          <H1 bold>Update your details</H1>
+          {updateSuccess ? (
+            <SuccessCheckSvg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 52 52"
             >
-              <SmallButton
-                type="submit"
-                disabled={submitButtonDisabled}
-                onClick={handleUpdate}
+              <circle
+                className="checkmark__circle"
+                cx="26"
+                cy="26"
+                r="25"
+                fill="none"
+              />
+              <path
+                className="checkmark__check"
+                fill="none"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8"
+              />
+            </SuccessCheckSvg>
+          ) : (
+            <FlexForm>
+              {module === ORGANIZATION && (
+                <>
+                  <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                    <label htmlFor="organization-name">Organization Name</label>
+                    <input
+                      type="text"
+                      placeholder="Organization Name"
+                      id="organization-name"
+                      onChange={handleOrganizationName}
+                      autoComplete="true"
+                      value={organizationName}
+                    />
+                  </FlexBox>
+                  <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                    <label htmlFor="organization-address">
+                      Organization Address
+                    </label>
+                    <textarea
+                      placeholder="Organization Address"
+                      id="organization-address"
+                      onChange={handleOrganizationAddress}
+                      autoComplete="true"
+                      value={organizationAddress}
+                      rows={4}
+                    />
+                  </FlexBox>
+                </>
+              )}
+              <FlexBox direction="column" gap="0.5rem">
+                {module === ORGANIZATION && (
+                  <H3 bold>Contact Person Details</H3>
+                )}
+                <FlexBox gap="0.5rem">
+                  <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                    <label htmlFor="first-name">First Name</label>
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      id="first-name"
+                      onChange={handleFirstName}
+                      autoComplete="true"
+                      ref={firstNameRef}
+                      value={firstName}
+                    />
+                  </FlexBox>
+                  <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                    <label htmlFor="last-name">Last Name</label>
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      id="last-name"
+                      onChange={handleLastName}
+                      autoComplete="true"
+                      value={lastName}
+                    />
+                  </FlexBox>
+                </FlexBox>
+              </FlexBox>
+              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
+                <label htmlFor="phone">Phone</label>
+                <FlexBox align="center" gap="1rem">
+                  <FlexBox
+                    padding="0 0 0 1rem"
+                    width="fit-content"
+                    align="center"
+                    justify="center"
+                  >
+                    <H3 bold>+91</H3>
+                  </FlexBox>
+                  <input
+                    type="text"
+                    placeholder="Phone"
+                    id="phone"
+                    onChange={handlePhone}
+                    autoComplete="true"
+                    value={phone}
+                    style={{ width: '100%' }}
+                  />
+                </FlexBox>
+                {phoneError && (
+                  <P style={{ color: TERTIARY_800 }}>
+                    Please enter a valid phone number
+                  </P>
+                )}
+              </FlexBox>
+              <FlexBox
+                justify="space-between"
+                gap="0.5rem"
+                gapmobile="2rem"
+                margin="0.625rem 0 0"
+                direction="column-reverse"
+                marginmobile="0"
               >
-                Update
-              </SmallButton>
-            </FlexBox>
-          </FlexForm>
-        )}
-      </FlexBox>
-    </ProfileWrapper>
+                <SmallButton
+                  type="submit"
+                  disabled={submitButtonDisabled}
+                  onClick={handleUpdate}
+                >
+                  Update
+                </SmallButton>
+              </FlexBox>
+            </FlexForm>
+          )}
+        </FlexBox>
+      </ProfileWrapper>
+    </>
   );
 };
 

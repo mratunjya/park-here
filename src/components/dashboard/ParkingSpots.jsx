@@ -1,14 +1,11 @@
-import { H1, H4 } from "@components/common/Headings";
-import FlexBox from "@components/common/FlexBox";
-import { useEffect, useState } from "react";
-import axiosInstance from "@axiosInstance";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import {
-  SECONDARY_900,
-  SECONDARY_800,
-  WHITE,
-} from "@constants/colors";
+import { SECONDARY_900, SECONDARY_800, WHITE } from '@constants/colors';
+import CommonHead from '@components/common/CommonHead';
+import { H1, H4 } from '@components/common/Headings';
+import FlexBox from '@components/common/FlexBox';
+import { useEffect, useState } from 'react';
+import axiosInstance from '@axiosInstance';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 const AllParkingLots = styled(FlexBox)``;
 
@@ -51,7 +48,7 @@ const ParkingSpots = ({ data }) => {
 
   useEffect(() => {
     axiosInstance
-      .get("/parking-lots")
+      .get('/parking-lots')
       .then((res) => {
         setAllParkingLots(res.data);
       })
@@ -62,10 +59,10 @@ const ParkingSpots = ({ data }) => {
 
   const getAvailableParkingLots = () => {
     axiosInstance
-      .get("/parking-lots")
+      .get('/parking-lots')
       .then((res) => {
         setAllParkingLots([...res.data]);
-        router.push("/dashboard/parking-history");
+        router.push('/dashboard/parking-history');
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +77,7 @@ const ParkingSpots = ({ data }) => {
     };
 
     axiosInstance
-      .post("/bookings/create", dataPayload)
+      .post('/bookings/create', dataPayload)
       .then((res) => {
         getAvailableParkingLots();
       })
@@ -90,70 +87,76 @@ const ParkingSpots = ({ data }) => {
   };
 
   return (
-    <FlexBox
-      padding="1rem"
-      width="100%"
-      align="flex-start"
-      gap="3rem"
-      height="100%"
-      position="relative"
-      direction="column"
-      overflow="auto"
-    >
-      <FlexBox align="flex-start" justify="space-around">
-        <H1 bold>Available Parking Lots for tomorrow</H1>
-      </FlexBox>
-      <AllParkingLots
+    <>
+      <CommonHead
+        title="Park Here: All Available parking spots for tomorrow"
+        meta="Book a parking for tomorrow"
+      />
+      <FlexBox
+        padding="1rem"
         width="100%"
         align="flex-start"
-        justify="center"
-        gap="2rem"
-        wrap="wrap"
+        gap="3rem"
+        height="100%"
+        position="relative"
+        direction="column"
+        overflow="auto"
       >
-        {allParkingLots.map((parkingLot, index) => (
-          <ParkingLotCard direction="column" key={index}>
-            <FlexBox gap="1rem" width="100%">
-              <FlexBox
-                direction="column"
-                width="fit-content"
-                gap="0.5rem"
-                justify="space-around"
-                align="stretch"
-              >
-                <H4 bold>Name</H4>
-                <H4 bold>Address</H4>
-                <H4 bold>City</H4>
-                <H4 bold>State</H4>
-                <H4 bold>Booked</H4>
-                <H4 bold>Price (Rs.)</H4>
+        <FlexBox align="flex-start" justify="space-around">
+          <H1 bold>Available Parking Lots for tomorrow</H1>
+        </FlexBox>
+        <AllParkingLots
+          width="100%"
+          align="flex-start"
+          justify="center"
+          gap="2rem"
+          wrap="wrap"
+        >
+          {allParkingLots.map((parkingLot, index) => (
+            <ParkingLotCard direction="column" key={index}>
+              <FlexBox gap="1rem" width="100%">
+                <FlexBox
+                  direction="column"
+                  width="fit-content"
+                  gap="0.5rem"
+                  justify="space-around"
+                  align="stretch"
+                >
+                  <H4 bold>Name</H4>
+                  <H4 bold>Address</H4>
+                  <H4 bold>City</H4>
+                  <H4 bold>State</H4>
+                  <H4 bold>Booked</H4>
+                  <H4 bold>Price (Rs.)</H4>
+                </FlexBox>
+                <FlexBox
+                  direction="column"
+                  justify="space-between"
+                  align="stretch"
+                  gap="0.5rem"
+                >
+                  <H4>{parkingLot.name}</H4>
+                  <H4>{parkingLot.address}</H4>
+                  <H4>{parkingLot.city}</H4>
+                  <H4>{parkingLot.state}</H4>
+                  <H4>
+                    {parkingLot.booked}/{parkingLot.total_capacity}
+                  </H4>
+                  <H4>{parkingLot.price}</H4>
+                </FlexBox>
               </FlexBox>
-              <FlexBox
-                direction="column"
-                justify="space-between"
-                align="stretch"
-                gap="0.5rem"
+              <DeleteButton
+                onClick={() => {
+                  handleBooking(parkingLot.id);
+                }}
               >
-                <H4>{parkingLot.name}</H4>
-                <H4>{parkingLot.address}</H4>
-                <H4>{parkingLot.city}</H4>
-                <H4>{parkingLot.state}</H4>
-                <H4>
-                  {parkingLot.booked}/{parkingLot.total_capacity}
-                </H4>
-                <H4>{parkingLot.price}</H4>
-              </FlexBox>
-            </FlexBox>
-            <DeleteButton
-              onClick={() => {
-                handleBooking(parkingLot.id);
-              }}
-            >
-              Book
-            </DeleteButton>
-          </ParkingLotCard>
-        ))}
-      </AllParkingLots>
-    </FlexBox>
+                Book
+              </DeleteButton>
+            </ParkingLotCard>
+          ))}
+        </AllParkingLots>
+      </FlexBox>
+    </>
   );
 };
 
