@@ -21,6 +21,16 @@ const DashboardOptionstWrapper = styled(FlexBox)`
   & > *:last-child {
     flex: 4;
   }
+
+  @media (max-width: 768px) {
+    & > *:first-child {
+      flex: 0;
+    }
+
+    & > *:last-child {
+      flex: 1;
+    }
+  }
 `;
 
 const Dashboard = () => {

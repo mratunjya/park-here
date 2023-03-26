@@ -14,6 +14,14 @@ const ParkinLotDetails = styled(FlexBox)`
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.5);
+
+  @media (max-width: 768px) {
+    position: sticky;
+  }
+
+  @media (max-width: 1000px) and (max-width: 575px) {
+    position: unset;
+  }
 `;
 
 const ParkingLotHistory = styled(FlexBox)`
@@ -46,7 +54,8 @@ const ParkingLotCard = styled(FlexBox)`
   backdrop-filter: blur(100px) contrast(200%) brightness(110%);
   border-radius: 1rem;
   padding: 1rem;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   gap: 1rem;
 
   ${H4} {
@@ -63,7 +72,6 @@ const ViewParkingHistory = ({ data }) => {
         parkingLotID: data.parkingLotID,
       })
       .then((res) => {
-        console.log(res);
         setAllParkingLots(res.data);
       })
       .catch((err) => {
@@ -81,6 +89,7 @@ const ViewParkingHistory = ({ data }) => {
         height="100%"
         position="relative"
         padding="0 0 5rem"
+        wrap="wrap"
       >
         <ParkinLotDetails
           direction="column"

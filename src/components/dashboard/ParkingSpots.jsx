@@ -30,7 +30,8 @@ const ParkingLotCard = styled(FlexBox)`
   backdrop-filter: blur(100px) contrast(200%) brightness(110%);
   border-radius: 1rem;
   padding: 1rem;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   gap: 1rem;
 
   ${H4} {

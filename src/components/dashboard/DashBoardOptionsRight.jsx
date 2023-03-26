@@ -30,7 +30,7 @@ const DashBoardOptionsRight = ({ module, data }) => {
         align="center"
         justify="center"
         overflow="auto"
-        padding="1rem 1rem 5rem"
+        padding="1rem"
       >
         {route === 'view-parking-history' && <ViewParkingHistory data={data} />}
         {route === 'monitor-parking-lots' && <MonitorParkingLots data={data} />}

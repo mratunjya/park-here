@@ -28,7 +28,8 @@ const ParkingLotCard = styled(FlexBox)`
   backdrop-filter: blur(100px) contrast(200%) brightness(110%);
   border-radius: 1rem;
   padding: 1rem;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   gap: 1rem;
 
   ${H4} {
@@ -45,7 +46,6 @@ const GenerateReport = ({ data }) => {
         email: data.email,
       })
       .then((res) => {
-        console.log(res.data);
         const tempData = [];
         res.data.forEach((element) => {
           let totalRevenue = 0;
@@ -66,8 +66,6 @@ const GenerateReport = ({ data }) => {
         console.log(err);
       });
   }, [data.email]);
-
-  console.log(parkingReport);
 
   return (
     <>
