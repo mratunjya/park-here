@@ -1,10 +1,10 @@
-import { SECONDARY_900, SECONDARY_800, WHITE } from "@constants/colors";
-import ConfirmParklingModal from "./ConfirmParklingModal";
-import { H1, H2, H4 } from "@components/common/Headings";
-import FlexBox from "@components/common/FlexBox";
-import { useEffect, useState } from "react";
-import axiosInstance from "@axiosInstance";
-import styled from "styled-components";
+import { SECONDARY_900, SECONDARY_800, WHITE } from '@constants/colors';
+import ConfirmParklingModal from './ConfirmParklingModal';
+import { H1, H2, H4 } from '@components/common/Headings';
+import FlexBox from '@components/common/FlexBox';
+import { useEffect, useState } from 'react';
+import axiosInstance from '@axiosInstance';
+import styled from 'styled-components';
 
 const AllParkingLots = styled(FlexBox)``;
 
@@ -44,7 +44,7 @@ const ConfirmButton = styled(FlexBox)`
 const MonitorParkingLots = ({ data }) => {
   const [allParkingLots, setAllParkingLots] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [bookingId, setBookingId] = useState("");
+  const [bookingId, setBookingId] = useState('');
 
   const closeModal = () => {
     setShowAddModal(false);
@@ -52,7 +52,7 @@ const MonitorParkingLots = ({ data }) => {
 
   useEffect(() => {
     axiosInstance
-      .post("/bookings/booked", {
+      .post('/bookings/booked', {
         parkingLotID: data.parkingLotID,
       })
       .then((res) => {
@@ -66,7 +66,7 @@ const MonitorParkingLots = ({ data }) => {
 
   const getBookedParkingLots = () => {
     axiosInstance
-      .post("/bookings/booked", {
+      .post('/bookings/booked', {
         parkingLotID: data.parkingLotID,
       })
       .then((res) => {
@@ -135,50 +135,51 @@ const MonitorParkingLots = ({ data }) => {
         gap="2rem"
         wrap="wrap"
       >
-        {allParkingLots[0]?.firstName && allParkingLots?.map((parkingLot, index) => (
-          <ParkingLotCard direction="column" key={index}>
-            <FlexBox gap="1rem" width="100%">
-              <FlexBox
-                direction="column"
-                width="fit-content"
-                gap="0.5rem"
-                justify="space-around"
-                align="stretch"
-              >
-                <H4 bold>Name</H4>
-                <H4 bold>Phone</H4>
-                <H4 bold>Booking Date</H4>
-                <H4 bold>Booking Id</H4>
+        {allParkingLots[0]?.firstName &&
+          allParkingLots?.map((parkingLot, index) => (
+            <ParkingLotCard direction="column" key={index}>
+              <FlexBox gap="1rem" width="100%">
+                <FlexBox
+                  direction="column"
+                  width="fit-content"
+                  gap="0.5rem"
+                  justify="space-around"
+                  align="stretch"
+                >
+                  <H4 bold>Name</H4>
+                  <H4 bold>Phone</H4>
+                  <H4 bold>Booking Date</H4>
+                  <H4 bold>Booking Id</H4>
+                </FlexBox>
+                <FlexBox
+                  direction="column"
+                  justify="space-between"
+                  align="stretch"
+                  gap="0.5rem"
+                >
+                  <H4>
+                    {parkingLot.firstName} {parkingLot.lastName}
+                  </H4>
+                  <H4>
+                    <a href={`tel:+91${parkingLot.phone}`}>
+                      +91{parkingLot.phone}
+                    </a>
+                  </H4>
+                  <H4>
+                    {`${new Date(parkingLot.timestamp).getDate()}-${
+                      new Date(parkingLot.timestamp).getMonth() + 1
+                    }-${new Date(parkingLot.timestamp).getFullYear()}`}
+                  </H4>
+                  <H4>{parkingLot.booking_id}</H4>
+                </FlexBox>
               </FlexBox>
-              <FlexBox
-                direction="column"
-                justify="space-between"
-                align="stretch"
-                gap="0.5rem"
+              <ConfirmButton
+                onClick={() => handleConfirm(parkingLot.booking_id)}
               >
-                <H4>
-                  {parkingLot.firstName} {parkingLot.lastName}
-                </H4>
-                <H4>
-                  <a href={`tel:+91${parkingLot.phone}`}>
-                    +91{parkingLot.phone}
-                  </a>
-                </H4>
-                <H4>
-                  {`${new Date(parkingLot.timestamp).getDate()}-${new Date(
-                    parkingLot.timestamp
-                  ).getMonth()}-${new Date(
-                    parkingLot.timestamp
-                  ).getFullYear()}`}
-                </H4>
-                <H4>{parkingLot.booking_id}</H4>
-              </FlexBox>
-            </FlexBox>
-            <ConfirmButton onClick={() => handleConfirm(parkingLot.booking_id)}>
-              Confirm
-            </ConfirmButton>
-          </ParkingLotCard>
-        ))}
+                Confirm
+              </ConfirmButton>
+            </ParkingLotCard>
+          ))}
       </AllParkingLots>
       {showAddModal && (
         <ConfirmParklingModal

@@ -91,7 +91,7 @@ const ParkingHistory = ({ data }) => {
                 <H4>{parkingLot.transaction_id}</H4>
                 <H4>
                   {new Date(parkingLot.timestamp).getDate()}-
-                  {new Date(parkingLot.timestamp).getMonth()}-
+                  {new Date(parkingLot.timestamp).getMonth() + 1}-
                   {new Date(parkingLot.timestamp).getFullYear()}
                 </H4>
               </FlexBox>
