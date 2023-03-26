@@ -323,6 +323,7 @@ const CommonNavBar = (ctx) => {
                       )
                     )}
                     <SmallButton
+                    padding="0 2rem"
                       backgroundcolor={TERTIARY_800}
                       hoverbackgroundcolor={TERTIARY_900}
                       onClick={() => {

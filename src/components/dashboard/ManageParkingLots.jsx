@@ -1,26 +1,43 @@
 import EditParkingLotModal from './EditParkingLotModal';
 import { SmallButton } from '@components/common/Button';
+import CommonHead from '@components/common/CommonHead';
 import AddParkingLotModal from './AddParkingLotModal';
+import styled, { keyframes } from 'styled-components';
 import { H1, H4 } from '@components/common/Headings';
 import { useEffect, useRef, useState } from 'react';
 import FlexBox from '@components/common/FlexBox';
 import axiosInstance from '@axiosInstance';
-import styled from 'styled-components';
 import {
+  PRIMARY_900,
   SECONDARY_800,
   SECONDARY_900,
   TERTIARY_800,
   TERTIARY_900,
   WHITE,
 } from '@constants/colors';
-import CommonHead from '@components/common/CommonHead';
 
-const AllParkingLots = styled(FlexBox)``;
+const AllParkingLots = styled(FlexBox)`
+padding-bottom: 5rem;
+`;
+
+// Animation for the parking lot cards, each card will be animated one by one
+const ParkingLotCardAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const ParkingLotCard = styled(FlexBox)`
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-  background-color: ${WHITE};
-  border-radius: 0.5rem;
+  animation: ${ParkingLotCardAnimation} 0.5s ease-in-out;
+  // Glass effect
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(100px) contrast(200%) brightness(110%);
+  border-radius: 1rem;
   padding: 1rem;
   width: 400px;
   gap: 1rem;
@@ -92,12 +109,10 @@ const ManageParkingLots = ({ data }) => {
   }, [data.email]);
 
   const openModal = () => {
-    ManageParkingLotRef.current.style.overflow = 'hidden';
     setShowAddModal(true);
   };
 
   const closeModal = () => {
-    ManageParkingLotRef.current.style.overflow = 'auto';
     setShowAddModal(false);
     setModalName('');
   };
@@ -131,8 +146,6 @@ const ManageParkingLots = ({ data }) => {
         gap="3rem"
         width="100%"
         height="100%"
-        padding="1rem"
-        overflow="auto"
         direction="column"
         align="flex-start"
         position="relative"
@@ -141,6 +154,7 @@ const ManageParkingLots = ({ data }) => {
         <FlexBox align="center" justify="space-around">
           <H1 bold>Manage Parking Lots</H1>
           <SmallButton
+            boxshadow={`0 0 0 0.1rem ${PRIMARY_900}`}
             onClick={() => {
               setModalName('add');
               openModal();
@@ -151,20 +165,6 @@ const ManageParkingLots = ({ data }) => {
             </H4>
           </SmallButton>
         </FlexBox>
-        {(showAddModal && modalName === 'add' && (
-          <AddParkingLotModal
-            data={data}
-            closeModal={closeModal}
-            getAllParkingLots={getAllParkingLots}
-          />
-        )) ||
-          (modalName === 'edit' && (
-            <EditParkingLotModal
-              editData={editData}
-              closeModal={closeModal}
-              getAllParkingLots={getAllParkingLots}
-            />
-          ))}
         <AllParkingLots
           width="100%"
           align="flex-start"
@@ -227,6 +227,20 @@ const ManageParkingLots = ({ data }) => {
           ))}
         </AllParkingLots>
       </FlexBox>
+      {(showAddModal && modalName === 'add' && (
+        <AddParkingLotModal
+          data={data}
+          closeModal={closeModal}
+          getAllParkingLots={getAllParkingLots}
+        />
+      )) ||
+        (modalName === 'edit' && (
+          <EditParkingLotModal
+            editData={editData}
+            closeModal={closeModal}
+            getAllParkingLots={getAllParkingLots}
+          />
+        ))}
     </>
   );
 };

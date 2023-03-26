@@ -14,6 +14,7 @@ import {
   WHITE_200,
   BLACK,
   WHITE,
+  PRIMARY_900,
 } from '@constants/colors';
 
 const ProfileWrapper = styled(FlexBox)`
@@ -412,8 +413,9 @@ const Profile = ({ module, data }) => {
               >
                 <SmallButton
                   type="submit"
-                  disabled={submitButtonDisabled}
                   onClick={handleUpdate}
+                  disabled={submitButtonDisabled}
+                  boxshadow={`0 0 0 0.1rem ${PRIMARY_900}`}
                 >
                   Update
                 </SmallButton>

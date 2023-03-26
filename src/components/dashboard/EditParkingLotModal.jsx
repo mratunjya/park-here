@@ -30,26 +30,26 @@ const EditParkingLotModalWrapper = styled(FlexBox)`
 
   &:before {
     content: "";
-    position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+    position: fixed;
+    backdrop-filter: blur(12px);
   }
 
   form {
-    display: flex;
-    background-color: ${WHITE};
+    gap: 2rem;
     z-index: 2;
     width: 100%;
-    max-width: 500px;
-    flex-direction: column;
     padding: 1rem;
+    display: flex;
+    max-width: 500px;
     border-radius: 0.5rem;
+    flex-direction: column;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    gap: 2rem;
+    backdrop-filter: blur(12px) contrast(2);
     animation: ${GrowAniamtion} 0.3s ease-out;
 
     & label {
@@ -227,7 +227,7 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
                 <H4 bold>Capacity</H4>
               </label>
               <label htmlFor="price">
-                <H4 bold>Price (Rs.)</H4>
+                <H4 bold>Price (₹)</H4>
               </label>
             </FlexBox>
             <FlexBox

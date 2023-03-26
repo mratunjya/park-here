@@ -1,21 +1,37 @@
 import { SECONDARY_900, SECONDARY_800, WHITE } from '@constants/colors';
 import CommonHead from '@components/common/CommonHead';
+import styled, { keyframes } from 'styled-components';
 import { H1, H4 } from '@components/common/Headings';
 import FlexBox from '@components/common/FlexBox';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@axiosInstance';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 
-const AllParkingLots = styled(FlexBox)``;
+const AllParkingLots = styled(FlexBox)`
+  padding-bottom: 5rem;
+`;
+
+// Animation for the parking lot cards, each card will be animated one by one
+const ParkingLotCardAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const ParkingLotCard = styled(FlexBox)`
-  background-color: ${WHITE};
+  animation: ${ParkingLotCardAnimation} 0.5s ease-in-out;
+  // Glass effect
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(100px) contrast(200%) brightness(110%);
+  border-radius: 1rem;
   padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-  gap: 1rem;
   width: 400px;
+  gap: 1rem;
 
   ${H4} {
     white-space: nowrap;
@@ -93,14 +109,12 @@ const ParkingSpots = ({ data }) => {
         meta="Book a parking for tomorrow"
       />
       <FlexBox
-        padding="1rem"
         width="100%"
         align="flex-start"
         gap="3rem"
         height="100%"
         position="relative"
         direction="column"
-        overflow="auto"
       >
         <FlexBox align="flex-start" justify="space-around">
           <H1 bold>Available Parking Lots for tomorrow</H1>
@@ -127,7 +141,7 @@ const ParkingSpots = ({ data }) => {
                   <H4 bold>City</H4>
                   <H4 bold>State</H4>
                   <H4 bold>Booked</H4>
-                  <H4 bold>Price (Rs.)</H4>
+                  <H4 bold>Price</H4>
                 </FlexBox>
                 <FlexBox
                   direction="column"
@@ -142,7 +156,7 @@ const ParkingSpots = ({ data }) => {
                   <H4>
                     {parkingLot.booked}/{parkingLot.total_capacity}
                   </H4>
-                  <H4>{parkingLot.price}</H4>
+                  <H4>₹{parkingLot.price}</H4>
                 </FlexBox>
               </FlexBox>
               <DeleteButton

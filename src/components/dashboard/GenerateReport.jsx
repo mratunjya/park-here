@@ -1,20 +1,35 @@
 import CommonHead from '@components/common/CommonHead';
+import styled, { keyframes } from 'styled-components';
 import { H1, H4 } from '@components/common/Headings';
 import FlexBox from '@components/common/FlexBox';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@axiosInstance';
-import { WHITE } from '@constants/colors';
-import styled from 'styled-components';
 
-const BookedParkingLots = styled(FlexBox)``;
+const BookedParkingLots = styled(FlexBox)`
+  padding-bottom: 5rem;
+`;
+
+// Animation for the parking lot cards, each card will be animated one by one
+const ParkingLotCardAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const ParkingLotCard = styled(FlexBox)`
-  background-color: ${WHITE};
+  animation: ${ParkingLotCardAnimation} 0.5s ease-in-out;
+  // Glass effect
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(100px) contrast(200%) brightness(110%);
+  border-radius: 1rem;
   padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-  gap: 1rem;
   width: 400px;
+  gap: 1rem;
 
   ${H4} {
     white-space: nowrap;
@@ -61,14 +76,12 @@ const GenerateReport = ({ data }) => {
         meta="Report consist of revenue and bookings for each parking lot"
       />
       <FlexBox
-        padding="1rem"
         width="100%"
         align="flex-start"
         gap="3rem"
         height="100%"
         position="relative"
         direction="column"
-        overflow="auto"
       >
         <FlexBox align="flex-start" justify="space-around">
           <H1 bold>Report</H1>
@@ -90,8 +103,8 @@ const GenerateReport = ({ data }) => {
                   justify="space-around"
                   align="stretch"
                 >
-                  <H4 bold>Id</H4>
-                  <H4 bold>Total Revenue (Rs.)</H4>
+                  <H4 bold>Parking Lot Id</H4>
+                  <H4 bold>Total Revenue</H4>
                   <H4 bold>Total bookings</H4>
                   <H4 bold>Total Show Up</H4>
                 </FlexBox>
@@ -102,7 +115,7 @@ const GenerateReport = ({ data }) => {
                   gap="0.5rem"
                 >
                   <H4>{parkingLot.id}</H4>
-                  <H4>{parkingLot.totalRevenue}</H4>
+                  <H4>₹{parkingLot.totalRevenue}</H4>
                   <H4>{parkingLot.totalBookings}</H4>
                   <H4>{parkingLot.showUp}</H4>
                 </FlexBox>

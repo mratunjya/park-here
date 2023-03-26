@@ -3,10 +3,35 @@ import CommonLink from '@components/common/CommonLink';
 import CommonHead from '@components/common/CommonHead';
 import FlexBox from '@components/common/FlexBox';
 import { H3 } from '@components/common/Headings';
-import { PRIMARY_400 } from '@constants/colors';
-import styled from 'styled-components';
+import { ACCENT_900, PRIMARY_400, PRIMARY_800 } from '@constants/colors';
+import styled, { keyframes } from 'styled-components';
 
-const DashboardOptionLeftWrapper = styled(FlexBox)``;
+const SlideInLeftAnimation = keyframes`
+  0% {
+    transform: translateX(-100%);
+    border: none;
+  }
+  100% {
+    transform: translateX(0);
+    border-right: 2px solid ${PRIMARY_800};
+  }
+`;
+
+const DashboardOptionLeftWrapper = styled(FlexBox)`
+  animation: ${SlideInLeftAnimation} 1s ease-in-out;
+  border-right: 2px solid ${PRIMARY_800};
+`;
+
+const CustomH3 = styled(H3)`
+  white-space: nowrap;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+
+  &:hover {
+    transform: scale(1.05);
+    margin-left: 2.5%;
+  }
+`;
 
 const DashboardOptionsLeft = ({ module }) => {
   return (
@@ -15,8 +40,9 @@ const DashboardOptionsLeft = ({ module }) => {
       <DashboardOptionLeftWrapper
         height="100%"
         width="100%"
-        backgroundcolor={PRIMARY_400}
-        padding="2rem"
+        backgroundcolor="rgba(76,175,80,0.25)"
+        borderadius="0 1rem 1rem 0"
+        padding="2rem 4rem 2rem 1rem"
         gap="1rem"
         direction="column"
       >
@@ -30,7 +56,9 @@ const DashboardOptionsLeft = ({ module }) => {
               .filter((item) => item !== '')
               .join('-')}`}
           >
-            <H3 bold>{option}</H3>
+            <CustomH3 bold color={ACCENT_900}>
+              {option}
+            </CustomH3>
           </CommonLink>
         ))}
       </DashboardOptionLeftWrapper>

@@ -1,15 +1,16 @@
 {
-    "cSpell.words": [
-        "localforage"
-    ],
+  "cSpell.words": ["localforage"],
 
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-"[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-},
-"[typescript]": {
+  },
+  "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-},
-"prettier.requireConfig": true,
-"prettier.ignorePath": ".prettierignore"
+  },
+  "prettier.requireConfig": true,
+  "prettier.ignorePath": ".prettierignore",
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  }
 }

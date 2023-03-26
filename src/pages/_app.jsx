@@ -1,4 +1,4 @@
-import { PRIMARY_900, ACCENT_700, ACCENT_600 } from "@constants/colors";
+import { PRIMARY_900, ACCENT_700, ACCENT_600, PRIMARY_100, PRIMARY_800 } from "@constants/colors";
 import { createGlobalStyle } from "styled-components";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect, useState } from "react";
@@ -18,16 +18,19 @@ const GlobalStyle = createGlobalStyle`
       }
 
       ::-webkit-scrollbar-track {
-        background: transparent;
+        background: ${PRIMARY_100};
+        outline: 2px ridge #1e4620;
+        border-radius: 15px;
       }
 
       ::-webkit-scrollbar-thumb {
-        background: ${ACCENT_600};
+        background: ${PRIMARY_800};
         border-radius: 5px;
+        width: 10px;
       }
 
       ::-webkit-scrollbar-thumb:hover {
-        background: ${ACCENT_700};
+        background: ${PRIMARY_900};
       }
     }
   }

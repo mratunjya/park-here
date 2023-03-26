@@ -29,6 +29,8 @@ const DashBoardOptionsRight = ({ module, data }) => {
         height="100%"
         align="center"
         justify="center"
+        overflow="auto"
+        padding="1rem 1rem 5rem"
       >
         {route === 'view-parking-history' && <ViewParkingHistory data={data} />}
         {route === 'monitor-parking-lots' && <MonitorParkingLots data={data} />}
