@@ -12,10 +12,6 @@ const CommonLinkComponent = styled(Link)`
     transform: scale(0.95);
   }
 
-  &:hover {
-    transform: scale(1.05);
-  }
-
   @media (max-width: 768px) {
     align-self: ${(props) =>
       props.alignselfmobile || props.alignself || 'auto'};

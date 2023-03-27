@@ -2,6 +2,7 @@ import CommonHead from '@components/common/CommonHead';
 import ViewParkingHistory from './ViewParkingHistory';
 import MonitorParkingLots from './MonitorParkingLots';
 import ManageParkingLots from './ManageParkingLots';
+import ManageAttendants from './ManageAttendants';
 import FlexBox from '@components/common/FlexBox';
 import ParkingHistory from './ParkingHistory';
 import GenerateReport from './GenerateReport';
@@ -35,6 +36,7 @@ const DashBoardOptionsRight = ({ module, data }) => {
         {route === 'view-parking-history' && <ViewParkingHistory data={data} />}
         {route === 'monitor-parking-lots' && <MonitorParkingLots data={data} />}
         {route === 'manage-parking-lots' && <ManageParkingLots data={data} />}
+        {route === 'manage-attendants' && <ManageAttendants data={data} />}
         {route === 'profile' && <Profile module={module} data={data} />}
         {route === 'parking-history' && <ParkingHistory data={data} />}
         {route === 'generate-report' && <GenerateReport data={data} />}

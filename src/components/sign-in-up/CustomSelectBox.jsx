@@ -1,6 +1,6 @@
-import { PRIMARY_400, PRIMARY_800, WHITE_200 } from "@constants/colors";
-import Select from "react-select";
-import styled from "styled-components";
+import { PRIMARY_400, PRIMARY_800, WHITE_200 } from '@constants/colors';
+import styled from 'styled-components';
+import Select from 'react-select';
 
 const CustomSelect = styled(Select)`
   width: 100%;
@@ -91,15 +91,20 @@ const CustomSelect = styled(Select)`
   }
 `;
 
-const CustomSelectBox = ({ options, onChange }) => {
+const CustomSelectBox = ({ options, placeholder, onChange, email }) => {
+  const handleSelectChange = (selectedOption) => {
+    // Pass the email prop as part of the payload
+    onChange(selectedOption ? { ...selectedOption, email: email } : null);
+  };
+
   return (
     <CustomSelect
-      classNamePrefix="select"
+      options={options}
       isClearable={false}
       isSearchable={true}
-      options={options}
-      placeholder="Select your organization"
-      onChange={onChange}
+      onChange={email ? handleSelectChange : onChange} // Pass the modified onChange function
+      classNamePrefix="select"
+      placeholder={placeholder || 'Select your organization'}
     />
   );
 };
