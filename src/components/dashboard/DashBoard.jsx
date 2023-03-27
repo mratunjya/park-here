@@ -1,4 +1,4 @@
-import DashBoardSvg from '@assets/dashboard/DashBoardSvg.svg';
+import DashboardSvg from '@assets/dashboard/DashboardSvg.svg';
 import CommonImage from '@components/common/CommonImage';
 import CommonHead from '@components/common/CommonHead';
 import FlexBox from '@components/common/FlexBox';
@@ -18,7 +18,7 @@ const DashBoard = () => {
       <CommonHead title="Park Here: Dashboard" />
       <DashBoardVisual width="100%" align="center" justify="center">
         <CommonImage
-          src={DashBoardSvg}
+          src={DashboardSvg}
           alt="Dashboard Visual"
           width="35%"
           height="auto"
