@@ -99,7 +99,6 @@ const MonitorParkingLots = ({ data }) => {
         parkingLotID: data.parkingLotID,
       })
       .then((res) => {
-        console.log(res);
         setAllParkingLots(res.data);
       })
       .catch((err) => {
