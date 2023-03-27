@@ -1,15 +1,15 @@
-import { ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
-import { USER_ADD_SUCCESS } from "@constants/api-messages";
-import { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import CustomSelectBox from "./CustomSelectBox";
-import CommonLink from "../common/CommonLink";
-import { H1, H3, P } from "@common/Headings";
-import { SmallButton } from "@common/Button";
-import { copy } from "@meta/sign-in-up/copy";
-import axiosInstance from "@axiosInstance";
-import { useRouter } from "next/router";
-import FlexBox from "@common/FlexBox";
+import { ADMIN, ATTENDANT, ORGANIZATION } from '@constants/moduleNames';
+import { USER_ADD_SUCCESS } from '@constants/api-messages';
+import { useEffect, useRef, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import CustomSelectBox from './CustomSelectBox';
+import CommonLink from '../common/CommonLink';
+import { H1, H3, P } from '@common/Headings';
+import { SmallButton } from '@common/Button';
+import { copy } from '@meta/sign-in-up/copy';
+import axiosInstance from '@axiosInstance';
+import { useRouter } from 'next/router';
+import FlexBox from '@common/FlexBox';
 import {
   TERTIARY_800,
   PRIMARY_800,
@@ -18,7 +18,7 @@ import {
   BLACK,
   WHITE,
   SECONDARY_800,
-} from "@constants/colors";
+} from '@constants/colors';
 
 const SignUpFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -63,18 +63,18 @@ const FlexForm = styled.form`
 
   // Remove arrow from number input
   /* Chrome, Safari, Edge, Opera */
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
   /* Firefox */
-  input[type="number"] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 
-  input[type="email"] {
+  input[type='email'] {
     text-transform: lowercase;
   }
 
@@ -152,21 +152,21 @@ const SuccessCheckSvg = styled.svg`
 const SignUpForm = ({ module }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
-  const [organizationAddress, setOrganizationAddress] = useState("");
+  const [organizationAddress, setOrganizationAddress] = useState('');
   const [organizationOptions, setOrganizationOptions] = useState([]);
   const [customEmailError, setCustomEmailError] = useState(null);
-  const [organizationName, setOrganizationName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [organizationName, setOrganizationName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
-  const [parkingLotID, setParkingLotID] = useState("");
+  const [parkingLotID, setParkingLotID] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const firstNameRef = useRef(null);
 
@@ -175,7 +175,7 @@ const SignUpForm = ({ module }) => {
   useEffect(() => {
     module === ADMIN &&
       axiosInstance
-        .get("/organization/names")
+        .get('/organization/names')
         .then((res) => {
           const organizationNames = res.data.organizationNames.map((org) => ({
             value: org.organizationName,
@@ -232,7 +232,7 @@ const SignUpForm = ({ module }) => {
     if (signUpSuccess) {
       const routeToSignIn = setTimeout(
         () => router.push(`/sign-in/${module}`),
-        1750
+        1750,
       );
       return () => clearTimeout(routeToSignIn);
     }
@@ -259,7 +259,9 @@ const SignUpForm = ({ module }) => {
   const handleEmail = (e) => {
     setEmail(e.target.value.toLowerCase());
     setEmailError(
-      e.target.value === "" ? false : !verifyEmail(e.target.value.toLowerCase())
+      e.target.value === ''
+        ? false
+        : !verifyEmail(e.target.value.toLowerCase()),
     );
     setCustomEmailError(null);
   };
@@ -271,13 +273,13 @@ const SignUpForm = ({ module }) => {
   };
 
   const handlePhone = (e) => {
-    let phoneNumber = e.target.value.replace(/\D/g, "");
-    setPhoneError(phoneNumber === "" ? false : !VerifyPhone(phoneNumber));
-    phoneNumber = phoneNumber.split("");
-    phoneNumber.length > 0 && phoneNumber.splice(0, 0, "(");
-    phoneNumber.length > 4 && phoneNumber.splice(4, 0, ") ");
-    phoneNumber.length > 9 && phoneNumber.splice(9, 0, "-");
-    phoneNumber = phoneNumber.join("");
+    let phoneNumber = e.target.value.replace(/\D/g, '');
+    setPhoneError(phoneNumber === '' ? false : !VerifyPhone(phoneNumber));
+    phoneNumber = phoneNumber.split('');
+    phoneNumber.length > 0 && phoneNumber.splice(0, 0, '(');
+    phoneNumber.length > 4 && phoneNumber.splice(4, 0, ') ');
+    phoneNumber.length > 9 && phoneNumber.splice(9, 0, '-');
+    phoneNumber = phoneNumber.join('');
     setPhone(phoneNumber);
   };
 
@@ -287,19 +289,19 @@ const SignUpForm = ({ module }) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (password.length < 8) {
-      return "Password must be at least 8 characters";
+      return 'Password must be at least 8 characters';
     } else if (password.length > 50) {
-      return "Password must be less than 50 characters";
+      return 'Password must be less than 50 characters';
     } else if (password.search(/\s/) !== -1) {
-      return "Password must not contain spaces";
+      return 'Password must not contain spaces';
     } else if (password.search(/[a-z]/) === -1) {
-      return "Password must contain at least one lowercase letter";
+      return 'Password must contain at least one lowercase letter';
     } else if (password.search(/[A-Z]/) === -1) {
-      return "Password must contain at least one uppercase letter";
+      return 'Password must contain at least one uppercase letter';
     } else if (password.search(/[0-9]/) === -1) {
-      return "Password must contain at least one number";
+      return 'Password must contain at least one number';
     } else if (password.search(/[!@#$%^&*]/) === -1) {
-      return "Password must contain at least one special character";
+      return 'Password must contain at least one special character';
     } else {
       return passwordRegex.test(String(password));
     }
@@ -308,12 +310,12 @@ const SignUpForm = ({ module }) => {
   const handlePassword = (e) => {
     setPassword(e.target.value);
     setPasswordError(
-      e.target.value === "" ? false : verifyPassword(e.target.value)
+      e.target.value === '' ? false : verifyPassword(e.target.value),
     );
     setConfirmPasswordError(
-      confirmPassword === ""
+      confirmPassword === ''
         ? false
-        : verifyConfirmPassword(e.target.value, confirmPassword)
+        : verifyConfirmPassword(e.target.value, confirmPassword),
     );
   };
 
@@ -346,7 +348,7 @@ const SignUpForm = ({ module }) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      phone: phone.replace(/\D/g, ""),
+      phone: phone.replace(/\D/g, ''),
       password: password,
     };
 
@@ -374,11 +376,8 @@ const SignUpForm = ({ module }) => {
     axiosInstance
       .post(`/sign-up/${module}`, dataPayload)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
-          res.data.message === USER_ADD_SUCCESS
-            ? setSignUpSuccess(true)
-            : setCustomEmailError("Email already exists");
+          res.data.message === USER_ADD_SUCCESS && setSignUpSuccess(true);
         }
       })
       .catch((err) => {
@@ -522,7 +521,7 @@ const SignUpForm = ({ module }) => {
                   onChange={handlePhone}
                   autoComplete="true"
                   value={phone}
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                 />
               </FlexBox>
               {phoneError && (
@@ -535,7 +534,7 @@ const SignUpForm = ({ module }) => {
               <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
                 <label htmlFor="parkingLotID">Parking Lot ID</label>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Parking Lot ID"
                   id="parkingLotID"
                   onChange={handleParkingLotID}
