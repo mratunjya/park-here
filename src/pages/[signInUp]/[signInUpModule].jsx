@@ -1,12 +1,12 @@
-import { AllModules } from "@constants/moduleNames";
-import SignInUpLayout from "@layout/SignInUpLayout";
-import { isAuthenticated } from "@utils/auth";
-import { copy } from "@meta/sign-in-up/copy";
-import { useEffect, useState } from "react";
-import CommonHead from "@common/CommonHead";
-import { useRouter } from "next/router";
-import PageNotFound from "@common/404";
-import localforage from "localforage";
+import { AllModules } from '@constants/moduleNames';
+import SignInUpLayout from '@layout/SignInUpLayout';
+import { isAuthenticated } from '@utils/auth';
+import { copy } from '@meta/sign-in-up/copy';
+import { useEffect, useState } from 'react';
+import CommonHead from '@common/CommonHead';
+import { useRouter } from 'next/router';
+import PageNotFound from '@common/404';
+import { parseCookies } from 'nookies';
 
 const SignInModule = () => {
   const [routeNotFound, setRouteNotFound] = useState(null);
@@ -17,19 +17,14 @@ const SignInModule = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      isAuthenticated() &&
-        localforage.getItem("module").then((module) => {
-          module && router.push(`/dashboard/${module}`);
-        });
-
-      const signInUpQueryParamsAllowed = ["sign-in", "sign-up"];
+      const signInUpQueryParamsAllowed = ['sign-in', 'sign-up'];
 
       setPath(router.asPath);
       setSignInUp(router.query.signInUp);
       setModule(router.query.signInUpModule);
       setRouteNotFound(
         !signInUpQueryParamsAllowed.includes(router.query.signInUp) ||
-          !AllModules.includes(router.query.signInUpModule)
+          !AllModules.includes(router.query.signInUpModule),
       );
     }
   }, [router]);
@@ -42,10 +37,10 @@ const SignInModule = () => {
       <>
         <CommonHead
           title={
-            copy[module]?.[signInUp === "sign-in" ? "signIn" : "signUp"]
+            copy[module]?.[signInUp === 'sign-in' ? 'signIn' : 'signUp']
               ?.title &&
             `Park Here: ${
-              copy[module]?.[signInUp === "sign-in" ? "signIn" : "signUp"]
+              copy[module]?.[signInUp === 'sign-in' ? 'signIn' : 'signUp']
                 ?.title
             }`
           }
@@ -55,5 +50,22 @@ const SignInModule = () => {
     ))
   );
 };
+
+export async function getServerSideProps(ctx) {
+  if (isAuthenticated(ctx)) {
+    const { module } = parseCookies(ctx);
+
+    return {
+      redirect: {
+        destination: '/dashboard/' + module,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default SignInModule;

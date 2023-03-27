@@ -174,15 +174,19 @@ const SignUpForm = ({ module }) => {
 
   useEffect(() => {
     module === ADMIN &&
-      axiosInstance.get('/organization/names').then((res) => {
-        const organizationNames = res.data.organizationNames.map((org) => ({
-          value: org.organizationName,
-          label: org.organizationName,
-        }));
-        setOrganizationOptions(organizationNames);
-      });
-    console.log(err);
-    alert(err?.response?.data || err.message);
+      axiosInstance
+        .get('/organization/names')
+        .then((res) => {
+          const organizationNames = res.data.organizationNames.map((org) => ({
+            value: org.organizationName,
+            label: org.organizationName,
+          }));
+          setOrganizationOptions(organizationNames);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err?.response?.data || err.message);
+        });
   }, [module]);
 
   useEffect(() => {

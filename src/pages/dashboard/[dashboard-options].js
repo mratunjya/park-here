@@ -3,6 +3,7 @@ import DashboardOptionsLeft from '@components/dashboard/DashBoardOptionsLeft';
 import { options } from '@meta/DashBoardOptions/options';
 import PageNotFound from '@components/common/404';
 import FlexBox from '@components/common/FlexBox';
+import { isAuthenticated } from '@utils/auth';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -59,7 +60,7 @@ const Dashboard = () => {
       allMenuOptions && allowedRoutes.push(...allMenuOptions);
       setPossibleRoutes([...allowedRoutes]);
     });
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     localforage.getItem('data').then((d) => {
@@ -83,5 +84,20 @@ const Dashboard = () => {
     ))
   );
 };
+
+export async function getServerSideProps(ctx) {
+  if (!isAuthenticated(ctx)) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default Dashboard;
