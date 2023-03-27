@@ -1,10 +1,11 @@
-import PrivacyPolicySvg from "@assets/privacy-policy/privacy-policy.svg";
-import CommonLayout from "@layout/common/CommonLayout";
-import { PRIMARY_400, WHITE } from "@constants/colors";
-import CommonImage from "@common/CommonImage";
-import { H1, H2, P } from "@common/Headings";
-import styled from "styled-components";
-import FlexBox from "@common/FlexBox";
+import PrivacyPolicySvg from '@assets/privacy-policy/privacy-policy.svg';
+import CommonLayout from '@layout/common/CommonLayout';
+import { PRIMARY_400, WHITE } from '@constants/colors';
+import CommonImage from '@common/CommonImage';
+import { H1, H2, P } from '@common/Headings';
+import styled from 'styled-components';
+import FlexBox from '@common/FlexBox';
+import CommonLink from './common/CommonLink';
 
 const StyledUl = styled.ul`
   padding-left: 1.25rem;
@@ -130,7 +131,7 @@ const PrivacyPolicy = () => {
           <H2 bold>Contact Us</H2>
           <P>
             If you have any questions about our Privacy Policy, please contact
-            us at privacy@ourcompany.com
+            us at <CommonLink href="mailto:parkhere@gmail.com">parkhere@gmail.com</CommonLink>
           </P>
         </FlexBox>
         <CommonImage
