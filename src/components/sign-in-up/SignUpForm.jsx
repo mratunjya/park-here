@@ -1,4 +1,4 @@
-import { ADMIN, ATTENDANT, ORGANIZATION } from '@constants/moduleNames';
+import { ATTENDANT, ORGANIZATION } from '@constants/moduleNames';
 import { USER_ADD_SUCCESS } from '@constants/api-messages';
 import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
@@ -173,23 +173,6 @@ const SignUpForm = ({ module }) => {
   const router = useRouter();
 
   useEffect(() => {
-    module === ADMIN &&
-      axiosInstance
-        .get('/organization/names')
-        .then((res) => {
-          const organizationNames = res.data.organizationNames.map((org) => ({
-            value: org.organizationName,
-            label: org.organizationName,
-          }));
-          setOrganizationOptions(organizationNames);
-        })
-        .catch((err) => {
-          console.log(err);
-          alert(err?.response?.data || err.message);
-        });
-  }, [module]);
-
-  useEffect(() => {
     if (emailError || passwordError || confirmPasswordError || phoneError) {
       setSubmitButtonDisabled(true);
     } else if (
@@ -200,9 +183,7 @@ const SignUpForm = ({ module }) => {
       password &&
       confirmPassword
     ) {
-      if (module === ADMIN) {
-        organizationName && setSubmitButtonDisabled(false);
-      } else if (module === ATTENDANT) {
+      if (module === ATTENDANT) {
         parkingLotID && setSubmitButtonDisabled(false);
       } else if (module === ORGANIZATION) {
         organizationAddress &&
@@ -355,7 +336,7 @@ const SignUpForm = ({ module }) => {
       password: password,
     };
 
-    if (module === ADMIN || module === ORGANIZATION) {
+    if (module === ORGANIZATION) {
       dataPayload = {
         ...dataPayload,
         organizationName: organizationName,
@@ -544,15 +525,6 @@ const SignUpForm = ({ module }) => {
                   onChange={handleParkingLotID}
                   autoComplete="true"
                   value={parkingLotID}
-                />
-              </FlexBox>
-            )}
-            {module === ADMIN && (
-              <FlexBox direction="column" gap="0.5rem" gapmobile="0.35rem">
-                <label>Organization Name</label>
-                <CustomSelectBox
-                  options={organizationOptions}
-                  onChange={handleReactSelectOrganizationName}
                 />
               </FlexBox>
             )}
