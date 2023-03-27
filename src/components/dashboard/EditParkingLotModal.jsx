@@ -36,7 +36,7 @@ const EditParkingLotModalWrapper = styled(FlexBox)`
     width: 100%;
     height: 100%;
     position: fixed;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(0.75rem);
   }
 
   form {
@@ -45,11 +45,11 @@ const EditParkingLotModalWrapper = styled(FlexBox)`
     width: 100%;
     padding: 1rem;
     display: flex;
-    max-width: 500px;
+    max-width: 31.25rem;
     border-radius: 0.5rem;
     flex-direction: column;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(12px) contrast(2);
+    backdrop-filter: blur(0.75rem) contrast(2);
     animation: ${GrowAniamtion} 0.3s ease-out;
 
     & label {

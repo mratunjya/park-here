@@ -12,7 +12,7 @@ const ParkinLotDetails = styled(FlexBox)`
   flex: 1;
   padding: 1rem;
   border-radius: 1rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0.625rem);
   background: rgba(255, 255, 255, 0.5);
 
   @media (max-width: 768px) {
@@ -29,7 +29,7 @@ const ParkingLotHistory = styled(FlexBox)`
   padding: 1rem;
   margin-bottom: 5rem;
   border-radius: 1rem;
-  backdrop-filter: blur(0px);
+  backdrop-filter: blur(0rem);
   background: rgba(255, 255, 255, 0.5);
 `;
 
@@ -39,7 +39,7 @@ const AllParkingLots = styled(FlexBox)``;
 const ParkingLotCardAnimation = keyframes`
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0.625rem);
   }
   100% {
     opacity: 1;
@@ -51,10 +51,10 @@ const ParkingLotCard = styled(FlexBox)`
   animation: ${ParkingLotCardAnimation} 0.5s ease-in-out;
   // Glass effect
   background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(100px) contrast(200%) brightness(110%);
+  backdrop-filter: blur(6.25rem) contrast(200%) brightness(110%);
   border-radius: 1rem;
   padding: 1rem;
-  max-width: 400px;
+  max-width: 25rem;
   width: 100%;
   gap: 1rem;
 

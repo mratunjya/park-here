@@ -13,7 +13,7 @@ const SlideInLeftAnimation = keyframes`
   }
   100% {
     transform: translateX(0);
-    border-right: 2px solid ${PRIMARY_800};
+    border-right: 0.125rem solid ${PRIMARY_800};
   }
 `;
 
@@ -24,16 +24,16 @@ const SlideInTopAnimation = keyframes`
   }
   100% {
     transform: translateY(0);
-    border-bottom: 2px solid ${PRIMARY_800};
+    border-bottom: 0.125rem solid ${PRIMARY_800};
   }
 `;
 
 const DashboardOptionLeftWrapper = styled(FlexBox)`
   animation: ${SlideInLeftAnimation} 1s ease-in-out;
-  border-right: 2px solid ${PRIMARY_800};
+  border-right: 0.125rem solid ${PRIMARY_800};
 
   @media (max-width: 768px) {
-    border-bottom: 2px solid ${PRIMARY_800};
+    border-bottom: 0.125rem solid ${PRIMARY_800};
     border-right: none;
     animation: ${SlideInTopAnimation} 1s ease-in-out;
   }
@@ -41,7 +41,7 @@ const DashboardOptionLeftWrapper = styled(FlexBox)`
 
 const CustomH3 = styled(H3)`
   white-space: nowrap;
-  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-width: 0.0313rem;
   -webkit-text-stroke-color: black;
 
   &:hover {

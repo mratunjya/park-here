@@ -111,12 +111,12 @@ const Scale = keyframes`
 
 const Fill = keyframes`
   100% {
-    box-shadow: inset 0px 0px 0px 30px ${PRIMARY_800};
+    box-shadow: inset 0rem 0rem 0rem 1.875rem ${PRIMARY_800};
   }
 `;
 
 const SuccessCheckSvg = styled.svg`
-  width: 56px;
+  width: 3.5rem;
   aspect-ratio: 1/1;
   margin: 10% auto;
   border-radius: 50%;
@@ -124,7 +124,7 @@ const SuccessCheckSvg = styled.svg`
   stroke-width: 2;
   stroke: ${WHITE};
   stroke-miterlimit: 10;
-  box-shadow: inset 0px 0px 0px ${PRIMARY_800};
+  box-shadow: inset 0rem 0rem 0rem ${PRIMARY_800};
   animation: ${Fill} 0.4s ease-in-out 0.4s forwards,
     ${Scale} 0.5s ease-in-out 0.9s both;
 
