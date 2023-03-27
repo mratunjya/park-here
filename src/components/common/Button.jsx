@@ -34,6 +34,11 @@ export const SmallButton = styled.button`
       props.hovertextalign || props.textalign || 'center'};
     cursor: ${(props) => props.hovercursor || props.cursor || 'pointer'};
     outline: none;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 
   &:disabled {
@@ -75,5 +80,13 @@ export const LargeButton = styled(SmallButton)`
     font-size: ${(props) => props.hoverfontsize || props.fontsize || '1.5rem'};
     font-weight: ${(props) =>
       props.hoverfontweight || props.fontweight || '600'};
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    transform: scale(1.05);
   }
 `;

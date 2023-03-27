@@ -62,6 +62,10 @@ const DeleteButton = styled(FlexBox)`
   &:hover {
     background-color: ${TERTIARY_900};
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 const EditButton = styled(DeleteButton)`

@@ -1,11 +1,24 @@
-import Link from "next/link";
-import styled from "styled-components";
+import Link from 'next/link';
+import styled from 'styled-components';
 
 const CommonLinkComponent = styled(Link)`
-  align-self: ${(props) => props.alignself || "auto"};
+  align-self: ${(props) => props.alignself || 'auto'};
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
   @media (max-width: 768px) {
     align-self: ${(props) =>
-      props.alignselfmobile || props.alignself || "auto"};
+      props.alignselfmobile || props.alignself || 'auto'};
   }
 `;
 

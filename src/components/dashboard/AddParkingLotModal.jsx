@@ -26,10 +26,10 @@ const AddParkingLotModalWrapper = styled(FlexBox)`
   position: fixed;
   top: 50%;
   left: 50%;
-    transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
   &:before {
-    content: "";
+    content: '';
     top: 0;
     left: 0;
     z-index: 1;
@@ -53,77 +53,83 @@ const AddParkingLotModalWrapper = styled(FlexBox)`
     animation: ${GrowAniamtion} 0.3s ease-out;
 
     & label {
-        font-size: 1rem;
-        cursor: pointer;
+      font-size: 1rem;
+      cursor: pointer;
     }
 
     & label {
-        ${H4} {
-            white-space: nowrap;
-        }
+      ${H4} {
+        white-space: nowrap;
+      }
     }
 
     & label,
     & input {
-        width: 100%;
-        color: ${ACCENT_900};
+      width: 100%;
+      color: ${ACCENT_900};
     }
 
     & input {
-        padding: 0.5rem 1rem;
-        border: 0.0625rem solid ${WHITE_200};
-        border-radius: 0.5rem;
-        outline: none;
-        font-size: 1.2rem;
-        font-weight: 600;
+      padding: 0.5rem 1rem;
+      border: 0.0625rem solid ${WHITE_200};
+      border-radius: 0.5rem;
+      outline: none;
+      font-size: 1.2rem;
+      font-weight: 600;
 
-        @media (max-width: 768px) {
+      @media (max-width: 768px) {
         font-size: 1rem;
         padding: 0.3rem 0.5rem;
-        }
+      }
     }
 
     & input:focus {
-        border: 0.0625rem solid ${BLACK};
+      border: 0.0625rem solid ${BLACK};
     }
 
     & input::placeholder {
-        color: ${WHITE_200};
+      color: ${WHITE_200};
     }
 
     // Remove arrow from number input
     /* Chrome, Safari, Edge, Opera */
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
 
     /* Firefox */
-    input[type="number"] {
+    input[type='number'] {
       -moz-appearance: textfield;
     }
 
-    & input[type="submit"] {
-        background-color: ${PRIMARY_800};
-        color: ${WHITE};
-        font-size: 1.2rem;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: fit-content;
-        align-self: flex-end;
-        text-transform: uppercase;
+    & input[type='submit'] {
+      background-color: ${PRIMARY_800};
+      color: ${WHITE};
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      width: fit-content;
+      align-self: flex-end;
+      text-transform: uppercase;
 
-        &:hover {
+      &:hover {
         background-color: ${PRIMARY_900};
+        transform: scale(1.05);
+      }
 
-        @media (max-width: 768px) {
-            font-size: 1rem;
-        }
+      &:active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
     }
   }
 `;

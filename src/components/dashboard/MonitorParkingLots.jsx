@@ -82,6 +82,10 @@ const ConfirmButton = styled(FlexBox)`
   &:hover {
     background-color: ${SECONDARY_900};
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 const MonitorParkingLots = ({ data }) => {

@@ -1,15 +1,15 @@
-import { navButtonsData, navLinksData } from "@meta/NavBar/navLinksData";
-import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
-import styled, { keyframes } from "styled-components";
-import { useRef, useEffect, useState } from "react";
-import { AllModules } from "@constants/moduleNames";
-import { FiChevronDown } from "react-icons/fi";
-import { isAuthenticated, signOut } from "@utils/auth";
-import CommonLink from "@common/CommonLink";
-import { useRouter } from "next/router";
-import FlexBox from "@common/FlexBox";
-import { H4, H5 } from "@common/Headings";
-import Logo from "@common/Logo";
+import { navButtonsData, navLinksData } from '@meta/NavBar/navLinksData';
+import { RxCross1, RxHamburgerMenu } from 'react-icons/rx';
+import styled, { css, keyframes } from 'styled-components';
+import { useRef, useEffect, useState } from 'react';
+import { AllModules } from '@constants/moduleNames';
+import { FiChevronDown } from 'react-icons/fi';
+import { isAuthenticated, signOut } from '@utils/auth';
+import CommonLink from '@common/CommonLink';
+import { useRouter } from 'next/router';
+import FlexBox from '@common/FlexBox';
+import { H4, H5 } from '@common/Headings';
+import Logo from '@common/Logo';
 import {
   ACCENT_400,
   ACCENT_700,
@@ -19,8 +19,8 @@ import {
   TERTIARY_800,
   TERTIARY_900,
   WHITE,
-} from "@constants/colors";
-import { SmallButton } from "../Button";
+} from '@constants/colors';
+import { SmallButton } from '../Button';
 
 const NavBarWrapper = styled.nav`
   display: flex;
@@ -84,7 +84,7 @@ const OnlyMobileNavBar = styled(FlexBox)`
           ? OnlyMobileNavBarEnteringAnimation
           : OnlyMobileNavBarExitingAnimation}
       0.3s ease-in-out;
-    left: ${(props) => (props.isnavbaropen ? "30%" : "100%")};
+    left: ${(props) => (props.isnavbaropen ? '30%' : '100%')};
   }
 `;
 
@@ -114,9 +114,35 @@ const ChevronDownRotate = keyframes`
   }
 `;
 
+const NavButtonOpenAnimation = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+`;
+
+const NavButtonCloseAnimation = keyframes`
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 const NavButton = styled(FlexBox)`
+  animation: ${(props) =>
+      props.isnavbuttonclicked
+        ? NavButtonOpenAnimation
+        : NavButtonCloseAnimation}
+    0.3s ease-in-out;
+  transform: ${(props) =>
+    props.isnavbuttonclicked ? 'scale(1.1)' : 'scale(1)'};
+
   svg {
-    transform: rotate(${(props) => (props.isnavbuttonclicked ? "180deg" : 0)});
+    transform: rotate(${(props) => (props.isnavbuttonclicked ? '180deg' : 0)});
     animation: ${(props) =>
         props.isnavbuttonclicked
           ? ChevronUpRotate
@@ -139,6 +165,16 @@ const LogInTooltip = styled(FlexBox)`
   @media (max-width: 768px) {
     left: 0;
     right: unset;
+  }
+`;
+
+const SubNavBtn = styled(FlexBox)`
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 
@@ -177,17 +213,17 @@ const CommonNavBar = (ctx) => {
   }, [navBarRef]);
 
   useEffect(() => {
-    localStorage.setItem("navBarHeight", navBarHeight);
+    localStorage.setItem('navBarHeight', navBarHeight);
   }, [navBarHeight]);
 
   useEffect(() => {
     setIsNavOpen(false);
     setIsNavButtonClicked(null);
-    router.isReady && setIsSignInRoute(router?.asPath?.includes("sign-in"));
+    router.isReady && setIsSignInRoute(router?.asPath?.includes('sign-in'));
   }, [router]);
 
   useEffect(() => {
-    document.body.addEventListener("click", (e) => {
+    document.body.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       setIsNavButtonClicked(null);
@@ -219,10 +255,10 @@ const CommonNavBar = (ctx) => {
               router?.asPath?.includes(
                 navLink.name
                   .toLocaleLowerCase()
-                  .replaceAll("&", "")
-                  .split(" ")
-                  .filter((item) => item !== "")
-                  .join("-")
+                  .replaceAll('&', '')
+                  .split(' ')
+                  .filter((item) => item !== '')
+                  .join('-'),
               )
                 ? ACCENT_900
                 : ACCENT_700
@@ -262,7 +298,7 @@ const CommonNavBar = (ctx) => {
   );
 
   const RenderSubNavButtons = ({ name, href }) => (
-    <FlexBox
+    <SubNavBtn
       onClick={() => router.push(href)}
       texttransform="uppercase"
       justify="flex-start"
@@ -276,7 +312,7 @@ const CommonNavBar = (ctx) => {
       <H5 bold color={ACCENT_700} whitespace="nowrap" hovercolor={ACCENT_800}>
         {name}
       </H5>
-    </FlexBox>
+    </SubNavBtn>
   );
 
   return (
@@ -297,7 +333,7 @@ const CommonNavBar = (ctx) => {
                 isSignInRoute !== null && (
                   <RenderNavButtons
                     name={
-                      navButtonsData?.[!isSignInRoute ? "signIn" : "signUp"]
+                      navButtonsData?.[!isSignInRoute ? 'signIn' : 'signUp']
                         ?.name
                     }
                   />
@@ -309,7 +345,7 @@ const CommonNavBar = (ctx) => {
                 align="flex-start"
                 justify="flex-start"
                 direction="column"
-                display={isNavButtonClicked ? "flex" : "none"}
+                display={isNavButtonClicked ? 'flex' : 'none'}
               >
                 {isAuthenticated() ? (
                   <>
@@ -320,15 +356,15 @@ const CommonNavBar = (ctx) => {
                           key={index + 1000}
                           name={accountOption.name}
                         />
-                      )
+                      ),
                     )}
                     <SmallButton
-                    padding="0 2rem"
+                      padding="0 2rem"
                       backgroundcolor={TERTIARY_800}
                       hoverbackgroundcolor={TERTIARY_900}
                       onClick={() => {
                         signOut(ctx);
-                        router.push("/sign-out");
+                        router.push('/sign-out');
                       }}
                     >
                       <H4 bold color={WHITE} texttransform="uppercase">
@@ -340,7 +376,7 @@ const CommonNavBar = (ctx) => {
                   AllModules.map((module, index) => (
                     <RenderSubNavButtons
                       href={`/${
-                        isSignInRoute ? "sign-up" : "sign-in"
+                        isSignInRoute ? 'sign-up' : 'sign-in'
                       }/${module}`}
                       key={index + 1000}
                       name={module}
@@ -417,7 +453,7 @@ const CommonNavBar = (ctx) => {
               align="flex-start"
               justify="flex-start"
               direction="column"
-              display={isNavButtonClicked ? "flex" : "none"}
+              display={isNavButtonClicked ? 'flex' : 'none'}
             >
               {isAuthenticated() ? (
                 <>
@@ -428,14 +464,14 @@ const CommonNavBar = (ctx) => {
                         key={index + 1000}
                         name={accountOption.name}
                       />
-                    )
+                    ),
                   )}
                   <SmallButton
                     backgroundcolor={TERTIARY_800}
                     hoverbackgroundcolor={TERTIARY_900}
                     onClick={() => {
                       signOut(ctx);
-                      router.push("/sign-out");
+                      router.push('/sign-out');
                     }}
                     mobilepadding="0.5rem 1rem"
                   >
@@ -447,7 +483,7 @@ const CommonNavBar = (ctx) => {
               ) : (
                 AllModules.map((module, index) => (
                   <RenderSubNavButtons
-                    href={`/${isSignInRoute ? "sign-up" : "sign-in"}/${module}`}
+                    href={`/${isSignInRoute ? 'sign-up' : 'sign-in'}/${module}`}
                     key={index + 1000}
                     name={module}
                   />
