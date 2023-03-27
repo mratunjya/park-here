@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   },
 });
 
-localforage.getItem("token").then((token) => {
+localforage?.getItem("token")?.then((token) => {
   if (token) {
     axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }

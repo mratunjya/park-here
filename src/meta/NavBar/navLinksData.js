@@ -1,3 +1,5 @@
+import { getModuleName } from "@utils/auth";
+
 export const navLinksData = [
   {
     name: "About",
@@ -30,12 +32,12 @@ export const navButtonsData = {
     name: "My Account",
     subNav: [
       {
-        name: "My Profile",
-        href: "/my-account/profile",
+        name: "Dashboard",
+        href: `/dashboard/${getModuleName()}`,
       },
       {
-        name: "My Orders",
-        href: "/my-account/orders",
+        name: "My Profile",
+        href: "/dashboard/profile",
       },
     ],
   },

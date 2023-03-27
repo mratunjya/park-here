@@ -1,15 +1,15 @@
-import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from "@constants/colors";
-import { useEffect, useRef, useState } from "react";
-import { useDesktop } from "@hooks/CustomHooks";
-import { SmallButton } from "@common/Button";
-import { copy } from "@meta/sign-in-up/copy";
-import CommonLink from "@common/CommonLink";
-import axiosInstance from "@axiosInstance";
-import { H1, P } from "@common/Headings";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import FlexBox from "@common/FlexBox";
-import { signIn } from "@utils/auth";
+import { ACCENT_900, BLACK, TERTIARY_800, WHITE_200 } from '@constants/colors';
+import { useEffect, useRef, useState } from 'react';
+import { useDesktop } from '@hooks/CustomHooks';
+import { SmallButton } from '@common/Button';
+import { copy } from '@meta/sign-in-up/copy';
+import CommonLink from '@common/CommonLink';
+import axiosInstance from '@axiosInstance';
+import { H1, P } from '@common/Headings';
+import styled from 'styled-components';
+import FlexBox from '@common/FlexBox';
+import { signIn } from '@utils/auth';
+import localforage from 'localforage';
 
 const SignInFormWrapper = styled(FlexBox)`
   overflow: auto;
@@ -46,7 +46,7 @@ const FlexForm = styled.form`
     }
   }
 
-  input[type="email"] {
+  input[type='email'] {
     text-transform: lowercase;
   }
 
@@ -63,11 +63,10 @@ const FlexForm = styled.form`
   }
 `;
 
-const SignInForm = ({module}) => {
+const SignInForm = ({ module }) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const router = useRouter();
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   const emailRef = useRef(null);
 
@@ -105,14 +104,12 @@ const SignInForm = ({module}) => {
       .post(`/sign-in/${module}`, dataPayload)
       .then((res) => {
         const token = res.data.token;
-
-        signIn(token);
-
-        // Redirect to about
-        router.push("/about");
+        localforage.setItem('data', res.data.user);
+        signIn(token, module);
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
   };
 
@@ -149,7 +146,7 @@ const SignInForm = ({module}) => {
               onChange={handleEmail}
               autoComplete="true"
               ref={emailRef}
-              value={email || ""}
+              value={email || ''}
             />
           </FlexBox>
           <FlexBox direction="column" gap="0.5rem">
@@ -160,7 +157,7 @@ const SignInForm = ({module}) => {
               id="password"
               onChange={handlePassword}
               autoComplete="true"
-              value={password || ""}
+              value={password || ''}
             />
           </FlexBox>
           <FlexBox

@@ -1,9 +1,10 @@
-import HelpFaqSvg from "@assets/help-faq/help-faq.svg";
-import CommonLayout from "@layout/common/CommonLayout";
-import { PRIMARY_400, WHITE } from "@constants/colors";
-import CommonImage from "@common/CommonImage";
-import { H1, H2, P } from "@common/Headings";
-import FlexBox from "@common/FlexBox";
+import HelpFaqSvg from '@assets/help-faq/help-faq.svg';
+import CommonLayout from '@layout/common/CommonLayout';
+import { PRIMARY_400, WHITE } from '@constants/colors';
+import CommonImage from '@common/CommonImage';
+import { H1, H2, P } from '@common/Headings';
+import FlexBox from '@common/FlexBox';
+import CommonLink from './common/CommonLink';
 
 const HelpFaqComponent = () => {
   return (
@@ -69,7 +70,7 @@ const HelpFaqComponent = () => {
           <P>
             You can contact customer support by going to the &quote;Contact
             Us&quote; page and filling out the contact form or by emailing us at
-            support@parkingsystem.com.
+            <CommonLink href="mailto:parkhere@gmail.com">parkhere@gmail.com</CommonLink>.
           </P>
         </FlexBox>
         <CommonImage
