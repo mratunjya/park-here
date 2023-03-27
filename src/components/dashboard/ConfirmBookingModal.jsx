@@ -1,9 +1,7 @@
 import CommonHead from '@components/common/CommonHead';
 import styled, { keyframes } from 'styled-components';
-import { H4 } from '@components/common/Headings';
+import { H3, H4, P } from '@components/common/Headings';
 import FlexBox from '@components/common/FlexBox';
-import axiosInstance from '@axiosInstance';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
   PRIMARY_800,
@@ -23,7 +21,7 @@ const GrowAniamtion = keyframes`
     }
 `;
 
-const ConfirmParklingModalWrapper = styled(FlexBox)`
+const ConfirmBookingModalWrapper = styled(FlexBox)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -130,52 +128,33 @@ const ConfirmParklingModalWrapper = styled(FlexBox)`
   }
 `;
 
-const ConfirmParklingModal = ({
+const ConfirmBookingModal = ({
   closeModal,
   data,
-  getBookedParkingLots,
-  bookingIdToConfirm,
+  handleBooking,
+  parkingLotId,
 }) => {
-  const [bookingId, setBookingId] = useState(bookingIdToConfirm);
-  const [transactionId, setTransactionId] = useState('');
-  const router = useRouter();
+  const [email, setEmail] = useState('');
 
-  const handleBookingIdChange = (e) => {
-    setBookingId(e.target.value);
-  };
-
-  const handleTransactionIdChange = (e) => {
-    setTransactionId(e.target.value);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dataPayload = {
-      email: data.email,
-      bookingId: bookingId,
-      transactionId: transactionId,
-    };
 
-    axiosInstance
-      .post('/bookings/confirm', dataPayload)
-      .then((res) => {
-        getBookedParkingLots();
-        router.push('/dashboard/view-parking-history');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    closeModal();
+    email === data.email
+      ? handleBooking(parkingLotId) && closeModal()
+      : alert('You have entered the wrong email');
   };
 
   return (
     <>
       <CommonHead
-        title="Park Here: Confirm Parking"
-        meta="Confirm Parking by entering transaction id"
+        title="Park Here: Confirm Booking"
+        meta="Confirm Booking by entering your email"
       />
-      <ConfirmParklingModalWrapper
+      <ConfirmBookingModalWrapper
         height="100%"
         align="center"
         justify="center"
@@ -187,21 +166,13 @@ const ConfirmParklingModal = ({
           }}
           onSubmit={handleSubmit}
         >
+          <FlexBox direction="column" gap="0.5rem">
+            <label htmlFor="email">
+              <H3 bold>Enter your email to confirm booking</H3>
+            </label>
+            <P>{data.email}</P>
+          </FlexBox>
           <FlexBox gap="1rem" align="stretch">
-            <FlexBox
-              direction="column"
-              width="fit-content"
-              gap="0.5rem"
-              justify="space-around"
-              align="stretch"
-            >
-              <label htmlFor="bookingId">
-                <H4 bold>Booking Id</H4>
-              </label>
-              <label htmlFor="transactionId">
-                <H4 bold>Transaction Id</H4>
-              </label>
-            </FlexBox>
             <FlexBox
               direction="column"
               justify="space-between"
@@ -209,24 +180,18 @@ const ConfirmParklingModal = ({
               gap="0.5rem"
             >
               <input
-                type="number"
-                id="bookingId"
-                onChange={handleBookingIdChange}
-                value={bookingId}
-              />
-              <input
-                type="number"
-                id="transactionId"
-                onChange={handleTransactionIdChange}
-                value={transactionId}
+                id="email"
+                type="text"
+                onChange={handleEmailChange}
+                value={email}
               />
             </FlexBox>
           </FlexBox>
           <input type="submit" value="Confirm" />
         </form>
-      </ConfirmParklingModalWrapper>
+      </ConfirmBookingModalWrapper>
     </>
   );
 };
 
-export default ConfirmParklingModal;
+export default ConfirmBookingModal;

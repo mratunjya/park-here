@@ -1,4 +1,5 @@
 import { SECONDARY_900, SECONDARY_800, WHITE } from '@constants/colors';
+import ConfirmBookingModal from './ConfirmBookingModal';
 import CommonHead from '@components/common/CommonHead';
 import styled, { keyframes } from 'styled-components';
 import { H1, H4 } from '@components/common/Headings';
@@ -60,7 +61,10 @@ const DeleteButton = styled(FlexBox)`
 `;
 
 const ParkingSpots = ({ data }) => {
+  const [parkingLotId, setParkingLotId] = useState('');
   const [allParkingLots, setAllParkingLots] = useState([]);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -84,6 +88,14 @@ const ParkingSpots = ({ data }) => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const openModal = () => {
+    setShowBookingModal(true);
+  };
+
+  const closeModal = () => {
+    setShowBookingModal(false);
   };
 
   const handleBooking = (parkingLotId) => {
@@ -162,7 +174,8 @@ const ParkingSpots = ({ data }) => {
               </FlexBox>
               <DeleteButton
                 onClick={() => {
-                  handleBooking(parkingLot.id);
+                  setParkingLotId(parkingLot.id);
+                  openModal();
                 }}
               >
                 Book
@@ -171,6 +184,14 @@ const ParkingSpots = ({ data }) => {
           ))}
         </AllParkingLots>
       </FlexBox>
+      {showBookingModal && (
+        <ConfirmBookingModal
+          data={data}
+          closeModal={closeModal}
+          parkingLotId={parkingLotId}
+          handleBooking={handleBooking}
+        />
+      )}
     </>
   );
 };
