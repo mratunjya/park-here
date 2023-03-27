@@ -93,6 +93,7 @@ const ManageParkingLots = ({ data }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
   };
 
@@ -107,6 +108,7 @@ const ManageParkingLots = ({ data }) => {
         })
         .catch((err) => {
           console.log(err);
+          alert(err?.response?.data || err.message);
         });
     };
 
@@ -138,6 +140,7 @@ const ManageParkingLots = ({ data }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
   };
 

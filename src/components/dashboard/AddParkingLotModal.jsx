@@ -185,6 +185,7 @@ const AddParkingLotModal = ({ closeModal, data, getAllParkingLots }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
 
     closeModal();

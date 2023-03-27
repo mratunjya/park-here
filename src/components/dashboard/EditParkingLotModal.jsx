@@ -185,6 +185,7 @@ const EditParkingLotModal = ({ editData, closeModal, getAllParkingLots }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
 
     closeModal();

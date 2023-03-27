@@ -75,6 +75,7 @@ const ManageAttendants = ({ data }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
   };
 
@@ -89,6 +90,7 @@ const ManageAttendants = ({ data }) => {
         })
         .catch((err) => {
           console.log(err);
+          alert(err?.response?.data || err.message);
         });
     };
 
@@ -110,6 +112,7 @@ const ManageAttendants = ({ data }) => {
         })
         .catch((err) => {
           console.log(err);
+          alert(err?.response?.data || err.message);
         });
     };
 
@@ -128,6 +131,7 @@ const ManageAttendants = ({ data }) => {
         })
         .catch((err) => {
           console.log(err);
+          alert(err?.response?.data || err.message);
         });
     }
   };
@@ -152,6 +156,7 @@ const ManageAttendants = ({ data }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
   };
 

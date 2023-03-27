@@ -1,15 +1,16 @@
-import CommonHead from "@common/CommonHead";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import CommonHead from '@common/CommonHead';
 
 const Home = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push("/sign-up/user");
-  }, [router]);
-
   return <CommonHead />;
+};
+
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: '/sign-up/user',
+      permanent: false,
+    },
+  };
 }
 
 export default Home;

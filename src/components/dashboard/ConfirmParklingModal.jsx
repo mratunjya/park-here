@@ -164,6 +164,7 @@ const ConfirmParklingModal = ({
       })
       .catch((err) => {
         console.log(err);
+        alert(err?.response?.data || err.message);
       });
 
     closeModal();
