@@ -1,4 +1,4 @@
-import { USER, ADMIN, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
+import { USER, ATTENDANT, ORGANIZATION } from "@constants/moduleNames";
 
 export const copy = {
   [USER]: {
@@ -9,16 +9,6 @@ export const copy = {
     signUp: {
       title: "Sign Up",
       signInRoute: `/sign-in/${USER}`,
-    },
-  },
-  [ADMIN]: {
-    signIn: {
-      title: "Admin Sign In",
-      signUpRoute: `/sign-up/${ADMIN}`,
-    },
-    signUp: {
-      title: "Admin Sign Up",
-      signInRoute: `/sign-in/${ADMIN}`,
     },
   },
   [ATTENDANT]: {
